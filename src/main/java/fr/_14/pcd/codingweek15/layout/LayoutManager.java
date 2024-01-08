@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
 
@@ -30,11 +31,12 @@ public final class LayoutManager {
     public static void setLayout(String layout, String title, Object... payload) {
         currentLayout = layout;
         baseTitle = title;
-        FXMLLoader loader = new FXMLLoader(LayoutManager.class.getResource(layout));
+        FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(layout));
         loader.setControllerFactory(clazz -> {
             try {
                 return clazz.getConstructor(Object[].class).newInstance(payload);
             } catch (Exception e) {
+                System.err.println("Error while loading layout " + layout);
                 throw new RuntimeException(e);
             }
         });
@@ -47,6 +49,7 @@ public final class LayoutManager {
 
             stage.setTitle(baseTitle);
         } catch (IOException e) {
+            System.err.println("Error caca loading layout " + layout);
             throw new RuntimeException(e);
         }
     }
