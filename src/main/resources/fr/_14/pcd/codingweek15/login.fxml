@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="400.0" prefWidth="600.0" stylesheets="@./form_style.css">
+
+    <VBox alignment="CENTER" spacing="10" styleClass="container">
+        <Label text="Connexion" styleClass="h2" />
+        <TextField fx:id="usernameField" promptText="Nom d'utilisateur" styleClass="form-control" />
+        <PasswordField fx:id="passwordField" promptText="Mot de passe" styleClass="form-control" />
+        <Button text="Se connecter" styleClass="btn-primary" />
+        <Label fx:id="errorMessage" textFill="red"/>
+    </VBox>
+</StackPane>
