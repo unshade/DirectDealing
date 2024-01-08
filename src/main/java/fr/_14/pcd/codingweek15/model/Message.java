@@ -22,7 +22,7 @@ public final class Message {
     @CreationTimestamp
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = Loan.class)
     @JoinColumn(name = "loan_id")
     private Loan loan;
 
@@ -34,11 +34,10 @@ public final class Message {
     @JoinColumn(name = "receiver_id")
     private User receiver;
 
-    public Message(String content, Loan loan, User sender, User receiver) {
-        this.content = content;
-        this.loan = loan;
+    public Message(User sender, User receiver, Loan loan, String content) {
         this.sender = sender;
         this.receiver = receiver;
+        this.loan = loan;
+        this.content = content;
     }
-
 }

@@ -42,12 +42,13 @@ dependencies {
     implementation('org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0')
     implementation 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     implementation 'org.hibernate:hibernate-core:5.6.3.Final'
     implementation 'org.xerial:sqlite-jdbc:3.44.1.0'
     implementation 'com.github.gwenn:sqlite-dialect:0.1.2'
     implementation 'org.hibernate:hibernate-entitymanager:5.6.15.Final'
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
     implementation 'org.mindrot:jbcrypt:0.4'
 }
 
