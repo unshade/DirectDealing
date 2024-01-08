@@ -1,6 +1,7 @@
 package fr._14.pcd.codingweek15.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
 public final class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,10 +32,14 @@ public final class User {
     @OneToMany(mappedBy = "borrower")
     private List<Loan> borrowedLoans;
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.flow = flow;
+        this.sleeping = sleeping;
+        this.admin = admin;
     }
+
 }
