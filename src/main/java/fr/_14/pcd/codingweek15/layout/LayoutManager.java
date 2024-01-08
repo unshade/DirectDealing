@@ -32,6 +32,10 @@ public final class LayoutManager {
         stage.show();
     }
 
+    public static void alert(String message) {
+        System.out.println("Alert: " + message);
+    }
+
     public static void setLayout(String layout, String title, Object... payload) {
         currentLayout = layout;
         baseTitle = title;

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <StackPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0"
-            stylesheets="@./form_style.css">
+           xmlns:fx="http://javafx.com/fxml"
+           prefHeight="400.0" prefWidth="600.0"
+           stylesheets="@./form_style.css" fx:controller="fr._14.pcd.codingweek15.controllers.RegisterController">
 
     <VBox alignment="CENTER" spacing="10" styleClass="container">
-        <Label text="Inscription" styleClass="h2" />
-        <TextField fx:id="usernameField" promptText="Nom d'utilisateur" styleClass="form-control" />
-        <PasswordField fx:id="passwordField" promptText="Mot de passe" styleClass="form-control" />
-        <PasswordField fx:id="confirmPasswordField" promptText="Confirmer le mot de passe" styleClass="form-control" />
-        <Button text="S'inscrire" styleClass="btn-primary" />
+        <Label text="Inscription" styleClass="h2"/>
+        <TextField fx:id="firstName" promptText="Prénom" styleClass="form-control"/>
+        <TextField fx:id="lastName" promptText="Nom" styleClass="form-control"/>
+        <PasswordField fx:id="password" promptText="Mot de passe" styleClass="form-control"/>
+        <PasswordField fx:id="confirmPassword" promptText="Confirmer le mot de passe" styleClass="form-control"/>
+        <Button text="S'inscrire" styleClass="btn-primary" onAction="#submit"/>
         <Label fx:id="errorMessage" textFill="red"/>
+        <Button text="se connecter" styleClass="btn-primary" onAction="#login"/>
     </VBox>
 
 </StackPane>

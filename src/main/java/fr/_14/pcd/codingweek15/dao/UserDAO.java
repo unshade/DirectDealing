@@ -28,11 +28,12 @@ public final class UserDAO extends DAO<User> {
     return instance;
   }
 
-  public void createUser(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
+  public User createUser(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
     em.getTransaction().begin();
     User user = new User(firstName, lastName, email, password, flow, sleeping, admin);
     em.persist(user);
     em.getTransaction().commit();
+    return user;
   }
 
   public List<User> getAllUsers() {

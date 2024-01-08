@@ -48,6 +48,7 @@ dependencies {
     implementation 'org.xerial:sqlite-jdbc:3.44.1.0'
     implementation 'com.github.gwenn:sqlite-dialect:0.1.2'
     implementation 'org.hibernate:hibernate-entitymanager:5.6.15.Final'
+    implementation 'org.mindrot:jbcrypt:0.4'
 }
 
 test {

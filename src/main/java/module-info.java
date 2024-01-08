@@ -13,6 +13,7 @@ module fr._14.pcd.codingweek15 {
     requires org.kordamp.bootstrapfx.core;
     requires org.hibernate.orm.core;
     requires static lombok;
+    requires jbcrypt;
   requires java.persistence;
 
   opens fr._14.pcd.codingweek15.controllers to javafx.fxml;

@@ -14,7 +14,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         LayoutManager.init(stage);
-        LayoutManager.setLayout("select-loan-view.fxml", "Loan View", "test");
+        LayoutManager.setLayout("register.fxml", "Register");
     }
 
     public static void main(String[] args) {
