@@ -1,4 +1,4 @@
-package fr._14.pcd.codingweek15.dao.seeder;
+package fr._14.pcd.codingweek15.database.seeder;
 
 import fr._14.pcd.codingweek15.dao.LoanDAO;
 import fr._14.pcd.codingweek15.dao.MessageDAO;

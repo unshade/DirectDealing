@@ -8,6 +8,7 @@
         <property name="connection.driver_class">org.sqlite.JDBC</property>
         <property name="hibernate.connection.url">jdbc:sqlite:db.db</property>
         <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.show_sql">false</property>
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
         <mapping class="fr._14.pcd.codingweek15.model.User"/>
         <mapping class="fr._14.pcd.codingweek15.model.Loan"/>
