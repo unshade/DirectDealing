@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public final class LayoutManager {
 
-    private static final String baseTitle = "Je suis une application";
+    private static String baseTitle = "Load Layout";
 
     private static Stage stage;
     private static Pane pane;
@@ -19,8 +19,8 @@ public final class LayoutManager {
 
     public static void init(Stage stage) throws IOException {
         LayoutManager.stage = stage;
-
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("MainLayout.fxml"));
+        currentLayout = "main-layout.fxml";
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(currentLayout));
         Scene scene = new Scene(pane = fxmlLoader.load());
         stage.setTitle(baseTitle);
         stage.setScene(scene);
@@ -29,7 +29,7 @@ public final class LayoutManager {
 
     public static void setLayout(String layout, String title, Object... payload) {
         currentLayout = layout;
-
+        baseTitle = title;
         FXMLLoader loader = new FXMLLoader(LayoutManager.class.getResource(layout));
         loader.setControllerFactory(clazz -> {
             try {
@@ -45,7 +45,7 @@ public final class LayoutManager {
             pane.getChildren().clear();
             pane.getChildren().add(scene);
 
-            stage.setTitle(title);
+            stage.setTitle(baseTitle);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
