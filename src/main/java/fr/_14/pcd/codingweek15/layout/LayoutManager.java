@@ -38,7 +38,11 @@ public final class LayoutManager {
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(layout));
         loader.setControllerFactory(clazz -> {
             try {
-                return clazz.getConstructor(Object[].class).newInstance(payload);
+                if (payload == null) {
+                    return clazz.getConstructors()[0].newInstance();
+                } else {
+                    return clazz.getConstructors()[0].newInstance(payload);
+                }
             } catch (Exception e) {
                 System.err.println("Error while loading layout " + layout);
                 throw new RuntimeException(e);
