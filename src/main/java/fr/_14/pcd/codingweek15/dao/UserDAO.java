@@ -1,6 +1,7 @@
 package fr._14.pcd.codingweek15.dao;
 
 import fr._14.pcd.codingweek15.model.User;
+import fr._14.pcd.codingweek15.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.EntityManager;
@@ -8,23 +9,28 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class UserDAO extends DAO<User> {
+public final class UserDAO extends DAO<User> {
   private EntityManagerFactory emf;
   private EntityManager em;
+  private static UserDAO instance;
 
-  public UserDAO(SessionFactory sf) {
+  private UserDAO(SessionFactory sf) {
     super(sf);
     emf = Persistence.createEntityManagerFactory("user");
     em = emf.createEntityManager();
+    instance = this;
   }
 
-  public void createUser(String firstName, String lastName, String email, String password) {
+  public static UserDAO getInstance() {
+    if (instance == null) {
+      instance = new UserDAO(HibernateUtil.getSessionFactory());
+    }
+    return instance;
+  }
+
+  public void createUser(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
     em.getTransaction().begin();
-    User user = new User();
-    user.setFirstName(firstName);
-    user.setLastName(lastName);
-    user.setEmail(email);
-    user.setPassword(password);
+    User user = new User(firstName, lastName, email, password, flow, sleeping, admin);
     em.persist(user);
     em.getTransaction().commit();
   }
@@ -33,8 +39,24 @@ public class UserDAO extends DAO<User> {
     return em.createQuery("SELECT u FROM User u", User.class).getResultList();
   }
 
+  public User getUserByEmail(String email) {
+    return em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+        .setParameter("email", email)
+        .getSingleResult();
+  }
+
+  public User getUserById(Long id) {
+    return em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class)
+        .setParameter("id", id)
+        .getSingleResult();
+  }
+
   @Override
   public List<User> search(User criteria) {
-    return null;
+    return em.createQuery("SELECT u FROM User u WHERE u.firstName LIKE :firstName AND u.lastName LIKE :lastName AND u.email LIKE :email", User.class)
+        .setParameter("firstName", "%" + criteria.getFirstName() + "%")
+        .setParameter("lastName", "%" + criteria.getLastName() + "%")
+        .setParameter("email", "%" + criteria.getEmail() + "%")
+        .getResultList();
   }
 }
