@@ -53,27 +53,21 @@ public final class MessageDAO extends DAO<Message> {
         System.out.println("criteria: ");
         List<Predicate> predicates = new ArrayList<>();
         if (criteria.getId() != null) {
-            System.out.println("id");
             predicates.add(cb.equal(root.get("id"), criteria.getId()));
         }
         if (criteria.getContent() != null) {
-            System.out.println("content");
             predicates.add(cb.equal(root.get("content"), criteria.getContent()));
         }
         if (criteria.getDate() != null) {
-            System.out.println("date");
             predicates.add(cb.equal(root.get("date"), criteria.getDate()));
         }
         if (criteria.getLoan() != null) {
-            System.out.println("loan");
             predicates.add(cb.equal(root.get("loan"), criteria.getLoan()));
         }
         if (criteria.getSender() != null) {
-            System.out.println("sender");
             predicates.add(cb.equal(root.get("sender"), criteria.getSender()));
         }
         if (criteria.getReceiver() != null) {
-            System.out.println("receiver");
             predicates.add(cb.equal(root.get("receiver"), criteria.getReceiver()));
         }
         cr.where(predicates.toArray(new Predicate[0]));
