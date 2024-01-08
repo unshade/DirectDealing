@@ -6,7 +6,8 @@ module fr._14.pcd.codingweek15 {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires static lombok;
+    requires ormlite.jdbc;
 
-    opens fr._14.pcd.codingweek15 to javafx.fxml;
+  opens fr._14.pcd.codingweek15 to javafx.fxml;
     exports fr._14.pcd.codingweek15;
 }

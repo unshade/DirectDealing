@@ -44,6 +44,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    implementation 'com.j256.ormlite:ormlite-core:6.1'
+    implementation 'com.j256.ormlite:ormlite-jdbc:6.1'
 }
 
 test {
