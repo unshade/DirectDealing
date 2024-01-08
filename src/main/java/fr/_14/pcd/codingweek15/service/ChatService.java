@@ -1,4 +1,4 @@
-package fr._14.pcd.codingweek15.services;
+package fr._14.pcd.codingweek15.service;
 
 import fr._14.pcd.codingweek15.dao.MessageDAO;
 import fr._14.pcd.codingweek15.model.Loan;
@@ -16,7 +16,7 @@ public final class ChatService {
         chat.setLoan(loan);
         chat.setContent(message);
 
-        MessageDAO.getInstance().saveMessage(chat);
+        MessageDAO.getInstance().saveMessages(chat);
     }
 
     public List<Message> getChats(User sender, User receiver, int fromMessage, int messageCount) {

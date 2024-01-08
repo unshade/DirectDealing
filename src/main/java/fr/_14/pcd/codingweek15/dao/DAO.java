@@ -14,7 +14,8 @@ public abstract class DAO<T> {
 
     private final SessionFactory sf;
 
-    public DAO(SessionFactory sf) {
+    public DAO(Class<T> modelClass, SessionFactory sf) {
+        this.modelClass = modelClass;
         this.sf = sf;
     }
 
@@ -64,7 +65,11 @@ public abstract class DAO<T> {
     }
 
     public T getById(Long id) {
-        return getSession().get(modelClass, id);
+        Session session = this.getSession();
+        Transaction tx = this.getTransaction(session);
+        T obj = session.get(modelClass, id);
+        tx.commit();
+        return obj;
     }
 
     @SuppressWarnings("unchecked")

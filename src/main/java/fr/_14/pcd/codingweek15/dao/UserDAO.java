@@ -15,7 +15,7 @@ public final class UserDAO extends DAO<User> {
     private static UserDAO instance;
 
     private UserDAO(SessionFactory sf) {
-        super(sf);
+        super(User.class, sf);
         emf = Persistence.createEntityManagerFactory("michele");
         em = emf.createEntityManager();
         instance = this;

@@ -9,6 +9,12 @@ import org.hibernate.SessionFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class MessageDAO extends DAO<Message> {
@@ -18,7 +24,7 @@ public final class MessageDAO extends DAO<Message> {
     private final EntityManager em;
 
     public MessageDAO(SessionFactory sf) {
-        super(sf);
+        super(Message.class, sf);
         if (instance != null) {
             throw new IllegalStateException("Already instantiated");
         }
@@ -29,22 +35,51 @@ public final class MessageDAO extends DAO<Message> {
         instance = this;
     }
 
-    public void saveMessage(Message message) {
+    public void saveMessages(Message... message) {
         em.getTransaction().begin();
-        em.persist(message);
+        for (Message m : message) {
+            em.persist(m);
+        }
         em.getTransaction().commit();
     }
 
     @Override
     public List<Message> search(Message criteria) {
-        User sender = criteria.getSender();
-        User receiver = criteria.getReceiver();
-        Loan loan = criteria.getLoan();
-        return em.createQuery("SELECT m FROM Message m WHERE m.sender = :sender AND m.receiver = :receiver AND m.loan = :loan", Message.class)
-                .setParameter("sender", sender)
-                .setParameter("receiver", receiver)
-                .setParameter("loan", loan)
-                .getResultList();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Message> cr = cb.createQuery(Message.class);
+        Root<Message> root = cr.from(Message.class);
+        cr.select(root);
+
+        System.out.println("criteria: ");
+        List<Predicate> predicates = new ArrayList<>();
+        if (criteria.getId() != null) {
+            System.out.println("id");
+            predicates.add(cb.equal(root.get("id"), criteria.getId()));
+        }
+        if (criteria.getContent() != null) {
+            System.out.println("content");
+            predicates.add(cb.equal(root.get("content"), criteria.getContent()));
+        }
+        if (criteria.getDate() != null) {
+            System.out.println("date");
+            predicates.add(cb.equal(root.get("date"), criteria.getDate()));
+        }
+        if (criteria.getLoan() != null) {
+            System.out.println("loan");
+            predicates.add(cb.equal(root.get("loan"), criteria.getLoan()));
+        }
+        if (criteria.getSender() != null) {
+            System.out.println("sender");
+            predicates.add(cb.equal(root.get("sender"), criteria.getSender()));
+        }
+        if (criteria.getReceiver() != null) {
+            System.out.println("receiver");
+            predicates.add(cb.equal(root.get("receiver"), criteria.getReceiver()));
+        }
+        cr.where(predicates.toArray(new Predicate[0]));
+        Query query = em.createQuery(cr);
+        //noinspection unchecked
+        return query.getResultList();
     }
 
     public void dropTable() {
@@ -53,11 +88,12 @@ public final class MessageDAO extends DAO<Message> {
         em.getTransaction().commit();
     }
 
-    public void createMessage(String content, User sender, User receiver, Loan loan) {
+    public Message createMessage(String content, User sender, User receiver, Loan loan) {
         em.getTransaction().begin();
         Message message = new Message(sender, receiver, loan, content);
         em.persist(message);
         em.getTransaction().commit();
+        return message;
     }
 
     public static MessageDAO getInstance() {

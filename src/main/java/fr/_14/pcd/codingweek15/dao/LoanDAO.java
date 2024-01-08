@@ -19,7 +19,7 @@ public final class LoanDAO extends DAO<Loan> {
     private static LoanDAO instance;
 
     private LoanDAO(SessionFactory sf) {
-        super(sf);
+        super(Loan.class, sf);
         emf = Persistence.createEntityManagerFactory("michele");
         em = emf.createEntityManager();
         instance = this;

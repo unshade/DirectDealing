@@ -7,10 +7,15 @@ import org.hibernate.cfg.Configuration;
 public class HibernateUtil {
 
     @Getter
-    private static final SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
 
     static {
         sessionFactory = buildSessionFactory();
+    }
+
+    public static void recreateSessionFactory(Configuration configuration) {
+        sessionFactory.close();
+        sessionFactory = configuration.buildSessionFactory();
     }
 
     private static SessionFactory buildSessionFactory() {
