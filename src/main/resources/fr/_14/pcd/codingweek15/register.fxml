@@ -9,7 +9,7 @@
 <StackPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             prefHeight="400.0" prefWidth="600.0"
-            stylesheets="@./form_style.css">
+            stylesheets="@style/form_style.css">
 
     <VBox alignment="CENTER" spacing="10" styleClass="container">
         <Label text="Inscription" styleClass="h2" />
@@ -17,7 +17,7 @@
         <PasswordField fx:id="passwordField" promptText="Mot de passe" styleClass="form-control" />
         <PasswordField fx:id="confirmPasswordField" promptText="Confirmer le mot de passe" styleClass="form-control" />
         <Button text="S'inscrire" styleClass="btn-primary" />
-        <Label fx:id="errorMessage" textFill="red"/>
+        <Label fx:id="errorMessage" styleClass="error-message" />
     </VBox>
 
 </StackPane>

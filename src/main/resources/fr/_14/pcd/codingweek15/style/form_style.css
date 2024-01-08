@@ -1,0 +1,34 @@
+.container {
+    -fx-padding: 20px;
+    -fx-border-insets: 20px;
+    -fx-background-insets: 20px;
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+}
+
+.h2 {
+    -fx-font-size: 35px;
+    -fx-text-fill: #333;
+}
+
+.form-control {
+    -fx-max-width: 200px;
+    -fx-pref-height: 30px;
+}
+
+.btn-primary {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-font-size: 17px;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #0069d9;
+}
+
+.error-message {
+    -fx-text-fill: red;
+    -fx-font-size: 10px;
+}
+
