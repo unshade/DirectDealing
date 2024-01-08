@@ -18,20 +18,20 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
-        UserDAO userDAO = UserDAO.getInstance();
-        ElementDAO elementDAO = ElementDAO.getInstance();
-        LoanDAO loanDAO = LoanDAO.getInstance();
-        userDAO.createUser("John", "Doe", "email", "password", 0, false, false);
-        userDAO.createUser("Jane", "Doe", "email", "password", 0, false, false);
-
-        userDAO.getAllUsers().forEach(user -> System.out.println(user.getFirstName()));
-
-        elementDAO.createElement("test", 0, "test", userDAO.getAllUsers().get(0));
-
-
-        loanDAO.createLoan(new Date(), new Date(), elementDAO.getAllElements().get(0), userDAO.getAllUsers().get(1));
-
-        loanDAO.getAllLoans().forEach(loan -> System.out.println(loan.getStartDate()));
+//        UserDAO userDAO = UserDAO.getInstance();
+//        ElementDAO elementDAO = ElementDAO.getInstance();
+//        LoanDAO loanDAO = LoanDAO.getInstance();
+//        userDAO.createUser("John", "Doe", "email", "password", 0, false, false);
+//        userDAO.createUser("Jane", "Doe", "email", "password", 0, false, false);
+//
+//        userDAO.getAllUsers().forEach(user -> System.out.println(user.getFirstName()));
+//
+//        elementDAO.createElement("test", 0, "test", userDAO.getAllUsers().get(0));
+//
+//
+//        loanDAO.createLoan(new Date(), new Date(), elementDAO.getAllElements().get(0), userDAO.getAllUsers().get(1));
+//
+//        loanDAO.getAllLoans().forEach(loan -> System.out.println(loan.getStartDate()));
 
         launch();
     }
