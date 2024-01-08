@@ -20,7 +20,7 @@ public class UserDAO extends DAO<User> {
 
   public void createUser(String firstName, String lastName, String email, String password) {
     em.getTransaction().begin();
-    User user = new User();
+    User user = new User(firstName, lastName, email, password);
     user.setFirstName(firstName);
     user.setLastName(lastName);
     user.setEmail(email);
