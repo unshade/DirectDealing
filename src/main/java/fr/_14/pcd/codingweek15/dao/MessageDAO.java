@@ -3,7 +3,7 @@ package fr._14.pcd.codingweek15.dao;
 import fr._14.pcd.codingweek15.model.Loan;
 import fr._14.pcd.codingweek15.model.Message;
 import fr._14.pcd.codingweek15.model.User;
-import lombok.Getter;
+import fr._14.pcd.codingweek15.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.EntityManager;
@@ -13,7 +13,6 @@ import java.util.List;
 
 public class MessageDAO extends DAO<Message> {
 
-    @Getter
     private static MessageDAO instance;
     private final EntityManagerFactory emf;
     private final EntityManager em;
@@ -46,5 +45,12 @@ public class MessageDAO extends DAO<Message> {
                 .setParameter("receiver", receiver)
                 .setParameter("loan", loan)
                 .getResultList();
+    }
+
+    public static MessageDAO getInstance() {
+        if (instance == null) {
+            instance = new MessageDAO(HibernateUtil.getSessionFactory());
+        }
+        return instance;
     }
 }
