@@ -18,6 +18,10 @@ public final class LayoutManager {
     private static String currentLayout;
 
     public static void init(Stage stage) throws IOException {
+        if (LayoutManager.stage != null) {
+            throw new IllegalStateException("LayoutManager already initialized");
+        }
+
         LayoutManager.stage = stage;
         currentLayout = "main-layout.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(currentLayout));
