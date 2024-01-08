@@ -17,7 +17,7 @@ public final class ElementDAO extends DAO<Element> {
 
     private ElementDAO(SessionFactory sf) {
         super(sf);
-        emf = Persistence.createEntityManagerFactory("element");
+        emf = Persistence.createEntityManagerFactory("michele");
         em = emf.createEntityManager();
         instance = this;
     }

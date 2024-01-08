@@ -11,7 +11,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.util.List;
 
-public class MessageDAO extends DAO<Message> {
+public final class MessageDAO extends DAO<Message> {
 
     private static MessageDAO instance;
     private final EntityManagerFactory emf;
@@ -23,7 +23,7 @@ public class MessageDAO extends DAO<Message> {
             throw new IllegalStateException("Already instantiated");
         }
 
-        emf = Persistence.createEntityManagerFactory("message");
+        emf = Persistence.createEntityManagerFactory("michele");
         em = emf.createEntityManager();
 
         instance = this;
