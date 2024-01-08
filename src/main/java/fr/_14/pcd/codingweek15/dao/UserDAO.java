@@ -39,6 +39,18 @@ public final class UserDAO extends DAO<User> {
     return em.createQuery("SELECT u FROM User u", User.class).getResultList();
   }
 
+  public User getUserByEmail(String email) {
+    return em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
+        .setParameter("email", email)
+        .getSingleResult();
+  }
+
+  public User getUserById(Long id) {
+    return em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class)
+        .setParameter("id", id)
+        .getSingleResult();
+  }
+
   @Override
   public List<User> search(User criteria) {
     return em.createQuery("SELECT u FROM User u WHERE u.firstName LIKE :firstName AND u.lastName LIKE :lastName AND u.email LIKE :email", User.class)
