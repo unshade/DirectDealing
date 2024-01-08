@@ -1,6 +1,6 @@
 package fr._14.pcd.codingweek15.layout;
 
-import fr._14.pcd.codingweek15.HelloApplication;
+import fr._14.pcd.codingweek15.MainApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,7 +20,7 @@ public final class LayoutManager {
     public static void init(Stage stage) throws IOException {
         LayoutManager.stage = stage;
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MainLayout.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("MainLayout.fxml"));
         Scene scene = new Scene(pane = fxmlLoader.load());
         stage.setTitle(baseTitle);
         stage.setScene(scene);
