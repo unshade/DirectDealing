@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +31,14 @@ public final class Loan {
     @OneToMany(mappedBy = "loan")
     private List<Message> messages;
 
-    @OneToMany(mappedBy = "loan")
-    private List<Rating> ratings;
+    private Integer rating;
+
+    public Loan(Date startDate, Date endDate, Element item, User borrower) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.item = item;
+        this.borrower = borrower;
+        this.rating = null;
+    }
+
 }

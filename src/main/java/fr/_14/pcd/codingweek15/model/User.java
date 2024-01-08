@@ -30,10 +30,13 @@ public final class User {
     @OneToMany(mappedBy = "borrower")
     private List<Loan> borrowedLoans;
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
+        this.flow = flow;
+        this.sleeping = sleeping;
+        this.admin = admin;
     }
 }
