@@ -2,10 +2,12 @@ package fr._14.pcd.codingweek15.service;
 
 import fr._14.pcd.codingweek15.dao.UserDAO;
 import fr._14.pcd.codingweek15.model.User;
+import lombok.Getter;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
+@Getter
 public class AuthService {
     private static AuthService instance;
 
@@ -39,15 +41,14 @@ public class AuthService {
         }
     }
 
-    public User getCurrentUser() {
-        return currentUser;
-    }
-
     public void endSession() {
         currentUser = null;
     }
 
     public boolean authenticate(String email, String enteredPassword) {
+        if (currentUser != null) {
+            return true;
+        }
         User user = UserDAO.getInstance().getUserByEmail(email);
         System.out.println("user email: " + user.getEmail());
         currentUser = user;
