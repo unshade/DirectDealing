@@ -34,5 +34,4 @@ public final class Element {
         this.loans = new ArrayList<>();
         this.owner = owner;
     }
-
 }

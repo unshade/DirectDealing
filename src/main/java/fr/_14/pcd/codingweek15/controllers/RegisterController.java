@@ -18,14 +18,17 @@ public class RegisterController {
     private PasswordField password;
     @FXML
     private PasswordField confirmPassword;
+    @FXML
+    private TextField email;
 
     @FXML
     private void submit() {
 
-        String enteredFirstName = firstName.getText();
-        String enteredLastName = lastName.getText();
-        String enteredPassword = password.getText();
-        String enteredConfirmPassword = confirmPassword.getText();
+        String enteredFirstName = this.firstName.getText();
+        String enteredLastName = this.lastName.getText();
+        String enteredPassword = this.password.getText();
+        String enteredConfirmPassword = this.confirmPassword.getText();
+        String enteredEmail = this.email.getText();
 
         if (enteredFirstName.isEmpty() || enteredPassword.isEmpty() || enteredConfirmPassword.isEmpty() || enteredLastName.isEmpty()) {
             LayoutManager.alert("Veuillez remplir tous les champs");
@@ -38,10 +41,11 @@ public class RegisterController {
         }
 
         String hashedPassword = AuthService.hashPassword(enteredPassword);
-        User user = UserDAO.getInstance().createUser("John", "Doe", enteredFirstName, hashedPassword, 0, false, false);
+        System.out.println(hashedPassword);
+        User user = UserDAO.getInstance().createUser(enteredFirstName, enteredLastName, enteredEmail, hashedPassword, 0, false, false);
 
-        if (AuthService.getInstance().authenticate(user, enteredPassword)) {
-            LayoutManager.setLayout("home.fxml", "Home");
+        if (AuthService.getInstance().authenticate(user.getEmail(), enteredPassword)) {
+            LayoutManager.setLayout("login.fxml", "login");
         } else {
             LayoutManager.alert("Erreur lors de l'authentification");
         }

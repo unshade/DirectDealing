@@ -2,7 +2,6 @@ module fr._14.pcd.codingweek15 {
     requires javafx.controls;
     requires javafx.fxml;
 
-    requires at.favre.lib.crypto.bcrypt;
     requires java.naming;
     requires java.sql;
     requires java.xml.bind;

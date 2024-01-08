@@ -1,8 +1,10 @@
 package fr._14.pcd.codingweek15.service;
 
-import at.favre.lib.crypto.bcrypt.BCrypt;
 import fr._14.pcd.codingweek15.dao.UserDAO;
 import fr._14.pcd.codingweek15.model.User;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 
 public class AuthService {
     private static AuthService instance;
@@ -16,6 +18,27 @@ public class AuthService {
         return instance;
     }
 
+    public static String hashPassword(String password) {
+        return sha256(password);
+    }
+
+    public static String sha256(final String base) {
+        try {
+            final MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            final byte[] hash = digest.digest(base.getBytes(StandardCharsets.UTF_8));
+            final StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                final String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1)
+                    hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     public User getCurrentUser() {
         return currentUser;
     }
@@ -24,21 +47,11 @@ public class AuthService {
         currentUser = null;
     }
 
-    public static String hashPassword(String password) {
-        return BCrypt.withDefaults().hashToString(12, password.toCharArray());
-    }
-
-    public boolean authenticate(User user, String enteredPassword) {
-        String storedHash = getStoredPasswordHash(user.getEmail());
-
-        return storedHash != null && BCrypt.verifyer().verify(enteredPassword.toCharArray(), storedHash).verified;
-    }
-
-    private String getStoredPasswordHash(String email) {
+    public boolean authenticate(String email, String enteredPassword) {
         User user = UserDAO.getInstance().getUserByEmail(email);
-        if (user != null) {
-            return user.getPassword();
-        }
-        return null;
+        System.out.println("user email: " + user.getEmail());
+        currentUser = user;
+        return user.getPassword().equals(sha256(enteredPassword));
     }
+
 }
