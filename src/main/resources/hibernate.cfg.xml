@@ -12,5 +12,7 @@
         <mapping class="fr._14.pcd.codingweek15.model.User"/>
         <mapping class="fr._14.pcd.codingweek15.model.Loan"/>
         <mapping class="fr._14.pcd.codingweek15.model.Element"/>
+        <mapping class="fr._14.pcd.codingweek15.model.Message"/>
+        <mapping class="fr._14.pcd.codingweek15.model.Rating"/>
     </session-factory>
 </hibernate-configuration>

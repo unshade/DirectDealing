@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -15,6 +18,14 @@ public final class Loan {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+
+    private Date startDate;
+    private Date endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Element item;
+
     @ManyToOne
     @JoinColumn(name = "lender_id")
     private User lender;
@@ -22,4 +33,10 @@ public final class Loan {
     @ManyToOne
     @JoinColumn(name = "borrower_id")
     private User borrower;
+
+    @OneToMany(mappedBy = "loan")
+    private List<Message> messages;
+
+    @OneToMany(mappedBy = "loan")
+    private List<Rating> ratings;
 }
