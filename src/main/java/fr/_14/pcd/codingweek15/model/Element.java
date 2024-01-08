@@ -20,4 +20,8 @@ public final class Element {
     @OneToMany(mappedBy = "item")
     private List<Loan> loans;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
 }

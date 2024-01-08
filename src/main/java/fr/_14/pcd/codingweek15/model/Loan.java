@@ -27,10 +27,6 @@ public final class Loan {
     private Element item;
 
     @ManyToOne
-    @JoinColumn(name = "lender_id")
-    private User lender;
-
-    @ManyToOne
     @JoinColumn(name = "borrower_id")
     private User borrower;
 
