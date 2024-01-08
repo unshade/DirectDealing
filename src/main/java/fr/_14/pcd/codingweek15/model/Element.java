@@ -1,6 +1,7 @@
 package fr._14.pcd.codingweek15.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import java.util.List;
 @Entity
 @Setter
 @Getter
+@NoArgsConstructor
 public final class Element {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
