@@ -2,6 +2,7 @@ module fr._14.pcd.codingweek15 {
     requires javafx.controls;
     requires javafx.fxml;
 
+    requires at.favre.lib.crypto.bcrypt;
     requires java.naming;
     requires java.sql;
     requires java.xml.bind;
@@ -13,11 +14,10 @@ module fr._14.pcd.codingweek15 {
     requires org.kordamp.bootstrapfx.core;
     requires org.hibernate.orm.core;
     requires static lombok;
-    requires jbcrypt;
-  requires java.persistence;
+    requires java.persistence;
 
-  opens fr._14.pcd.codingweek15.controllers to javafx.fxml;
-  opens fr._14.pcd.codingweek15 to javafx.fxml;
-  opens fr._14.pcd.codingweek15.model to org.hibernate.orm.core;
+    opens fr._14.pcd.codingweek15.controllers to javafx.fxml;
+    opens fr._14.pcd.codingweek15 to javafx.fxml;
+    opens fr._14.pcd.codingweek15.model to org.hibernate.orm.core;
     exports fr._14.pcd.codingweek15;
 }

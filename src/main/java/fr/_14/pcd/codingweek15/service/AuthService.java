@@ -1,8 +1,8 @@
 package fr._14.pcd.codingweek15.service;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import fr._14.pcd.codingweek15.dao.UserDAO;
 import fr._14.pcd.codingweek15.model.User;
-import org.mindrot.jbcrypt.BCrypt;
 
 public class AuthService {
     private static AuthService instance;
@@ -25,13 +25,13 @@ public class AuthService {
     }
 
     public static String hashPassword(String password) {
-        return BCrypt.hashpw(password, BCrypt.gensalt());
+        return BCrypt.withDefaults().hashToString(12, password.toCharArray());
     }
 
     public boolean authenticate(User user, String enteredPassword) {
         String storedHash = getStoredPasswordHash(user.getEmail());
 
-        return storedHash != null && BCrypt.checkpw(enteredPassword, storedHash);
+        return storedHash != null && BCrypt.verifyer().verify(enteredPassword.toCharArray(), storedHash).verified;
     }
 
     private String getStoredPasswordHash(String email) {

@@ -4,6 +4,7 @@ plugins {
     id 'org.javamodularity.moduleplugin' version '1.8.12'
     id 'org.openjfx.javafxplugin' version '0.0.13'
     id 'org.beryx.jlink' version '2.25.0'
+    id("org.gradlex.extra-java-module-info") version "1.6.2"
 }
 
 group 'fr._14.pcd'
@@ -49,7 +50,16 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-    implementation 'org.mindrot:jbcrypt:0.4'
+    implementation "at.favre.lib:bcrypt:0.10.2"
+}
+
+extraJavaModuleInfo {
+    deriveAutomaticModuleNamesFromFileNames.set(true)
+
+    module("at.favre.lib:bcrypt", "at.favre.lib.crypto.bcrypt") {
+        exports("at.favre.lib.crypto.bcrypt")
+    }
+
 }
 
 test {
