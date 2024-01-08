@@ -1,18 +1,28 @@
 package fr._14.pcd.codingweek15.model;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
 import lombok.Getter;
 import lombok.Setter;
 
-@DatabaseTable(tableName = "users")
-@Getter
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 @Setter
-public class User {
-  @DatabaseField(generatedId = true)
-  private int id;
+@Getter
+public final class User {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+  private String firstName;
+  private String lastName;
+  private String email;
+  private String password;
 
-  @DatabaseField
-  private String name;
+  private int flow;
 
+  private boolean sleeping;
+  private boolean admin;
 }
+
