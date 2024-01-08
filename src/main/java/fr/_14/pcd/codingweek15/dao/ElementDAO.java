@@ -40,6 +40,12 @@ public final class ElementDAO extends DAO<Element> {
         return em.createQuery("SELECT u FROM Element u", Element.class).getResultList();
     }
 
+    public void dropTable() {
+        em.getTransaction().begin();
+        em.createQuery("DELETE FROM Element").executeUpdate();
+        em.getTransaction().commit();
+    }
+
     @Override
     public List<Element> search(Element criteria) {
         return null;

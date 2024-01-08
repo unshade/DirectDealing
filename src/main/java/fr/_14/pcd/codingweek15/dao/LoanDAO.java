@@ -44,6 +44,18 @@ public final class LoanDAO extends DAO<Loan> {
         return em.createQuery("SELECT u FROM Loan u", Loan.class).getResultList();
     }
 
+    public void dropTable() {
+        em.getTransaction().begin();
+        em.createQuery("DELETE FROM Loan").executeUpdate();
+        em.getTransaction().commit();
+    }
+
+    public void addRating(Loan loan, int rating) {
+        em.getTransaction().begin();
+        loan.setRating(rating);
+        em.getTransaction().commit();
+    }
+
     @Override
     public List<Loan> search(Loan criteria) {
         return null;

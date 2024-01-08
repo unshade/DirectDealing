@@ -47,6 +47,19 @@ public final class MessageDAO extends DAO<Message> {
                 .getResultList();
     }
 
+    public void dropTable() {
+        em.getTransaction().begin();
+        em.createQuery("DELETE FROM Message").executeUpdate();
+        em.getTransaction().commit();
+    }
+
+    public void createMessage(String content, User sender, User receiver, Loan loan) {
+        em.getTransaction().begin();
+        Message message = new Message(sender, receiver, loan, content);
+        em.persist(message);
+        em.getTransaction().commit();
+    }
+
     public static MessageDAO getInstance() {
         if (instance == null) {
             instance = new MessageDAO(HibernateUtil.getSessionFactory());

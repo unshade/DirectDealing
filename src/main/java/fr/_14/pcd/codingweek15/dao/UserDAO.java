@@ -46,10 +46,17 @@ public final class UserDAO extends DAO<User> {
                 .getSingleResult();
     }
 
-    public User getUserById(Long id) {
-        return em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class)
-                .setParameter("id", id)
+    public User getUserByName(String firstName, String lastName) {
+        return em.createQuery("SELECT u FROM User u WHERE u.firstName = :firstName AND u.lastName = :lastName", User.class)
+                .setParameter("firstName", firstName)
+                .setParameter("lastName", lastName)
                 .getSingleResult();
+    }
+
+    public void dropTable() {
+        em.getTransaction().begin();
+        em.createQuery("DELETE FROM User").executeUpdate();
+        em.getTransaction().commit();
     }
 
     @Override
