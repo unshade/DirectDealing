@@ -8,7 +8,7 @@
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.dialect" value="org.sqlite.hibernate.dialect.SQLiteDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
@@ -21,7 +21,7 @@
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.dialect" value="org.sqlite.hibernate.dialect.SQLiteDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
@@ -34,7 +34,7 @@
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.dialect" value="org.sqlite.hibernate.dialect.SQLiteDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>
@@ -47,7 +47,7 @@
             <property name="hibernate.connection.username" value="root"/>
             <property name="hibernate.connection.password" value=""/>
             <property name="hibernate.dialect" value="org.sqlite.hibernate.dialect.SQLiteDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.show_sql" value="true"/>
         </properties>
     </persistence-unit>

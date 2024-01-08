@@ -14,8 +14,8 @@ import java.util.List;
 
 public final class LoanDAO extends DAO<Loan> {
 
-    private EntityManagerFactory emf;
-    private EntityManager em;
+    private final EntityManagerFactory emf;
+    private final EntityManager em;
     private static LoanDAO instance;
 
     private LoanDAO(SessionFactory sf) {

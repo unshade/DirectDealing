@@ -31,11 +31,7 @@ public class AuthService {
     public boolean authenticate(User user, String enteredPassword) {
         String storedHash = getStoredPasswordHash(user.getEmail());
 
-        if (storedHash != null && BCrypt.checkpw(enteredPassword, storedHash)) {
-
-            return true;
-        }
-        return false;
+        return storedHash != null && BCrypt.checkpw(enteredPassword, storedHash);
     }
 
     private String getStoredPasswordHash(String email) {

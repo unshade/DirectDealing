@@ -12,7 +12,7 @@ public class SelectLoanController {
         System.out.println("LoanController");
     }
 
-    public SelectLoanController(String test){
+    public SelectLoanController(String test) {
 
     }
 
