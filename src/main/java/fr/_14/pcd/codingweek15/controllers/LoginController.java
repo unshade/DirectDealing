@@ -1,11 +1,9 @@
 package fr._14.pcd.codingweek15.controllers;
 
 import fr._14.pcd.codingweek15.layout.LayoutManager;
-import fr._14.pcd.codingweek15.model.User;
 import fr._14.pcd.codingweek15.service.AuthService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import org.w3c.dom.Text;
 
 public class LoginController {
 
@@ -24,12 +22,14 @@ public class LoginController {
             return;
         }
 
-        if(AuthService.getInstance().authenticate(enteredEmail, enteredPassword)) {
+        if (AuthService.getInstance().authenticate(enteredEmail, enteredPassword)) {
             LayoutManager.setLayout("register.fxml", "login success");
+            return;
         }
 
         LayoutManager.alert("Erreur lors de l'authentification");
     }
+
     @FXML
     private void register() {
         LayoutManager.setLayout("register.fxml", "Register");

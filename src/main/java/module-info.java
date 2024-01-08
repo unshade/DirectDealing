@@ -14,6 +14,9 @@ module fr._14.pcd.codingweek15 {
     requires org.hibernate.orm.core;
     requires static lombok;
     requires java.persistence;
+    requires spring.security.crypto;
+    requires org.apache.commons.logging;
+    requires org.bouncycastle.provider;
 
     opens fr._14.pcd.codingweek15.controllers to javafx.fxml;
     opens fr._14.pcd.codingweek15 to javafx.fxml;
