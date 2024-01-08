@@ -2,6 +2,7 @@ package fr._14.pcd.codingweek15.dao.seeder;
 
 import fr._14.pcd.codingweek15.dao.ElementDAO;
 import fr._14.pcd.codingweek15.dao.LoanDAO;
+import fr._14.pcd.codingweek15.dao.MessageDAO;
 import fr._14.pcd.codingweek15.dao.UserDAO;
 
 public class Seeder {
@@ -12,6 +13,7 @@ public class Seeder {
         UserDAO.getInstance().dropTable();
         LoanDAO.getInstance().dropTable();
         ElementDAO.getInstance().dropTable();
+        MessageDAO.getInstance().dropTable();
 
         // Create users
         UserSeeder userSeeder = new UserSeeder();
