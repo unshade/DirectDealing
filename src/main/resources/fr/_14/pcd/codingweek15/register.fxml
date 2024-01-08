@@ -3,12 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           prefHeight="400.0" prefWidth="600.0"
-           stylesheets="@style/form_style.css" fx:controller="fr._14.pcd.codingweek15.controllers.RegisterController">
 
-    <VBox alignment="CENTER" spacing="10" styleClass="container">
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="@style/form_style.css" fx:controller="fr._14.pcd.codingweek15.controllers.RegisterController" styleClass="container">
         <Label text="Inscription" styleClass="h2"/>
         <TextField fx:id="firstName" promptText="Prénom" styleClass="form-control"/>
         <TextField fx:id="lastName" promptText="Nom" styleClass="form-control"/>
@@ -17,6 +13,6 @@
         <PasswordField fx:id="confirmPassword" promptText="Confirmer le mot de passe" styleClass="form-control"/>
         <Button text="S'inscrire" styleClass="btn-primary" onAction="#submit"/>
         <Label fx:id="errorMessage" styleClass="error-message"/>
-    </VBox>
+</VBox>
 
-</StackPane>
+

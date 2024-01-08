@@ -1,9 +1,11 @@
 package fr._14.pcd.codingweek15.layout;
 
 import fr._14.pcd.codingweek15.MainApplication;
+import fr._14.pcd.codingweek15.controllers.NavBarController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -14,7 +16,7 @@ public final class LayoutManager {
     private static String baseTitle = "Load Layout";
 
     private static Stage stage;
-    private static Pane pane;
+    private static BorderPane pane;
     private static String currentLayout;
 
     public static void init(Stage stage) throws IOException {
@@ -26,6 +28,13 @@ public final class LayoutManager {
         currentLayout = "main-layout.fxml";
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(currentLayout));
         Scene scene = new Scene(pane = fxmlLoader.load());
+
+        FXMLLoader navLoader = new FXMLLoader(MainApplication.class.getResource("navbar.fxml"));
+        navLoader.setControllerFactory(c -> new NavBarController());
+        Parent nav = navLoader.load();
+
+        pane.setRight(nav);
+
         stage.setTitle(baseTitle);
         stage.setScene(scene);
         stage.show();
@@ -55,8 +64,7 @@ public final class LayoutManager {
         try {
             Parent scene = loader.load();
 
-            pane.getChildren().clear();
-            pane.getChildren().add(scene);
+            pane.setCenter(scene);
 
             stage.setTitle(baseTitle);
         } catch (IOException e) {

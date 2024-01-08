@@ -1,0 +1,20 @@
+.sidebar {
+    -fx-background-color: #f0f0f0;
+    -fx-padding: 15px;
+    -fx-spacing: 50px;
+    -fx-alignment: center;
+}
+
+.sidebar Label {
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-padding: 10px;
+}
+
+.sidebar Label:hover {
+    -fx-text-fill: #007bff;
+}
+
+.sidebar Separator {
+    -fx-padding: 5 0;
+}

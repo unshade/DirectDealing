@@ -1,0 +1,40 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Separator?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:id="sidebar" styleClass="sidebar" fx:controller="fr._14.pcd.codingweek15.controllers.NavBarController" stylesheets="@style/navbar_style.css">
+    <Label fx:id="announcements" text="Voir les annonces" graphicTextGap="10" contentDisplay="TOP">
+        <graphic>
+            <ImageView>
+                <Image url="@icon/shop-solid.png"/> <!-- Remplacez avec votre icône -->
+            </ImageView>
+        </graphic>
+    </Label>
+    <Separator />
+    <Label fx:id="myAnnouncements" text="Mes annonces" graphicTextGap="10" contentDisplay="TOP">
+        <graphic>
+            <ImageView>
+
+                <Image url="@icon/shop-solid.png" /> <!-- Remplacez avec votre icône -->
+            </ImageView>
+        </graphic>
+    </Label>
+    <Separator />
+    <Label fx:id="myLoans" text="Mes emprunts" graphicTextGap="10" contentDisplay="TOP">
+        <graphic>
+            <ImageView>
+                <Image  url="@icon/shop-solid.png"/> <!-- Remplacez avec votre icône -->
+            </ImageView>
+        </graphic>
+    </Label>
+    <Separator />
+    <Label fx:id="account" text="Mon profil" graphicTextGap="10" contentDisplay="TOP">
+        <graphic>
+            <ImageView>
+                <Image  url="@icon/shop-solid.png"/> <!-- Remplacez avec votre icône -->
+            </ImageView>
+        </graphic>
+    </Label>
+</VBox>
