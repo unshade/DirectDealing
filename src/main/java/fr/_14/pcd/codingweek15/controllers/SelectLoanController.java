@@ -6,10 +6,8 @@ import fr._14.pcd.codingweek15.model.Element;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class SelectLoanController {
@@ -46,7 +44,7 @@ public class SelectLoanController {
                             setText(null);
                         } else {
                             String content = "ID: " + element.getId() + ", Title: " + element.getName() +
-                                    ", Price: " + element.getPrice() + ", Owner: " + element.getOwner().getFirstName();
+                                    ", Price: " + element.getPrice() + ", Description: " + element.getDescription();
                             setText(content);
                         }
                     }
@@ -54,17 +52,21 @@ public class SelectLoanController {
             }
         });
     }
+
     @FXML
     private void search() {
         String search = searchBar.getText();
         Element e;
-        if (search.matches("\\d+")) {
-            Integer id = Integer.parseInt(search);
-            e = new Element(null, id, null, null);
-        } else {
-            e = new Element(search, null, search, null);
+        List<Element> elements;
+
+        if (search.isEmpty()) {
+            search = null;
         }
-        List<Element> elements = ElementDAO.getInstance().search(e);
+
+        e = new Element(search, null, search, null);
+        elements = ElementDAO.getInstance().search(e);
+
+
         if (elements.isEmpty()) {
             LayoutManager.alert("No results found");
         }

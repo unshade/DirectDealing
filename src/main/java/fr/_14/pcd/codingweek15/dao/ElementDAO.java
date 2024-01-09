@@ -74,7 +74,16 @@ public final class ElementDAO extends DAO<Element> {
         if (criteria.getPrice() != null) {
             predicates.add(cb.equal(root.get("price"), criteria.getPrice()));
         }
-        cr.where(predicates.toArray(new Predicate[0]));
+        if (predicates.isEmpty()) {
+            return getAllElements();
+        }
+
+        Predicate orPredicate = cb.disjunction();
+        for (Predicate predicate : predicates) {
+            System.out.println("caca");
+            orPredicate = cb.or(orPredicate, predicate);
+        }
+        cr.where(orPredicate);
         Query query = em.createQuery(cr);
         //noinspection unchecked
         return query.getResultList();
