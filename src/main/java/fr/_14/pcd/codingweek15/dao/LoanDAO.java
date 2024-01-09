@@ -46,7 +46,7 @@ public final class LoanDAO extends DAO<Loan> {
         return em.createQuery("SELECT u FROM Loan u", Loan.class).getResultList();
     }
 
-    public List<Loan> getALlLoansByUser(User user) {
+    public List<Loan> getAllLoansByUser(User user) {
         return em.createQuery("SELECT u FROM Loan u WHERE u.borrower = :user", Loan.class).setParameter("user", user).getResultList();
     }
 
@@ -60,6 +60,12 @@ public final class LoanDAO extends DAO<Loan> {
         em.getTransaction().begin();
         loan.setRating(rating);
         em.getTransaction().commit();
+    }
+
+    public List<Loan> getLoansByUserAndBorrowing(User owner) {
+        return em.createQuery("SELECT u FROM Loan u WHERE u.item.owner = :user", Loan.class)
+                .setParameter("user", owner)
+                .getResultList();
     }
 
     @Override

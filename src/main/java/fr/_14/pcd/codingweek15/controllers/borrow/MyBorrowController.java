@@ -2,7 +2,6 @@ package fr._14.pcd.codingweek15.controllers.borrow;
 
 import fr._14.pcd.codingweek15.dao.LoanDAO;
 import fr._14.pcd.codingweek15.layout.LayoutManager;
-import fr._14.pcd.codingweek15.model.Element;
 import fr._14.pcd.codingweek15.model.Loan;
 import fr._14.pcd.codingweek15.model.User;
 import fr._14.pcd.codingweek15.service.AuthService;
@@ -20,7 +19,7 @@ public class MyBorrowController {
     @FXML
     private void initialize() {
         User user = AuthService.getInstance().getCurrentUser();
-        List<Loan> loans = LoanDAO.getInstance().getALlLoansByUser(user);
+        List<Loan> loans = LoanDAO.getInstance().getAllLoansByUser(user);
 
         this.borrows.setItems(FXCollections.observableList(loans));
         this.borrows.setCellFactory(new Callback<ListView<Loan>, ListCell<Loan>>() {
@@ -34,7 +33,7 @@ public class MyBorrowController {
                             setText(null);
                             setOnMouseClicked(null);
                         } else {
-                            String content = "ID: " + loan.getId() + ", Item: " + loan.getItem().getName() + " ,Emprunté à " + loan.getBorrower().getFirstName() + " " + loan.getBorrower().getLastName();
+                            String content = "ID: " + loan.getId() + ", Item: " + loan.getItem().getName() + " ,Emprunté à " + loan.getItem().getOwner().getFirstName() + " " + loan.getItem().getOwner().getLastName();
                             setText(content);
                             setOnMouseClicked(event -> {
                                 if (event.getClickCount() == 2 && (!isEmpty())) {
