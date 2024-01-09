@@ -59,4 +59,14 @@ public final class Loan {
     public int hashCode() {
         return Objects.hash(id, startDate, endDate, item, borrower, rating);
     }
+
+    public boolean isOverlapping(Date startDate, Date endDate) {
+        if (this.startDate.before(startDate) && this.endDate.after(startDate)) {
+            return true;
+        }
+        if (this.startDate.before(endDate) && this.endDate.after(endDate)) {
+            return true;
+        }
+        return this.startDate.after(startDate) && this.endDate.before(endDate);
+    }
 }
