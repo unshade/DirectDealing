@@ -1,7 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.model;
 
 import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
-import fr.quatorze.pcd.codingweekquinze.model.element.Element;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

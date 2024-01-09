@@ -44,6 +44,7 @@ public final class MessageDAO extends DAO<Message> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<Message> search(Message criteria) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Message> cr = cb.createQuery(Message.class);
@@ -72,7 +73,6 @@ public final class MessageDAO extends DAO<Message> {
         }
         cr.where(predicates.toArray(new Predicate[0]));
         Query query = em.createQuery(cr);
-        //noinspection unchecked
         return query.getResultList();
     }
 

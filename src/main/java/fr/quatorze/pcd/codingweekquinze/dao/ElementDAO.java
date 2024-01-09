@@ -2,7 +2,8 @@ package fr.quatorze.pcd.codingweekquinze.dao;
 
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
-import fr.quatorze.pcd.codingweekquinze.model.element.Element;
+import fr.quatorze.pcd.codingweekquinze.model.Element;
+import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
@@ -20,10 +21,15 @@ public final class ElementDAO extends DAO<Element> {
     private final EntityManagerFactory emf;
     private final EntityManager em;
 
-    private ElementDAO(SessionFactory sf) {
+    public ElementDAO(SessionFactory sf) {
         super(Element.class, sf);
+        if (instance != null) {
+            throw new IllegalStateException("Already instantiated");
+        }
+
         emf = Persistence.createEntityManagerFactory("michele");
         em = emf.createEntityManager();
+
         instance = this;
     }
 
@@ -40,11 +46,13 @@ public final class ElementDAO extends DAO<Element> {
                 .getResultList();
     }
 
-    public void createElement(String name, Integer price, String description, User owner) {
+    public Element createElement(String name, Integer price, String description, User owner) {
         em.getTransaction().begin();
-        Element element = new Element(name, price, description, owner);
+        Element element = new Element(name, price, description, owner, null, null);
         em.persist(element);
         em.getTransaction().commit();
+
+        return element;
     }
 
     public List<Element> getAllElements() {
@@ -63,7 +71,7 @@ public final class ElementDAO extends DAO<Element> {
                 .getResultList();
     }
 
-
+    @SuppressWarnings("unchecked")
     public List<Element> search(String name, Date startDate, Date endDate, Integer rating) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Element> cr = cb.createQuery(Element.class);
@@ -71,6 +79,9 @@ public final class ElementDAO extends DAO<Element> {
         cr.select(root);
 
         List<Predicate> predicates = new ArrayList<>();
+
+        predicates.add(cb.notEqual(root.get("owner"), AuthService.getInstance().getCurrentUser()));
+
         if (name != null) {
             predicates.add(cb.or(
                     cb.like(root.get("name"), "%" + name + "%"),
@@ -110,17 +121,11 @@ public final class ElementDAO extends DAO<Element> {
             ratingSubquery.where(cb.equal(ratingRoot.get("item"), root));
 
             // Ajouter la condition pour inclure uniquement les éléments ayant une note moyenne supérieure
-            predicates.add(cb.greaterThanOrEqualTo(ratingSubquery, ratingSubquery));
-        }
-
-
-        if (predicates.isEmpty()) {
-            return getAllElements();
+            predicates.add(cb.greaterThanOrEqualTo(ratingSubquery, rating.doubleValue()));
         }
 
         cr.where(cb.and(predicates.toArray(new Predicate[0])));
         Query query = em.createQuery(cr);
-        //noinspection unchecked
         return query.getResultList();
     }
 

@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.controllers;
 
 import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
+import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import javafx.fxml.FXML;
@@ -9,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+@RequiresAuth
 public class AccountController {
 
     @FXML

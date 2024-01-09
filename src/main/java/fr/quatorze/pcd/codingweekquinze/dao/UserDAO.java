@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.dao;
 
+import fr.quatorze.pcd.codingweekquinze.model.Message;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -14,10 +15,15 @@ public final class UserDAO extends DAO<User> {
     private final EntityManager em;
     private static UserDAO instance;
 
-    private UserDAO(SessionFactory sf) {
+    public UserDAO(SessionFactory sf) {
         super(User.class, sf);
+        if (instance != null) {
+            throw new IllegalStateException("Already instantiated");
+        }
+
         emf = Persistence.createEntityManagerFactory("michele");
         em = emf.createEntityManager();
+
         instance = this;
     }
 
