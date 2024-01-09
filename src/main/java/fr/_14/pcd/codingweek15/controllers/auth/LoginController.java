@@ -1,4 +1,4 @@
-package fr._14.pcd.codingweek15.controllers;
+package fr._14.pcd.codingweek15.controllers.auth;
 
 import fr._14.pcd.codingweek15.layout.LayoutManager;
 import fr._14.pcd.codingweek15.service.AuthService;

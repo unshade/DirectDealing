@@ -24,4 +24,10 @@ module fr._14.pcd.codingweek15 {
     exports fr._14.pcd.codingweek15;
     exports fr._14.pcd.codingweek15.controllers;
     exports fr._14.pcd.codingweek15.model;
+    exports fr._14.pcd.codingweek15.controllers.auth;
+    opens fr._14.pcd.codingweek15.controllers.auth to javafx.fxml;
+    exports fr._14.pcd.codingweek15.controllers.borrow;
+    opens fr._14.pcd.codingweek15.controllers.borrow to javafx.fxml;
+    exports fr._14.pcd.codingweek15.controllers.loan;
+    opens fr._14.pcd.codingweek15.controllers.loan to javafx.fxml;
 }

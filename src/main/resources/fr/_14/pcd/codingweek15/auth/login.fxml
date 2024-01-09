@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="container" stylesheets="@../style/form_style.css" fx:controller="fr._14.pcd.codingweek15.controllers.LoginController">
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="container" stylesheets="@../style/form_style.css" fx:controller="fr._14.pcd.codingweek15.controllers.auth.LoginController">
         <Label text="Connexion" styleClass="h2"/>
         <TextField fx:id="email" promptText="email" styleClass="form-control"/>
         <PasswordField fx:id="password" promptText="Mot de passe" styleClass="form-control"/>

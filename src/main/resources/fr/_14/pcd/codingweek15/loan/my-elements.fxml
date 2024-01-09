@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="fr._14.pcd.codingweek15.controllers.MyElementsController"
+      fx:controller="fr._14.pcd.codingweek15.controllers.loan.MyElementsController"
       prefHeight="400.0" prefWidth="600.0" fx:id="root" styleClass="container">
     <Label text="Mes éléments" styleClass="h2"/>
     <HBox spacing="10" alignment="CENTER">

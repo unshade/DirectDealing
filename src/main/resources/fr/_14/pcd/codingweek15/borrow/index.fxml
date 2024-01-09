@@ -4,7 +4,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="container"
-      stylesheets="@../style/form_style.css" fx:controller="fr._14.pcd.codingweek15.controllers.MyAnnouncementsController">
+      stylesheets="@../style/form_style.css">
     <!-- Système d'onglets avec 2 onglets qui affiche la vue my-loans.fxml and my-elements.fxml -->
     <!-- Les onglets en haut de la page et en plus beau -->
     <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="tab-pane">

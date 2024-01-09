@@ -1,4 +1,4 @@
-package fr._14.pcd.codingweek15.controllers;
+package fr._14.pcd.codingweek15.controllers.borrow;
 
 import fr._14.pcd.codingweek15.dao.ElementDAO;
 import fr._14.pcd.codingweek15.layout.LayoutManager;
