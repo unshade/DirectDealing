@@ -1,8 +1,8 @@
 package fr._14.pcd.codingweek15.dao;
 
-import fr._14.pcd.codingweek15.model.Element;
 import fr._14.pcd.codingweek15.model.Loan;
 import fr._14.pcd.codingweek15.model.User;
+import fr._14.pcd.codingweek15.model.element.Element;
 import fr._14.pcd.codingweek15.util.HibernateUtil;
 import lombok.Data;
 import org.hibernate.SessionFactory;
