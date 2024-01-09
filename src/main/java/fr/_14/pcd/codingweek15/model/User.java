@@ -1,5 +1,7 @@
 package fr._14.pcd.codingweek15.model;
 
+import fr._14.pcd.codingweek15.dao.UserDAO;
+import fr._14.pcd.codingweek15.model.element.Element;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -40,6 +42,13 @@ public final class User {
         this.flow = flow;
         this.sleeping = sleeping;
         this.admin = admin;
+    }
+
+    public void pay(int amount, User receiver) {
+        this.flow -= amount;
+        receiver.setFlow(receiver.getFlow() + amount);
+        UserDAO.getInstance().update(this);
+        UserDAO.getInstance().update(receiver);
     }
 
     @Override

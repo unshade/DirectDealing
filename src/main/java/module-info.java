@@ -33,4 +33,6 @@ module fr._14.pcd.codingweek15 {
     opens fr._14.pcd.codingweek15.controllers.borrow to javafx.fxml;
     exports fr._14.pcd.codingweek15.controllers.loan;
     opens fr._14.pcd.codingweek15.controllers.loan to javafx.fxml;
+    exports fr._14.pcd.codingweek15.model.element;
+    opens fr._14.pcd.codingweek15.model.element to org.hibernate.orm.core;
 }

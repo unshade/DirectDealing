@@ -2,7 +2,7 @@
     <persistence-unit name="michele">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <class>fr._14.pcd.codingweek15.model.User</class>
-        <class>fr._14.pcd.codingweek15.model.Element</class>
+        <class>fr._14.pcd.codingweek15.model.element.Element</class>
         <class>fr._14.pcd.codingweek15.model.Loan</class>
         <class>fr._14.pcd.codingweek15.model.Message</class>
         <properties>

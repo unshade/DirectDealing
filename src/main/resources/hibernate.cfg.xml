@@ -12,7 +12,7 @@
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
         <mapping class="fr._14.pcd.codingweek15.model.User"/>
         <mapping class="fr._14.pcd.codingweek15.model.Loan"/>
-        <mapping class="fr._14.pcd.codingweek15.model.Element"/>
+        <mapping class="fr._14.pcd.codingweek15.model.element.Element"/>
         <mapping class="fr._14.pcd.codingweek15.model.Message"/>
     </session-factory>
 </hibernate-configuration>

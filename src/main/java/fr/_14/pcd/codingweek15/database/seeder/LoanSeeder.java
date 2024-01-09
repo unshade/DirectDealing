@@ -3,7 +3,7 @@ package fr._14.pcd.codingweek15.database.seeder;
 import fr._14.pcd.codingweek15.dao.ElementDAO;
 import fr._14.pcd.codingweek15.dao.LoanDAO;
 import fr._14.pcd.codingweek15.dao.UserDAO;
-import fr._14.pcd.codingweek15.model.Element;
+import fr._14.pcd.codingweek15.model.element.Element;
 import fr._14.pcd.codingweek15.model.User;
 
 import java.sql.Date;
