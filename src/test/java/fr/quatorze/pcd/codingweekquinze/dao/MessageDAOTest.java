@@ -1,8 +1,7 @@
 package fr.quatorze.pcd.codingweekquinze.dao;
 
-import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
-import fr.quatorze.pcd.codingweekquinze.dao.MessageDAO;
-import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
+
+import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.Message;
 import fr.quatorze.pcd.codingweekquinze.model.User;
@@ -15,6 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Date;
+import java.util.logging.Level;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,7 +23,10 @@ class MessageDAOTest {
 
     @BeforeAll
     static void setUp() {
-        // So that the database is recreated before each test
+
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
+        java.util.logging.Logger.getLogger("org.slf4j").setLevel(Level.OFF);
+
         Configuration configuration = new Configuration();
         configuration.configure();
         configuration.setProperty("hibernate.hbm2ddl.auto", "create-drop");
@@ -36,12 +39,36 @@ class MessageDAOTest {
     void saveMessage() {
         User sender = UserDAO.getInstance().createUser("John", "Doe", "", "", 0, false, false);
         User receiver = UserDAO.getInstance().createUser("Jane", "Doe", "", "", 0, false, false);
-        Loan loan = LoanDAO.getInstance().createLoan(new Date(), new Date(), null, sender);
+
+        Element element = ElementDAO.getInstance().createElement("Test", 12, "description", sender);
+
+        Loan loan = LoanDAO.getInstance().createLoan(new Date(), new Date(), element, sender);
         Message message = MessageDAO.getInstance().createMessage("Hello", sender, receiver, loan);
 
         Message fetchedMessage = MessageDAO.getInstance().getById(message.getId());
 
-        assertEquals(message, fetchedMessage);
+        assertEquals(message.getId(), fetchedMessage.getId());
+        assertEquals(message.getContent(), fetchedMessage.getContent());
+        assertEquals(message.getDate(), fetchedMessage.getDate());
+
+        // On récupère le loal et on test les égalités de propriétés
+        assertEquals(message.getLoan().getId(), fetchedMessage.getLoan().getId());
+        assertEquals(message.getLoan().getStartDate(), fetchedMessage.getLoan().getStartDate());
+        assertEquals(message.getLoan().getEndDate(), fetchedMessage.getLoan().getEndDate());
+        assertEquals(message.getLoan().getBorrower(), fetchedMessage.getLoan().getBorrower());
+        assertEquals(message.getLoan().getStatus(), fetchedMessage.getLoan().getStatus());
+        assertEquals(message.getLoan().getRating(), fetchedMessage.getLoan().getRating());
+
+        // On récupère l'élément et on test les égalités de propriétés
+        assertEquals(message.getLoan().getItem().getId(), fetchedMessage.getLoan().getItem().getId());
+        assertEquals(message.getLoan().getItem().getName(), fetchedMessage.getLoan().getItem().getName());
+        assertEquals(message.getLoan().getItem().getPrice(), fetchedMessage.getLoan().getItem().getPrice());
+        assertEquals(message.getLoan().getItem().getDescription(), fetchedMessage.getLoan().getItem().getDescription());
+        assertEquals(message.getLoan().getItem().getOwner(), fetchedMessage.getLoan().getItem().getOwner());
+
+        assertEquals(message.getSender(), fetchedMessage.getSender());
+        assertEquals(message.getReceiver(), fetchedMessage.getReceiver());
+
     }
 
     @Test
@@ -49,7 +76,8 @@ class MessageDAOTest {
     void search() {
         User sender = UserDAO.getInstance().createUser("John", "Doe", "", "", 0, false, false);
         User receiver = UserDAO.getInstance().createUser("Jane", "Doe", "", "", 0, false, false);
-        Loan loan = LoanDAO.getInstance().createLoan(new Date(), new Date(), null, sender);
+        Element element = ElementDAO.getInstance().createElement("Test", 12, "description", sender);
+        Loan loan = LoanDAO.getInstance().createLoan(new Date(), new Date(), element, sender);
         Message message = MessageDAO.getInstance().createMessage("Hello", sender, receiver, loan);
 
         var result1 = MessageDAO.getInstance().search(message);

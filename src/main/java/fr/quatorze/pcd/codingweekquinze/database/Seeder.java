@@ -9,9 +9,14 @@ import fr.quatorze.pcd.codingweekquinze.database.seeder.LoanSeeder;
 import fr.quatorze.pcd.codingweekquinze.database.seeder.MessageSeeder;
 import fr.quatorze.pcd.codingweekquinze.database.seeder.UserSeeder;
 
+import java.util.logging.Level;
+
 public class Seeder {
 
     public static void main(String[] args) {
+
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
+        java.util.logging.Logger.getLogger("org.slf4j").setLevel(Level.OFF);
 
         // Drop all tables
         UserDAO.getInstance().dropTable();

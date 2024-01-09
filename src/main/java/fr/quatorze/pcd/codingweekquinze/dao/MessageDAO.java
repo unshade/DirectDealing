@@ -51,7 +51,6 @@ public final class MessageDAO extends DAO<Message> {
         Root<Message> root = cr.from(Message.class);
         cr.select(root);
 
-        System.out.println("criteria: ");
         List<Predicate> predicates = new ArrayList<>();
         if (criteria.getId() != null) {
             predicates.add(cb.equal(root.get("id"), criteria.getId()));
