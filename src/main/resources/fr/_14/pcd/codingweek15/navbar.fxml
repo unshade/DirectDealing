@@ -4,11 +4,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.Separator?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:id="sidebar" styleClass="sidebar" fx:controller="fr._14.pcd.codingweek15.controllers.NavBarController" stylesheets="@style/navbar_style.css">
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="sidebar" fx:controller="fr._14.pcd.codingweek15.controllers.NavBarController" stylesheets="@style/navbar_style.css">
     <Label fx:id="announcements" text="Voir les annonces" graphicTextGap="10" contentDisplay="TOP">
         <graphic>
             <ImageView>
-                <Image url="@icon/shop-solid.png"/> <!-- Remplacez avec votre icône -->
+                <Image url="@icon/shop-solid.png"/>
             </ImageView>
         </graphic>
     </Label>
@@ -17,7 +17,7 @@
         <graphic>
             <ImageView>
 
-                <Image url="@icon/shop-solid.png" /> <!-- Remplacez avec votre icône -->
+                <Image url="@icon/shop-solid.png" />
             </ImageView>
         </graphic>
     </Label>
@@ -25,7 +25,7 @@
     <Label fx:id="myLoans" text="Mes emprunts" graphicTextGap="10" contentDisplay="TOP">
         <graphic>
             <ImageView>
-                <Image  url="@icon/shop-solid.png"/> <!-- Remplacez avec votre icône -->
+                <Image  url="@icon/shop-solid.png"/>
             </ImageView>
         </graphic>
     </Label>
@@ -33,7 +33,7 @@
     <Label fx:id="account" text="Mon profil" graphicTextGap="10" contentDisplay="TOP">
         <graphic>
             <ImageView>
-                <Image  url="@icon/shop-solid.png"/> <!-- Remplacez avec votre icône -->
+                <Image  url="@icon/user-solid.png"/>
             </ImageView>
         </graphic>
     </Label>
