@@ -10,7 +10,7 @@ import javafx.util.Callback;
 
 import java.util.List;
 
-public class SelectLoanController {
+public class SelectElementController {
 
     @FXML
     private ListView<Element> elements;

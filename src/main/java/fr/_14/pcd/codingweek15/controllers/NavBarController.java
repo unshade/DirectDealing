@@ -21,7 +21,7 @@ public class NavBarController {
     @FXML
     private void initialize() {
         announcements.setOnMouseClicked(event -> {
-            LayoutManager.setLayout("select-loan-view.fxml", "Annonces");
+            LayoutManager.setLayout("select-element-view.fxml", "Annonces");
         });
 
         myAnnouncements.setOnMouseClicked(event -> {
