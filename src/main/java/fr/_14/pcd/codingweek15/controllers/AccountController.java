@@ -77,7 +77,7 @@ public class AccountController {
     @FXML
     private void logout() {
         AuthService.getInstance().endSession();
-        LayoutManager.setLayout("login.fxml", "Login");
+        LayoutManager.setLayout("auth/login.fxml", "Login");
     }
 
 }

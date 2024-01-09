@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="@style/form_style.css" fx:controller="fr._14.pcd.codingweek15.controllers.RegisterController" styleClass="container">
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="@../style/form_style.css" fx:controller="fr._14.pcd.codingweek15.controllers.RegisterController" styleClass="container">
         <Label text="Inscription" styleClass="h2"/>
         <TextField fx:id="firstName" promptText="Prénom" styleClass="form-control"/>
         <TextField fx:id="lastName" promptText="Nom" styleClass="form-control"/>

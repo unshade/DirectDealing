@@ -90,6 +90,6 @@ public class MessageController {
     }
 
     public void back(MouseEvent mouseEvent) {
-        LayoutManager.setLayout("my_loans.fxml", "Mes emprunts");
+        LayoutManager.setLayout("loan/my_loans.fxml", "Mes emprunts");
     }
 }

@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Separator?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="sidebar" fx:controller="fr._14.pcd.codingweek15.controllers.NavBarController" stylesheets="@style/navbar_style.css">
-    <Label fx:id="announcements" text="Voir les annonces" graphicTextGap="10" contentDisplay="TOP">
+    <Label fx:id="borrow" text="Emprunter" graphicTextGap="10" contentDisplay="TOP">
         <graphic>
             <ImageView>
                 <Image url="@icon/shop-solid.png"/>
@@ -13,19 +13,11 @@
         </graphic>
     </Label>
     <Separator />
-    <Label fx:id="myAnnouncements" text="Mes annonces" graphicTextGap="10" contentDisplay="TOP">
+    <Label fx:id="loan" text="Prêter" graphicTextGap="10" contentDisplay="TOP">
         <graphic>
             <ImageView>
 
                 <Image url="@icon/shop-solid.png" />
-            </ImageView>
-        </graphic>
-    </Label>
-    <Separator />
-    <Label fx:id="myLoans" text="Mes emprunts" graphicTextGap="10" contentDisplay="TOP">
-        <graphic>
-            <ImageView>
-                <Image  url="@icon/shop-solid.png"/>
             </ImageView>
         </graphic>
     </Label>

@@ -10,7 +10,7 @@ public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         LayoutManager.init(stage);
-        LayoutManager.setLayout("login.fxml", "Loan View");
+        LayoutManager.setLayout("auth/login.fxml", "Loan View");
     }
 
     public static void main(String[] args) {

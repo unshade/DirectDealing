@@ -23,7 +23,7 @@ public class LoginController {
         }
 
         if (AuthService.getInstance().authenticate(enteredEmail, enteredPassword)) {
-            LayoutManager.setLayout("register.fxml", "login success");
+            LayoutManager.setLayout("auth/register.fxml", "login success");
             return;
         }
 
@@ -32,6 +32,6 @@ public class LoginController {
 
     @FXML
     private void register() {
-        LayoutManager.setLayout("register.fxml", "Register");
+        LayoutManager.setLayout("auth/register.fxml", "Register");
     }
 }

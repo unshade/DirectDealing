@@ -45,7 +45,7 @@ public class RegisterController {
         User user = UserDAO.getInstance().createUser(enteredFirstName, enteredLastName, enteredEmail, hashedPassword, 0, false, false);
 
         if (AuthService.getInstance().authenticate(user.getEmail(), enteredPassword)) {
-            LayoutManager.setLayout("login.fxml", "login");
+            LayoutManager.setLayout("auth/login.fxml", "login");
         } else {
             LayoutManager.alert("Erreur lors de l'authentification");
         }
@@ -53,6 +53,6 @@ public class RegisterController {
 
     @FXML
     private void login() {
-        LayoutManager.setLayout("login.fxml", "Login");
+        LayoutManager.setLayout("auth/login.fxml", "Login");
     }
 }

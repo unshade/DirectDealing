@@ -7,30 +7,24 @@ import javafx.scene.control.Label;
 public class NavBarController {
 
     @FXML
-    private Label announcements;
+    private Label borrow;
 
     @FXML
-    private Label myAnnouncements;
-
-    @FXML
-    private Label myLoans;
+    private Label loan;
 
     @FXML
     private Label account;
 
     @FXML
     private void initialize() {
-        announcements.setOnMouseClicked(event -> {
-            LayoutManager.setLayout("select-element-view.fxml", "Annonces");
+        borrow.setOnMouseClicked(event -> {
+            LayoutManager.setLayout("borrow/index.fxml", "Emprunt");
         });
 
-        myAnnouncements.setOnMouseClicked(event -> {
-            LayoutManager.setLayout("my-announcements.fxml", "Mes annonces");
+        loan.setOnMouseClicked(event -> {
+            LayoutManager.setLayout("loan/index.fxml", "Prêt");
         });
 
-        myLoans.setOnMouseClicked(event -> {
-            LayoutManager.setLayout("my_loans.fxml", "Mes emprunts");
-        });
 
         account.setOnMouseClicked(event -> {
             LayoutManager.setLayout("account.fxml", "Mon compte");
