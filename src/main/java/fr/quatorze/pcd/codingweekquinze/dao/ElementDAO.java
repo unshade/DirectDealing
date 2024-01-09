@@ -20,10 +20,15 @@ public final class ElementDAO extends DAO<Element> {
     private final EntityManagerFactory emf;
     private final EntityManager em;
 
-    private ElementDAO(SessionFactory sf) {
+    public ElementDAO(SessionFactory sf) {
         super(Element.class, sf);
+        if (instance != null) {
+            throw new IllegalStateException("Already instantiated");
+        }
+
         emf = Persistence.createEntityManagerFactory("michele");
         em = emf.createEntityManager();
+
         instance = this;
     }
 
@@ -40,11 +45,13 @@ public final class ElementDAO extends DAO<Element> {
                 .getResultList();
     }
 
-    public void createElement(String name, Integer price, String description, User owner) {
+    public Element createElement(String name, Integer price, String description, User owner) {
         em.getTransaction().begin();
         Element element = new Element(name, price, description, owner);
         em.persist(element);
         em.getTransaction().commit();
+
+        return element;
     }
 
     public List<Element> getAllElements() {
