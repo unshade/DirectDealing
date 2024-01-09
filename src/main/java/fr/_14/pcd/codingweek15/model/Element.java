@@ -44,6 +44,15 @@ public final class Element {
         ElementDAO.getInstance().update(this);
     }
 
+    public Integer getRating() {
+        Integer rating = 0;
+        for (Loan loan : this.loans) {
+            rating += loan.getRating();
+        }
+        rating /= this.loans.size();
+        return rating;
+    }
+
 
     public boolean isAvailable(Date startDate, Date endDate) {
         System.out.println("check : " + startDate + " " + endDate);
