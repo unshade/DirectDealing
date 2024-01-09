@@ -64,13 +64,6 @@ public final class ElementDAO extends DAO<Element> {
                 .getResultList();
     }
 
-    // On cherche les éléments de l'utilisateur et en cours de prêt
-    public List<Element> getElementsByOwnerAndBorrowing(User owner) {
-        return em.createQuery("SELECT u FROM Element u WHERE u.owner = :owner AND u.loans IS NOT EMPTY", Element.class)
-                .setParameter("owner", owner)
-                .getResultList();
-    }
-
     @Override
     public List<Element> search(Element criteria) {
         CriteriaBuilder cb = em.getCriteriaBuilder();

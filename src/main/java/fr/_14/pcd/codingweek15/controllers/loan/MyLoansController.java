@@ -1,8 +1,8 @@
 package fr._14.pcd.codingweek15.controllers.loan;
 
-import fr._14.pcd.codingweek15.dao.ElementDAO;
+import fr._14.pcd.codingweek15.dao.LoanDAO;
 import fr._14.pcd.codingweek15.layout.LayoutManager;
-import fr._14.pcd.codingweek15.model.Element;
+import fr._14.pcd.codingweek15.model.Loan;
 import fr._14.pcd.codingweek15.service.AuthService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -14,7 +14,7 @@ import java.util.List;
 public class MyLoansController {
 
     @FXML
-    private ListView<Element> elements;
+    private ListView<Loan> loans;
 
     @FXML
     private TextField searchBar;
@@ -33,26 +33,25 @@ public class MyLoansController {
     private void initialize() {
 
         // On cherche les éléments qui sont possédés par l'utilisateur connecté
-        List<Element> elements = ElementDAO.getInstance().getElementsByOwnerAndBorrowing(AuthService.getInstance().getCurrentUser());
-        this.elements.setItems(FXCollections.observableList(elements));
-        this.elements.setCellFactory(new Callback<ListView<Element>, ListCell<Element>>() {
+        List<Loan> loans = LoanDAO.getInstance().getLoansByUserAndBorrowing(AuthService.getInstance().getCurrentUser());
+        this.loans.setItems(FXCollections.observableList(loans));
+        this.loans.setCellFactory(new Callback<ListView<Loan>, ListCell<Loan>>() {
             @Override
-            public ListCell<Element> call(ListView<Element> listView) {
-                return new ListCell<Element>() {
+            public ListCell<Loan> call(ListView<Loan> listView) {
+                return new ListCell<Loan>() {
                     @Override
-                    protected void updateItem(Element element, boolean empty) {
-                        super.updateItem(element, empty);
-                        if (empty || element == null) {
+                    protected void updateItem(Loan loan, boolean empty) {
+                        super.updateItem(loan, empty);
+                        if (empty || loan == null) {
                             setText(null);
                             setOnMouseClicked(null);
                         } else {
-                            String content = "ID: " + element.getId() + ", Title: " + element.getName() +
-                                    ", Price: " + element.getPrice() + ", Description: " + element.getDescription();
+                            String content = "ID: " + loan.getId() + ", Title: " + loan.getItem().getName() +
+                                    ", Price: " + loan.getItem().getPrice() + ", Description: " + loan.getItem().getDescription() + ", Borrower: " + loan.getBorrower().getFirstName() + " " + loan.getBorrower().getLastName();
                             setText(content);
                             setOnMouseClicked(event -> {
                                 if (event.getClickCount() == 2 && (!isEmpty())) {
-                                    //LayoutManager.setLayout("index.fxml", "Loan", element);
-                                    System.out.println("Double clicked on " + element.getName());
+                                    LayoutManager.setLayout("message.fxml", "messages", AuthService.getInstance().getCurrentUser(), loan.getBorrower(), loan);
                                 }
                             });
                         }
@@ -60,25 +59,5 @@ public class MyLoansController {
                 };
             }
         });
-    }
-
-    @FXML
-    private void search() {
-        String search = searchBar.getText();
-        Element e;
-        List<Element> elements;
-
-        if (search.isEmpty()) {
-            search = null;
-        }
-
-        e = new Element(search, null, search, null);
-        elements = ElementDAO.getInstance().search(e);
-
-
-        if (elements.isEmpty()) {
-            LayoutManager.alert("No results found");
-        }
-        this.elements.setItems(FXCollections.observableList(elements));
     }
 }
