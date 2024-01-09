@@ -25,7 +25,7 @@ public class NavBarController {
         });
 
         myAnnouncements.setOnMouseClicked(event -> {
-            LayoutManager.setLayout("login.fxml", "Mes annonces");
+            LayoutManager.setLayout("my-announcements.fxml", "Mes annonces");
         });
 
         myLoans.setOnMouseClicked(event -> {

@@ -52,6 +52,12 @@ public final class ElementDAO extends DAO<Element> {
         em.getTransaction().commit();
     }
 
+    public List<Element> getElementsByOwner(User owner) {
+        return em.createQuery("SELECT u FROM Element u WHERE u.owner = :owner", Element.class)
+                .setParameter("owner", owner)
+                .getResultList();
+    }
+
     @Override
     public List<Element> search(Element criteria) {
         CriteriaBuilder cb = em.getCriteriaBuilder();

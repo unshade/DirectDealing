@@ -9,36 +9,49 @@
       styleClass="container">
     <GridPane VBox.vgrow="ALWAYS">
         <columnConstraints>
-            <!-- First Column with 30% width -->
             <ColumnConstraints percentWidth="15"/>
-            <!-- Second Column with 70% width -->
             <ColumnConstraints percentWidth="85"/>
         </columnConstraints>
         <rowConstraints>
             <RowConstraints percentHeight="100"/>
         </rowConstraints>
 
-        <!-- First Column Content -->
-        <Label text="Bonjour ça va ?" alignment="CENTER_LEFT" GridPane.columnIndex="0"/>
+        <VBox GridPane.columnIndex="0">
+            <Label text="Retour" onMouseClicked="#back"/>
+            <Label text="Destinataire"/>
+            <Label text="Prêt"/>
+        </VBox>
 
-        <!-- Second Column Content -->
-        <ScrollPane GridPane.columnIndex="1" VBox.vgrow="ALWAYS" fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER">
-            <VBox fx:id="vbox" styleClass="chatbox" stylesheets="@style/message.css">
-                <VBox.margin>
-                    <Insets top="10"/>
-                </VBox.margin>
-                <HBox>
-                    <Label text="Bonjour ça va ?" alignment="CENTER_LEFT"/>
-                </HBox>
-                <HBox>
-                    <Pane HBox.hgrow="ALWAYS"/>
-                    <Label text="Non pas vraiment" alignment="CENTER_RIGHT"/>
-                </HBox>
-                <HBox>
-                    <Label text="Oh non que se passe-t-il ? ygthjuzagytudhijagytvdhbajzidazugybh" alignment="CENTER_LEFT"/>
-                </HBox>
-            </VBox>
-        </ScrollPane>
+        <VBox GridPane.columnIndex="1">
+
+            <ScrollPane fx:id="scrollPane" GridPane.columnIndex="1" VBox.vgrow="ALWAYS" fitToWidth="true" fitToHeight="true"
+                        hbarPolicy="NEVER">
+                <VBox fx:id="vBox" styleClass="chatbox" stylesheets="@style/message_style.css">
+                    <VBox.margin>
+                        <Insets top="10"/>
+                    </VBox.margin>
+                    <HBox>
+                        <Label text="Bonjour ça va ?" alignment="CENTER_LEFT"/>
+                    </HBox>
+                    <HBox>
+                        <Pane HBox.hgrow="ALWAYS"/>
+                        <Label text="Non pas vraiment" alignment="CENTER_RIGHT"/>
+                    </HBox>
+                    <HBox>
+                        <Label text="Oh non que se passe-t-il ? ygthjuzagytudhijagytvdhbajzidazugybh"
+                               alignment="CENTER_LEFT"/>
+                    </HBox>
+
+                    <Pane VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </ScrollPane>
+            <HBox prefHeight="40" styleClass="send">
+                <TextArea fx:id="textArea" prefWidth="99999" promptText="Envoyer un message..." wrapText="true">
+
+                </TextArea>
+                <Button minWidth="80" prefHeight="40" text="Envoyer" onAction="#sendMessage"/>
+            </HBox>
+        </VBox>
     </GridPane>
 
     <VBox.margin>
