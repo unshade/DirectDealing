@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.controllers.borrow;
 
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
+import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
@@ -12,6 +13,7 @@ import javafx.scene.control.TextArea;
 
 import java.util.Date;
 
+@RequiresAuth
 public class CreateLoanController {
     private final Element element;
 

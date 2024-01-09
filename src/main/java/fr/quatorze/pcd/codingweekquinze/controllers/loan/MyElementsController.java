@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.controllers.loan;
 
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
+import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import javafx.collections.FXCollections;
@@ -11,6 +12,7 @@ import javafx.util.Callback;
 
 import java.util.List;
 
+@RequiresAuth
 public class MyElementsController {
 
     @FXML
