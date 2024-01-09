@@ -22,4 +22,6 @@ module fr._14.pcd.codingweek15 {
     opens fr._14.pcd.codingweek15 to javafx.fxml;
     opens fr._14.pcd.codingweek15.model to org.hibernate.orm.core;
     exports fr._14.pcd.codingweek15;
+    exports fr._14.pcd.codingweek15.controllers;
+    exports fr._14.pcd.codingweek15.model;
 }

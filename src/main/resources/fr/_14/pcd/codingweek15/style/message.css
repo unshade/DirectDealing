@@ -1,0 +1,15 @@
+.chatbox {
+    -fx-background-color: lightgray;
+}
+
+.label {
+    -fx-background-color: gray;
+    -fx-text-fill: white;
+    -fx-background-radius: 5px;
+    -fx-max-width: 180px;
+    -fx-wrap-text: true;
+
+    -fx-padding: 12px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
