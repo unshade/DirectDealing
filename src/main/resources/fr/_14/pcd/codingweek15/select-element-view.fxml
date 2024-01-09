@@ -13,7 +13,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="fr._14.pcd.codingweek15.controllers.SelectLoanController"
+      fx:controller="fr._14.pcd.codingweek15.controllers.SelectElementController"
       prefHeight="400.0" prefWidth="600.0" fx:id="root" styleClass="container">
     <Label text="Titre de la Page" styleClass="h2"/>
     <HBox spacing="10" alignment="CENTER">

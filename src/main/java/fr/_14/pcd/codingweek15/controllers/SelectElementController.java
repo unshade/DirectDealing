@@ -10,7 +10,7 @@ import javafx.util.Callback;
 
 import java.util.List;
 
-public class SelectLoanController {
+public class SelectElementController {
 
     @FXML
     private ListView<Element> elements;
@@ -49,8 +49,7 @@ public class SelectLoanController {
                             setText(content);
                             setOnMouseClicked(event -> {
                                 if (event.getClickCount() == 2 && (!isEmpty())) {
-                                    //LayoutManager.setLayout("loan.fxml", "Loan", element);
-                                    System.out.println("Double clicked on " + element.getName());
+                                    LayoutManager.setLayout("create_loan_view.fxml", "Loan", element);
                                 }
                             });
                         }
