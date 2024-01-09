@@ -39,7 +39,7 @@ public class CreateLoanController {
     @FXML
     private void initialize() {
         this.name.setText(this.element.getName());
-        this.description.setText(this.element.getLoans().size() + " loans");
+        this.description.setText(this.element.getDescription());
         this.price.setText(this.element.getPrice().toString());
     }
 
@@ -56,7 +56,7 @@ public class CreateLoanController {
         if (element.isAvailable(startDate, endDate)) {
             LoanDAO.getInstance().createLoan(startDate, endDate, element, user);
             LayoutManager.success("Loan created");
-            LayoutManager.setLayout("auth/login.fxml", "Home");
+            LayoutManager.setLayout("borrow/my-borrow.fxml", "Home");
 
         } else {
             LayoutManager.alert("This element is not available for the selected dates");
