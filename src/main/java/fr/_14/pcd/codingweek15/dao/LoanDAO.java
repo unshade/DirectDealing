@@ -35,6 +35,8 @@ public final class LoanDAO extends DAO<Loan> {
     public Loan createLoan(Date startDate, Date endDate, Element item, User borrower) {
         em.getTransaction().begin();
         Loan loan = new Loan(startDate, endDate, item, borrower);
+        item.getLoans().add(loan);
+
         em.persist(loan);
         em.getTransaction().commit();
         return loan;

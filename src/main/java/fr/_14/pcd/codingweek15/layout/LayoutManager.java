@@ -5,6 +5,7 @@ import fr._14.pcd.codingweek15.controllers.NavBarController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -41,8 +42,21 @@ public final class LayoutManager {
     }
 
     public static void alert(String message) {
-        System.out.println("Alert: " + message);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
+
+    public static void success(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Success");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
     public static void setLayout(String layout, String title, Object... payload) {
         currentLayout = layout;
@@ -72,4 +86,5 @@ public final class LayoutManager {
             throw new RuntimeException(e);
         }
     }
+
 }

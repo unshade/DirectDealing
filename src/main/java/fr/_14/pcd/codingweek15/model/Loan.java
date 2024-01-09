@@ -61,6 +61,9 @@ public final class Loan {
     }
 
     public boolean isOverlapping(Date startDate, Date endDate) {
+        if (this.startDate.equals(startDate) || this.endDate.equals(endDate)) {
+            return true;
+        }
         if (this.startDate.before(startDate) && this.endDate.after(startDate)) {
             return true;
         }

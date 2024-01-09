@@ -38,15 +38,17 @@ public final class Element {
         this.owner = owner;
     }
 
-    public void addLoan(Date startDate, Date endDate, User user) {
-        Loan loan = new Loan(startDate, endDate, this, user);
-        this.loans.add(loan);
-        LoanDAO.getInstance().create(loan);
+    public void addLoan(User user, Date startDate, Date endDate) {
+
+        Loan loan = LoanDAO.getInstance().createLoan(startDate, endDate, this, user);
         ElementDAO.getInstance().update(this);
     }
 
+
     public boolean isAvailable(Date startDate, Date endDate) {
+        System.out.println("check : " + startDate + " " + endDate);
         for (Loan loan : this.loans) {
+            System.out.println(loan.getStartDate() + " " + loan.getEndDate());
             if (loan.isOverlapping(startDate, endDate)) {
                 return false;
             }
