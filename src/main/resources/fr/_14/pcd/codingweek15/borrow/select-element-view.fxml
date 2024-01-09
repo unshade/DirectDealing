@@ -31,7 +31,6 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <Button text="Rechercher" onAction="#search"/>
     </HBox>
     <ListView fx:id="elements">
         <!-- Les éléments de la liste seront ajoutés ici -->

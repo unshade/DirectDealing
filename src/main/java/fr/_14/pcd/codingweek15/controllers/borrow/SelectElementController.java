@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 
+import java.util.Date;
 import java.util.List;
 
 public class SelectElementController {
@@ -31,6 +32,11 @@ public class SelectElementController {
 
     @FXML
     private void initialize() {
+
+        this.searchBar.textProperty().addListener((observable, oldValue, newValue) -> search());
+        this.startDate.valueProperty().addListener((observable, oldValue, newValue) -> search());
+        this.endDate.valueProperty().addListener((observable, oldValue, newValue) -> search());
+        this.rating.valueProperty().addListener((observable, oldValue, newValue) -> search());
 
         List<Element> elements = ElementDAO.getInstance().getAllElementExceptUser(AuthService.getInstance().getCurrentUser());
 
@@ -71,8 +77,28 @@ public class SelectElementController {
             search = null;
         }
 
-        e = new Element(search, null, search, null);
-        elements = ElementDAO.getInstance().search(e);
+        Date start;
+        Date end;
+
+        if (startDate.getValue() == null) {
+            start = null;
+        } else {
+            start = Date.from(startDate.getValue().atStartOfDay().toInstant(java.time.ZoneOffset.UTC));
+        }
+
+        if (endDate.getValue() == null) {
+            end = null;
+        } else {
+            end = Date.from(endDate.getValue().atStartOfDay().toInstant(java.time.ZoneOffset.UTC));
+        }
+
+        Integer rating = this.rating.getValue();
+
+        if (this.rating == null) {
+            rating = null;
+        }
+
+        elements = ElementDAO.getInstance().search(search, start, end, rating);
 
 
         if (elements.isEmpty()) {
