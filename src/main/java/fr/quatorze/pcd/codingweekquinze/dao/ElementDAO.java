@@ -2,7 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.dao;
 
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
-import fr.quatorze.pcd.codingweekquinze.model.element.Element;
+import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
 import org.hibernate.SessionFactory;
 
@@ -42,7 +42,7 @@ public final class ElementDAO extends DAO<Element> {
 
     public void createElement(String name, Integer price, String description, User owner) {
         em.getTransaction().begin();
-        Element element = new Element(name, price, description, owner);
+        Element element = new Element(name, price, description, owner, null, null);
         em.persist(element);
         em.getTransaction().commit();
     }

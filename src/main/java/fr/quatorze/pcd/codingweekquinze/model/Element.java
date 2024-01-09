@@ -1,14 +1,14 @@
-package fr.quatorze.pcd.codingweekquinze.model.element;
+package fr.quatorze.pcd.codingweekquinze.model;
 
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
-import fr.quatorze.pcd.codingweekquinze.model.Loan;
-import fr.quatorze.pcd.codingweekquinze.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +25,11 @@ public final class Element {
     private Integer price;
     private String description;
 
+    private LocalDate fromDate;
+    private LocalDate toDate;
+    private ChronoUnit chronoUnit;
+    private Integer period;
+
     @OneToMany(mappedBy = "item")
     private List<Loan> loans;
 
@@ -32,15 +37,20 @@ public final class Element {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    //@Lob
-    //private List<Availability> availabilities;
+    public Element(String name, Integer price, String description, User owner, LocalDate from, LocalDate to) {
+        this(name, price, description, owner, from, to, ChronoUnit.DAYS, 0);
+    }
 
-    public Element(String name, Integer price, String description, User owner) {
+    public Element(String name, Integer price, String description, User owner, LocalDate from, LocalDate to, ChronoUnit chronoUnit, int period) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.loans = new ArrayList<>();
         this.owner = owner;
+        this.fromDate = from;
+        this.toDate = to;
+        this.chronoUnit = chronoUnit;
+        this.period = period;
     }
 
     public void addLoan(User user, Date startDate, Date endDate) {

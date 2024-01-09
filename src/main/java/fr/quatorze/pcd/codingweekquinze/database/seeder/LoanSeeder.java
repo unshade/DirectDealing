@@ -3,7 +3,7 @@ package fr.quatorze.pcd.codingweekquinze.database.seeder;
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
-import fr.quatorze.pcd.codingweekquinze.model.element.Element;
+import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 
 import java.sql.Date;
