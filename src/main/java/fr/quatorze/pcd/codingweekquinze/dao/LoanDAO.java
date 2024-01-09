@@ -1,6 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.dao;
 
-import fr.quatorze.pcd.codingweekquinze.model.element.Element;
+import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;

@@ -2,7 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.controllers.borrow;
 
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
-import fr.quatorze.pcd.codingweekquinze.model.element.Element;
+import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
