@@ -36,6 +36,13 @@ public final class UserDAO extends DAO<User> {
         return user;
     }
 
+    public User updateUser(User user) {
+        em.getTransaction().begin();
+        em.merge(user);
+        em.getTransaction().commit();
+        return user;
+    }
+
     public List<User> getAllUsers() {
         return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="container" stylesheets="@style/form_style.css" fx:controller="fr._14.pcd.codingweek15.controllers.AccountController">
+    <!-- Mon compte -->
+    <Label text="Mon compte" styleClass="h2"/>
+    <Label fx:id="email" styleClass="form-control"/>
+    <Label text="Informations personnelles" styleClass="h2"/>
+    <TextField fx:id="firstName" styleClass="form-control"/>
+    <TextField fx:id="lastName" styleClass="form-control"/>
+    <Button text="Modifier" styleClass="btn-primary" onAction="#edit"/>
+    <Label fx:id="errorEdit" styleClass="error-message"/>
+    <!-- Changer de mot de passe -->
+    <Label text="Changer de mot de passe" styleClass="h2"/>
+    <PasswordField fx:id="oldPassword" promptText="Ancien mot de passe" styleClass="form-control"/>
+    <PasswordField fx:id="password" promptText="Mot de passe" styleClass="form-control"/>
+    <PasswordField fx:id="confirmPassword" promptText="Confirmer le mot de passe" styleClass="form-control"/>
+    <!-- Bouton pour changer de mot de passe -->
+    <Button text="Changer" styleClass="btn-primary" onAction="#submit"/>
+
+    <!-- Bouton pour se déconnecter -->
+    <Button text="Se déconnecter" styleClass="btn-primary" onAction="#logout"/>
+
+    <Label fx:id="errorMessage" styleClass="error-message"/>
+</VBox>
