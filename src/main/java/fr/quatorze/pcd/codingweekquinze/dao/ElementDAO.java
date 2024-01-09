@@ -63,7 +63,7 @@ public final class ElementDAO extends DAO<Element> {
                 .getResultList();
     }
 
-
+    @SuppressWarnings("unchecked")
     public List<Element> search(String name, Date startDate, Date endDate, Integer rating) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Element> cr = cb.createQuery(Element.class);
@@ -120,7 +120,6 @@ public final class ElementDAO extends DAO<Element> {
 
         cr.where(cb.and(predicates.toArray(new Predicate[0])));
         Query query = em.createQuery(cr);
-        //noinspection unchecked
         return query.getResultList();
     }
 

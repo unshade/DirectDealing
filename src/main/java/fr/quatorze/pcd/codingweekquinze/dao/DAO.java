@@ -72,7 +72,8 @@ public abstract class DAO<T> {
         return obj;
     }
 
-    public List getAll() {
+    @SuppressWarnings("unchecked")
+    public List<T> getAll() {
         return getSession().createQuery("from " +
                 modelClass.getName()).list();
     }
