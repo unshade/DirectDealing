@@ -15,7 +15,7 @@
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="fr._14.pcd.codingweek15.controllers.borrow.SelectElementController"
       prefHeight="400.0" prefWidth="600.0" fx:id="root" styleClass="container">
-    <Label text="Titre de la Page" styleClass="h2"/>
+    <Label text="Voir les annonces" styleClass="h2"/>
     <HBox spacing="10" alignment="CENTER">
         <TextField fx:id="searchBar" promptText="Rechercher un nom..."/>
         <DatePicker fx:id="startDate" promptText="Date de début"/>
