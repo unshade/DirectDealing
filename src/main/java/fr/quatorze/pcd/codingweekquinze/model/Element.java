@@ -6,12 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Setter
@@ -103,5 +110,18 @@ public final class Element {
             }
         }
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Element element = (Element) o;
+        return Objects.equals(id, element.id) && Objects.equals(name, element.name) && Objects.equals(price, element.price) && Objects.equals(description, element.description) && Objects.equals(fromDate, element.fromDate) && Objects.equals(toDate, element.toDate) && chronoUnit == element.chronoUnit && Objects.equals(period, element.period) && Objects.equals(owner, element.owner);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price, description, fromDate, toDate, chronoUnit, period, loans, owner);
     }
 }
