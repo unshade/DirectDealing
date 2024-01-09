@@ -1,19 +1,19 @@
 package fr._14.pcd.codingweek15.dao;
 
 import fr._14.pcd.codingweek15.model.Element;
+import fr._14.pcd.codingweek15.model.Loan;
 import fr._14.pcd.codingweek15.model.User;
 import fr._14.pcd.codingweek15.util.HibernateUtil;
+import lombok.Data;
 import org.hibernate.SessionFactory;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public final class ElementDAO extends DAO<Element> {
@@ -64,38 +64,69 @@ public final class ElementDAO extends DAO<Element> {
                 .getResultList();
     }
 
-    @Override
-    public List<Element> search(Element criteria) {
+
+    public List<Element> search(String name, Date startDate, Date endDate, Integer rating) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Element> cr = cb.createQuery(Element.class);
         Root<Element> root = cr.from(Element.class);
         cr.select(root);
 
         List<Predicate> predicates = new ArrayList<>();
-        if (criteria.getId() != null) {
-            predicates.add(cb.equal(root.get("id"), criteria.getId()));
+        if (name != null) {
+            predicates.add(cb.or(
+                    cb.like(root.get("name"), "%" + name + "%"),
+                    cb.like(root.get("description"), "%" + name + "%")
+            ));
         }
-        if (criteria.getName() != null) {
-            predicates.add(cb.like(root.get("name"), "%" + criteria.getName() + "%"));
+
+        if (startDate != null && endDate != null) {
+            // Sous-requête pour trouver les emprunts qui se chevauchent avec la période spécifiée
+            Subquery<Loan> loanSubquery = cr.subquery(Loan.class);
+            Root<Loan> loanRoot = loanSubquery.from(Loan.class);
+            loanSubquery.select(loanRoot);
+
+            // Condition pour vérifier le chevauchement
+            Predicate loanOverlap = cb.and(
+                    cb.lessThanOrEqualTo(loanRoot.get("startDate"), endDate),
+                    cb.greaterThanOrEqualTo(loanRoot.get("endDate"), startDate)
+            );
+
+            // Condition pour lier les emprunts à l'élément
+            loanSubquery.where(cb.and(
+                    loanOverlap,
+                    cb.equal(loanRoot.get("item"), root)
+            ));
+
+            // Ajouter la condition pour exclure les éléments ayant des emprunts qui se chevauchent
+            predicates.add(cb.not(cb.exists(loanSubquery)));
         }
-        if (criteria.getDescription() != null) {
-            predicates.add(cb.like(root.get("description"), "%" + criteria.getDescription() + "%"));
+
+        if (rating != null) {
+            // Sous-requête pour calculer la note moyenne des emprunts de chaque élément
+            Subquery<Double> ratingSubquery = cr.subquery(Double.class);
+            Root<Loan> ratingRoot = ratingSubquery.from(Loan.class);
+            ratingSubquery.select(cb.avg(ratingRoot.get("rating")));
+
+            // Condition pour lier les emprunts à l'élément
+            ratingSubquery.where(cb.equal(ratingRoot.get("item"), root));
+
+            // Ajouter la condition pour inclure uniquement les éléments ayant une note moyenne supérieure
+            predicates.add(cb.greaterThanOrEqualTo(ratingSubquery, ratingSubquery));
         }
-        if (criteria.getPrice() != null) {
-            predicates.add(cb.equal(root.get("price"), criteria.getPrice()));
-        }
+
 
         if (predicates.isEmpty()) {
             return getAllElements();
         }
 
-        Predicate orPredicate = cb.disjunction();
-        for (Predicate predicate : predicates) {
-            orPredicate = cb.or(orPredicate, predicate);
-        }
-        cr.where(orPredicate);
+        cr.where(cb.and(predicates.toArray(new Predicate[0])));
         Query query = em.createQuery(cr);
         //noinspection unchecked
         return query.getResultList();
+    }
+
+    @Override
+    public List<Element> search(Element criteria) {
+        return null;
     }
 }
