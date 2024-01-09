@@ -3,8 +3,9 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="container"
-      stylesheets="@../style/form_style.css">
+      stylesheets="@../style/form_style.css" fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.IndexController">
     <!-- Système d'onglets avec 2 onglets qui affiche la vue my-loans.fxml and my-elements.fxml -->
     <!-- Les onglets en haut de la page et en plus beau -->
     <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="tab-pane">
@@ -17,4 +18,5 @@
             </Tab>
         </tabs>
     </TabPane>
+    <Button text="Créer une annonce" styleClass="btn-primary" onAction="#createElement"/>
 </VBox>
