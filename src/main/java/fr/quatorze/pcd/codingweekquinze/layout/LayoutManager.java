@@ -3,6 +3,7 @@ package fr.quatorze.pcd.codingweekquinze.layout;
 import fr.quatorze.pcd.codingweekquinze.MainApplication;
 import fr.quatorze.pcd.codingweekquinze.controllers.NavBarController;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -66,8 +67,9 @@ public final class LayoutManager {
             try {
                 if (clazz.isAnnotationPresent(RequiresAuth.class)) {
                     if (!AuthService.getInstance().isAuthenticated()) {
-                        LayoutManager.setLayout("auth/login.fxml", "Login");
-                        LayoutManager.alert("Connectez-vous pour accéder à cette page");
+                        new Thread(() -> {
+                            Platform.runLater(() -> LayoutManager.setLayout("auth/login.fxml", "Loan View"));
+                        }).start();
                         return null;
                     }
                 }
