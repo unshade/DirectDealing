@@ -32,8 +32,8 @@ public final class Element {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @Lob
-    private List<Availability> availabilities;
+    //@Lob
+    //private List<Availability> availabilities;
 
     public Element(String name, Integer price, String description, User owner) {
         this.name = name;
