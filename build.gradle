@@ -51,6 +51,11 @@ dependencies {
     implementation 'commons-logging:commons-logging:1.3.0'
     implementation 'org.bouncycastle:bcprov-jdk18on:1.77'
 
+    implementation 'org.jfxtras:jmetro:11.6.15'
+    implementation 'org.kordamp.ikonli:ikonli-fontawesome-pack:12.3.1'
+    implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
+    implementation 'org.mnode.ical4j:ical4j:3.2.14'
+    implementation files('lib/view-11.12.6.jar')
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
@@ -62,7 +67,6 @@ extraJavaModuleInfo {
     module("at.favre.lib:bcrypt", "at.favre.lib.crypto.bcrypt") {
         exports("at.favre.lib.crypto.bcrypt")
     }
-
 }
 
 test {

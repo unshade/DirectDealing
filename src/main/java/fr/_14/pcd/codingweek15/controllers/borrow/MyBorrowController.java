@@ -16,16 +16,17 @@ import java.util.List;
 public class MyBorrowController {
     @FXML
     private ListView<Loan> borrows;
+
     @FXML
     private void initialize() {
         User user = AuthService.getInstance().getCurrentUser();
         List<Loan> loans = LoanDAO.getInstance().getAllLoansByUser(user);
 
         this.borrows.setItems(FXCollections.observableList(loans));
-        this.borrows.setCellFactory(new Callback<ListView<Loan>, ListCell<Loan>>() {
+        this.borrows.setCellFactory(new Callback<>() {
             @Override
             public ListCell<Loan> call(ListView<Loan> listView) {
-                return new ListCell<Loan>() {
+                return new ListCell<>() {
                     @Override
                     protected void updateItem(Loan loan, boolean empty) {
                         super.updateItem(loan, empty);

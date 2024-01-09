@@ -17,6 +17,9 @@ module fr._14.pcd.codingweek15 {
     requires spring.security.crypto;
     requires org.apache.commons.logging;
     requires org.bouncycastle.provider;
+    requires org.jfxtras.styles.jmetro;
+    requires com.calendarfx.view;
+    requires org.mnode.ical4j.core;
 
     opens fr._14.pcd.codingweek15.controllers to javafx.fxml;
     opens fr._14.pcd.codingweek15 to javafx.fxml;

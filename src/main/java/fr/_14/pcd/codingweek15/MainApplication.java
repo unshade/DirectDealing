@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class MainApplication extends Application {
     @Override
@@ -16,6 +17,8 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
+        Locale.setDefault(Locale.FRANCE);
+
         HibernateUtil.getSessionFactory();
         UserDAO.getInstance();
         launch();
