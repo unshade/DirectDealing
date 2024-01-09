@@ -5,13 +5,11 @@ import fr._14.pcd.codingweek15.layout.LayoutManager;
 import fr._14.pcd.codingweek15.model.Loan;
 import fr._14.pcd.codingweek15.model.Message;
 import fr._14.pcd.codingweek15.model.User;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -28,9 +26,9 @@ public class MessageController {
     @FXML
     private ScrollPane scrollPane;
 
-    private User currentUser;
-    private User otherUser;
-    private Loan loan;
+    private final User currentUser;
+    private final User otherUser;
+    private final Loan loan;
 
     public MessageController(User currentUser, User otherUser, Loan loan) {
         this.currentUser = currentUser;
@@ -74,12 +72,10 @@ public class MessageController {
 
         vBox.getChildren().add(vBox.getChildren().size() - 1, hBox);
 
-        new Thread(() -> {
-            scrollPane.setVvalue(1.0);
-        }).start();
+        new Thread(() -> scrollPane.setVvalue(1.0)).start();
     }
 
-    public void sendMessage(ActionEvent actionEvent) {
+    public void sendMessage() {
         String message = textArea.getText();
         if (message.isEmpty() || message.isBlank()) {
             return;
@@ -89,7 +85,7 @@ public class MessageController {
         addMessage(message, Pos.CENTER_RIGHT);
     }
 
-    public void back(MouseEvent mouseEvent) {
+    public void back() {
         LayoutManager.setLayout("loan/my_loans.fxml", "Mes emprunts");
     }
 }

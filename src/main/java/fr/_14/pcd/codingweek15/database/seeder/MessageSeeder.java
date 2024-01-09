@@ -3,9 +3,8 @@ package fr._14.pcd.codingweek15.database.seeder;
 import fr._14.pcd.codingweek15.dao.LoanDAO;
 import fr._14.pcd.codingweek15.dao.MessageDAO;
 import fr._14.pcd.codingweek15.dao.UserDAO;
-import fr._14.pcd.codingweek15.model.User;
 import fr._14.pcd.codingweek15.model.Loan;
-
+import fr._14.pcd.codingweek15.model.User;
 
 import java.util.List;
 

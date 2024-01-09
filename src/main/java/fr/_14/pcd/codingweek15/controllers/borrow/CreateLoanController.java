@@ -1,10 +1,8 @@
 package fr._14.pcd.codingweek15.controllers.borrow;
 
-import fr._14.pcd.codingweek15.dao.ElementDAO;
 import fr._14.pcd.codingweek15.dao.LoanDAO;
 import fr._14.pcd.codingweek15.layout.LayoutManager;
 import fr._14.pcd.codingweek15.model.Element;
-import fr._14.pcd.codingweek15.model.Loan;
 import fr._14.pcd.codingweek15.model.User;
 import fr._14.pcd.codingweek15.service.AuthService;
 import javafx.fxml.FXML;
@@ -15,7 +13,7 @@ import javafx.scene.control.TextArea;
 import java.util.Date;
 
 public class CreateLoanController {
-    private Element element;
+    private final Element element;
 
     @FXML
     private DatePicker startDate;

@@ -6,9 +6,9 @@ import fr._14.pcd.codingweek15.dao.UserDAO;
 import fr._14.pcd.codingweek15.model.Element;
 import fr._14.pcd.codingweek15.model.User;
 
-import java.util.ArrayList;
-import java.time.LocalDate;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 public class LoanSeeder {

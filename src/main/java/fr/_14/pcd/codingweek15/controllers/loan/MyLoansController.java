@@ -6,7 +6,8 @@ import fr._14.pcd.codingweek15.model.Loan;
 import fr._14.pcd.codingweek15.service.AuthService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.util.Callback;
 
 import java.util.List;
@@ -17,28 +18,15 @@ public class MyLoansController {
     private ListView<Loan> loans;
 
     @FXML
-    private TextField searchBar;
-
-    @FXML
-    private DatePicker startDate;
-
-    @FXML
-    private DatePicker endDate;
-
-    @FXML
-    private ComboBox<Integer> rating;
-
-
-    @FXML
     private void initialize() {
 
         // On cherche les éléments qui sont possédés par l'utilisateur connecté
         List<Loan> loans = LoanDAO.getInstance().getLoansByUserAndBorrowing(AuthService.getInstance().getCurrentUser());
         this.loans.setItems(FXCollections.observableList(loans));
-        this.loans.setCellFactory(new Callback<ListView<Loan>, ListCell<Loan>>() {
+        this.loans.setCellFactory(new Callback<>() {
             @Override
             public ListCell<Loan> call(ListView<Loan> listView) {
-                return new ListCell<Loan>() {
+                return new ListCell<>() {
                     @Override
                     protected void updateItem(Loan loan, boolean empty) {
                         super.updateItem(loan, empty);

@@ -58,12 +58,12 @@ public final class Message {
     @Override
     public String toString() {
         return "Message{" +
-               "id=" + id +
-               ", content='" + content + '\'' +
-               ", date=" + date +
-               ", loan=" + loan +
-               ", sender=" + sender +
-               ", receiver=" + receiver +
-               '}';
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", date=" + date +
+                ", loan=" + loan +
+                ", sender=" + sender +
+                ", receiver=" + receiver +
+                '}';
     }
 }
