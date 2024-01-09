@@ -23,7 +23,7 @@ public class LoginController {
         }
 
         if (AuthService.getInstance().authenticate(enteredEmail, enteredPassword)) {
-            LayoutManager.setLayout("auth/register.fxml", "login success");
+            LayoutManager.setLayout("borrow/index.fxml", "login success");
             return;
         }
 
