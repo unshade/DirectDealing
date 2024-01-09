@@ -1,12 +1,15 @@
 package fr.quatorze.pcd.codingweekquinze.controllers;
 
+import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.MessageDAO;
+import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.Message;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -34,6 +37,11 @@ public class MessageController {
     private Label endDate;
     @FXML
     private Label item;
+    @FXML
+    private VBox rightPart;
+    private Button acceptButton;
+    private Button cancelButton;
+    private Button finishButton;
 
     private User currentUser;
     private User otherUser;
@@ -70,6 +78,19 @@ public class MessageController {
         startDate.setText(loan.getStartDate().toString());
         endDate.setText(loan.getEndDate().toString());
         item.setText(loan.getItem().getName());
+
+        if (this.loan.getStatus() == 0) {
+            this.acceptButton = new Button("Accepter");
+            acceptButton.setOnAction(event -> accept());
+            rightPart.getChildren().add(acceptButton);
+            this.cancelButton = new Button("Annuler");
+            cancelButton.setOnAction(event -> cancel());
+            rightPart.getChildren().add(cancelButton);
+        } else if (this.loan.getStatus() == 1) {
+            this.finishButton = new Button("Terminer");
+            finishButton.setOnAction(event -> finish());
+            rightPart.getChildren().add(finishButton);
+        }
     }
 
     private void addMessage(String message, Pos pos) {
@@ -97,6 +118,37 @@ public class MessageController {
         MessageDAO.getInstance().createMessage(message, currentUser, otherUser, loan);
 
         addMessage(message, Pos.CENTER_RIGHT);
+    }
+
+    @FXML
+    private void accept() {
+        LoanDAO.getInstance().accept(loan);
+        acceptButton.setVisible(false);
+        cancelButton.setVisible(false);
+        this.finishButton = new Button("Terminer");
+        finishButton.setOnAction(event -> finish());
+        rightPart.getChildren().add(finishButton);
+    }
+
+    @FXML
+    public void cancel() {
+        LoanDAO.getInstance().cancel(loan);
+        acceptButton.setVisible(false);
+        cancelButton.setVisible(false);
+    }
+
+    @FXML
+    private void finish() {
+        LoanDAO.getInstance().endLoan(loan);
+        finishButton.setVisible(false);
+        User borrower = loan.getBorrower();
+        User owner = loan.getItem().getOwner();
+
+        UserDAO.getInstance().transferFunds(borrower, owner, loan.getItem().getPrice());
+//        borrower.setFlow(borrower.getFlow() - loan.getItem().getPrice());
+//        owner.setFlow(owner.getFlow() + loan.getItem().getPrice());
+//        UserDAO.getInstance().updateUser(borrower);
+        //UserDAO.getInstance().update(owner);
     }
 
     public void back() {

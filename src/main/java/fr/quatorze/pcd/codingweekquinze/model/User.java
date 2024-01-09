@@ -23,7 +23,7 @@ public final class User {
     private String email;
     private String password;
 
-    private int flow;
+    private int flow = 200;
 
     private boolean sleeping;
     private boolean admin;
@@ -57,6 +57,15 @@ public final class User {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
         return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", flow=" + flow +
+                '}';
     }
 
     @Override

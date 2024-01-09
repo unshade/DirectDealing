@@ -37,9 +37,13 @@ public class MyLoansController {
                             String content = "ID: " + loan.getId() + ", Title: " + loan.getItem().getName() +
                                     ", Price: " + loan.getItem().getPrice() + ", Description: " + loan.getItem().getDescription() + ", Borrower: " + loan.getBorrower().getFirstName() + " " + loan.getBorrower().getLastName();
                             setText(content);
+                            if (loan.getStatus() == 1) {
+                                setStyle("-fx-background-color: #00ff00");
+                            }
                             setOnMouseClicked(event -> {
                                 if (event.getClickCount() == 2 && (!isEmpty())) {
                                     LayoutManager.setLayout("message.fxml", "messages", AuthService.getInstance().getCurrentUser(), loan.getBorrower(), loan);
+
                                 }
                             });
                         }

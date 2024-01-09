@@ -21,6 +21,16 @@ public final class UserDAO extends DAO<User> {
         instance = this;
     }
 
+    public void transferFunds(User from, User to, int amount) {
+        System.out.println("Amount: " + amount);
+        System.out.println("transfering " + amount + " from " + from + " to " + to);
+        em.getTransaction().begin();
+        from.setFlow(from.getFlow() - amount);
+        to.setFlow(to.getFlow() + amount);
+        em.merge(from);
+        em.merge(to);
+        em.getTransaction().commit();
+    }
     public static UserDAO getInstance() {
         if (instance == null) {
             instance = new UserDAO(HibernateUtil.getSessionFactory());

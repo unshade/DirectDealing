@@ -16,7 +16,7 @@
             <RowConstraints percentHeight="100"/>
         </rowConstraints>
 
-        <VBox GridPane.columnIndex="0">
+        <VBox GridPane.columnIndex="0" fx:id="rightPart">
             <Label text="Propriétaire"/>
             <Label fx:id="owner"/>
             <Label text="Date de début"/>
