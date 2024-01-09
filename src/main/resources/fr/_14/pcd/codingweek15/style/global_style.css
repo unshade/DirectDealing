@@ -10,3 +10,13 @@
     -fx-font-size: 35px;
     -fx-text-fill: #333;
 }
+
+.link {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.link:hover {
+    -fx-text-fill: #666;
+    -fx-underline: true;
+}
