@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.logging.Level;
 
 public class MainApplication extends Application {
     @Override
@@ -17,8 +18,9 @@ public class MainApplication extends Application {
     }
 
     public static void main(String[] args) {
-        Locale.setDefault(Locale.FRANCE);
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(Level.SEVERE);
 
+        Locale.setDefault(Locale.FRANCE);
         HibernateUtil.getSessionFactory();
         UserDAO.getInstance();
         launch();
