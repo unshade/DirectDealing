@@ -38,6 +38,14 @@ public class MyBorrowController {
                             setText(content);
                             setOnMouseClicked(event -> {
                                 if (event.getClickCount() == 2 && (!isEmpty())) {
+                                    switch (loan.getStatus()) {
+                                        case 0:
+                                            LayoutManager.setLayout("accept-to-borrow.fxml", "Accept", loan.getBorrower(), loan.getItem().getOwner(), loan);
+                                            break;
+                                        case 1:
+                                            LayoutManager.setLayout("message.fxml", "messages", loan.getBorrower(), loan.getItem().getOwner(), loan);
+                                            break;
+                                    }
                                     LayoutManager.setLayout("message.fxml", "messages", loan.getBorrower(), loan.getItem().getOwner(), loan);
                                 }
                             });

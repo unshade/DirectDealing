@@ -1,5 +1,6 @@
 package fr._14.pcd.codingweek15.model;
 
+import fr._14.pcd.codingweek15.dao.LoanDAO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public final class Loan {
     @ColumnDefault("[]")
     private List<Message> messages;
 
+    private Integer status = 0; // 0 = pending, 1 = accepted, 2 = canceled, 3 = ended
     private Integer rating;
 
     public Loan(Date startDate, Date endDate, Element item, User borrower) {
@@ -45,6 +47,13 @@ public final class Loan {
         this.item = item;
         this.borrower = borrower;
         this.rating = null;
+    }
+
+    public void endLoan() {
+        // TODO to be tested
+        this.status = 3;
+        LoanDAO.getInstance().update(this);
+        this.borrower.pay(this.item.getPrice(), this.item.getOwner());
     }
 
     @Override
