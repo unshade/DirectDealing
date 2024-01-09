@@ -42,10 +42,17 @@ public class SelectLoanController {
                         super.updateItem(element, empty);
                         if (empty || element == null) {
                             setText(null);
+                            setOnMouseClicked(null);
                         } else {
                             String content = "ID: " + element.getId() + ", Title: " + element.getName() +
                                     ", Price: " + element.getPrice() + ", Description: " + element.getDescription();
                             setText(content);
+                            setOnMouseClicked(event -> {
+                                if (event.getClickCount() == 2 && (!isEmpty())) {
+                                    //LayoutManager.setLayout("loan.fxml", "Loan", element);
+                                    System.out.println("Double clicked on " + element.getName());
+                                }
+                            });
                         }
                     }
                 };
