@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 
+import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class SelectElementController {
     private DatePicker endDate;
 
     @FXML
-    private ComboBox<Integer> rating;
+    private ComboBox<String> rating;
 
 
     @FXML
@@ -37,6 +38,8 @@ public class SelectElementController {
         this.startDate.valueProperty().addListener((observable, oldValue, newValue) -> search());
         this.endDate.valueProperty().addListener((observable, oldValue, newValue) -> search());
         this.rating.valueProperty().addListener((observable, oldValue, newValue) -> search());
+
+        this.rating.setValue("Sélectionnez une note");
 
         List<Element> elements = ElementDAO.getInstance().getAllElementExceptUser(AuthService.getInstance().getCurrentUser());
 
@@ -69,41 +72,20 @@ public class SelectElementController {
 
     @FXML
     private void search() {
-        String search = searchBar.getText();
-        Element e;
-        List<Element> elements;
+        String search = searchBar.getText().isEmpty() ? null : searchBar.getText();
 
-        if (search.isEmpty()) {
-            search = null;
-        }
+        Date start = startDate.getValue() == null
+                ? null
+                : Date.from(startDate.getValue().atStartOfDay().toInstant(ZoneOffset.UTC));
 
-        Date start;
-        Date end;
+        Date end = endDate.getValue() == null
+                ? null
+                : Date.from(endDate.getValue().atStartOfDay().toInstant(ZoneOffset.UTC));
 
-        if (startDate.getValue() == null) {
-            start = null;
-        } else {
-            start = Date.from(startDate.getValue().atStartOfDay().toInstant(java.time.ZoneOffset.UTC));
-        }
+        Integer rating = this.rating.getValue() != null && !this.rating.getValue().equals("Sélectionnez une note")
+                ? Integer.parseInt(this.rating.getValue()) : null;
 
-        if (endDate.getValue() == null) {
-            end = null;
-        } else {
-            end = Date.from(endDate.getValue().atStartOfDay().toInstant(java.time.ZoneOffset.UTC));
-        }
-
-        Integer rating = this.rating.getValue();
-
-        if (this.rating == null) {
-            rating = null;
-        }
-
-        elements = ElementDAO.getInstance().search(search, start, end, rating);
-
-
-        if (elements.isEmpty()) {
-            LayoutManager.alert("No results found");
-        }
+        List<Element> elements = ElementDAO.getInstance().search(search, start, end, rating);
         this.elements.setItems(FXCollections.observableList(elements));
     }
 }
