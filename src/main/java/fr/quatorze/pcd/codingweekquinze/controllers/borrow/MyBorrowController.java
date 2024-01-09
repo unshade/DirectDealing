@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.controllers.borrow;
 
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
+import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
@@ -13,6 +14,7 @@ import javafx.util.Callback;
 
 import java.util.List;
 
+@RequiresAuth
 public class MyBorrowController {
     @FXML
     private ListView<Loan> borrows;

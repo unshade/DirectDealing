@@ -23,6 +23,7 @@
         <ComboBox fx:id="rating" promptText="Note">
             <items>
                 <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Sélectionnez une note"/>
                     <String fx:value="1"/>
                     <String fx:value="2"/>
                     <String fx:value="3"/>

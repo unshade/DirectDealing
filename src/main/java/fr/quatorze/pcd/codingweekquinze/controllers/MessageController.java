@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.controllers;
 
 import fr.quatorze.pcd.codingweekquinze.dao.MessageDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
+import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.Message;
 import fr.quatorze.pcd.codingweekquinze.model.User;
@@ -17,6 +18,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.List;
 
+@RequiresAuth
 public class MessageController {
 
     @FXML

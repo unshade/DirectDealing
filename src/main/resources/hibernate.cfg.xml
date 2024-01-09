@@ -12,7 +12,7 @@
         <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
         <mapping class="fr.quatorze.pcd.codingweekquinze.model.User"/>
         <mapping class="fr.quatorze.pcd.codingweekquinze.model.Loan"/>
-        <mapping class="fr.quatorze.pcd.codingweekquinze.model.element.Element"/>
+        <mapping class="fr.quatorze.pcd.codingweekquinze.model.Element"/>
         <mapping class="fr.quatorze.pcd.codingweekquinze.model.Message"/>
     </session-factory>
 </hibernate-configuration>

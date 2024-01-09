@@ -39,4 +39,7 @@ public class AuthService {
         return encoder.matches(enteredPassword, user.getPassword());
     }
 
+    public boolean isAuthenticated() {
+        return currentUser != null;
+    }
 }

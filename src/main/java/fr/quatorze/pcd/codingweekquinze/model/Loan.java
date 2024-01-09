@@ -1,6 +1,5 @@
 package fr.quatorze.pcd.codingweekquinze.model;
 
-import fr.quatorze.pcd.codingweekquinze.model.element.Element;
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

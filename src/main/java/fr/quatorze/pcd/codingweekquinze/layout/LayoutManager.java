@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.layout;
 
 import fr.quatorze.pcd.codingweekquinze.MainApplication;
 import fr.quatorze.pcd.codingweekquinze.controllers.NavBarController;
+import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -63,6 +64,14 @@ public final class LayoutManager {
         FXMLLoader loader = new FXMLLoader(MainApplication.class.getResource(layout));
         loader.setControllerFactory(clazz -> {
             try {
+                if (clazz.isAnnotationPresent(RequiresAuth.class)) {
+                    if (!AuthService.getInstance().isAuthenticated()) {
+                        LayoutManager.setLayout("auth/login.fxml", "Login");
+                        LayoutManager.alert("Connectez-vous pour accéder à cette page");
+                        return null;
+                    }
+                }
+
                 if (payload == null) {
                     return clazz.getConstructors()[0].newInstance();
                 } else {
@@ -80,9 +89,7 @@ public final class LayoutManager {
             pane.setCenter(scene);
 
             stage.setTitle(baseTitle);
-        } catch (IOException e) {
-            System.err.println("Error caca loading layout " + layout);
-            throw new RuntimeException(e);
+        } catch (IOException ignored) {
         }
     }
 

@@ -3,11 +3,13 @@ package fr.quatorze.pcd.codingweekquinze.controllers;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.view.CalendarView;
+import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 
 import java.time.LocalTime;
 
+@RequiresAuth
 public class PlanningController {
 
     @FXML

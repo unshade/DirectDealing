@@ -1,7 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.dao;
 
-import fr.quatorze.pcd.codingweekquinze.model.Message;
-import fr.quatorze.pcd.codingweekquinze.model.element.Element;
+import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
@@ -19,15 +18,10 @@ public final class LoanDAO extends DAO<Loan> {
     private final EntityManager em;
     private static LoanDAO instance;
 
-    public LoanDAO(SessionFactory sf) {
+    private LoanDAO(SessionFactory sf) {
         super(Loan.class, sf);
-        if (instance != null) {
-            throw new IllegalStateException("Already instantiated");
-        }
-
         emf = Persistence.createEntityManagerFactory("michele");
         em = emf.createEntityManager();
-
         instance = this;
     }
 
