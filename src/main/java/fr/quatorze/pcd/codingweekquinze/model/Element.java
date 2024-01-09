@@ -71,6 +71,31 @@ public final class Element {
 
     public boolean isAvailable(Date startDate, Date endDate) {
         System.out.println("check : " + startDate + " " + endDate);
+
+        if (period > 0) {
+            // We first get the nearest from date
+            LocalDate fromDate = this.fromDate;
+            while (fromDate.isBefore(LocalDate.now())) {
+                fromDate = fromDate.plus(period, chronoUnit);
+            }
+            fromDate = fromDate.minus(period, chronoUnit);
+
+            // We now get the nearest to date
+            long duration = ChronoUnit.DAYS.between(this.fromDate, this.toDate);
+            LocalDate toDate = fromDate.plus(duration, chronoUnit);
+
+            if (startDate.before(java.sql.Date.valueOf(fromDate)) || endDate.after(java.sql.Date.valueOf(toDate))) {
+                return false;
+            }
+        } else {
+            // The two dates must be between the from and to dates
+            if (this.fromDate != null && this.toDate != null) {
+                if (startDate.before(java.sql.Date.valueOf(this.fromDate)) || endDate.after(java.sql.Date.valueOf(this.toDate))) {
+                    return false;
+                }
+            }
+        }
+
         for (Loan loan : this.loans) {
             System.out.println(loan.getStartDate() + " " + loan.getEndDate());
             if (loan.isOverlapping(startDate, endDate)) {
