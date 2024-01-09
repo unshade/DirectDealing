@@ -1,7 +1,6 @@
 package fr._14.pcd.codingweek15.dao;
 
 import fr._14.pcd.codingweek15.model.Element;
-import fr._14.pcd.codingweek15.model.Message;
 import fr._14.pcd.codingweek15.model.User;
 import fr._14.pcd.codingweek15.util.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -60,27 +59,26 @@ public final class ElementDAO extends DAO<Element> {
         Root<Element> root = cr.from(Element.class);
         cr.select(root);
 
-        System.out.println("criteria: ");
         List<Predicate> predicates = new ArrayList<>();
         if (criteria.getId() != null) {
             predicates.add(cb.equal(root.get("id"), criteria.getId()));
         }
         if (criteria.getName() != null) {
-            predicates.add(cb.equal(root.get("name"), criteria.getName()));
+            predicates.add(cb.like(root.get("name"), "%" + criteria.getName() + "%"));
         }
         if (criteria.getDescription() != null) {
-            predicates.add(cb.equal(root.get("description"), criteria.getDescription()));
+            predicates.add(cb.like(root.get("description"), "%" + criteria.getDescription() + "%"));
         }
         if (criteria.getPrice() != null) {
             predicates.add(cb.equal(root.get("price"), criteria.getPrice()));
         }
+
         if (predicates.isEmpty()) {
             return getAllElements();
         }
 
         Predicate orPredicate = cb.disjunction();
         for (Predicate predicate : predicates) {
-            System.out.println("caca");
             orPredicate = cb.or(orPredicate, predicate);
         }
         cr.where(orPredicate);
