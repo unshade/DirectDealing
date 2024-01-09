@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="container" stylesheets="@../style/form_style.css" fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.auth.LoginController">
+        <Label text="Connexion" styleClass="h2"/>
+        <TextField fx:id="email" promptText="email" styleClass="form-control"/>
+        <PasswordField fx:id="password" promptText="Mot de passe" styleClass="form-control"/>
+        <Button text="Se connecter" styleClass="btn-primary" onAction="#submit"/>
+        <Label text="Pas encore inscrit ?" onMouseClicked="#register" styleClass="link"/>
+        <Label fx:id="errorMessage" styleClass="error-message"/>
+</VBox>

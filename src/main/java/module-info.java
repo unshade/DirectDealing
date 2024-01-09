@@ -1,4 +1,4 @@
-module fr._14.pcd.codingweek15 {
+module fr.quatorze.pcd.codingweekquinze {
     requires javafx.controls;
     requires javafx.fxml;
 
@@ -21,18 +21,18 @@ module fr._14.pcd.codingweek15 {
     requires com.calendarfx.view;
     requires org.mnode.ical4j.core;
 
-    opens fr._14.pcd.codingweek15.controllers to javafx.fxml;
-    opens fr._14.pcd.codingweek15 to javafx.fxml;
-    opens fr._14.pcd.codingweek15.model to org.hibernate.orm.core;
-    exports fr._14.pcd.codingweek15;
-    exports fr._14.pcd.codingweek15.controllers;
-    exports fr._14.pcd.codingweek15.model;
-    exports fr._14.pcd.codingweek15.controllers.auth;
-    opens fr._14.pcd.codingweek15.controllers.auth to javafx.fxml;
-    exports fr._14.pcd.codingweek15.controllers.borrow;
-    opens fr._14.pcd.codingweek15.controllers.borrow to javafx.fxml;
-    exports fr._14.pcd.codingweek15.controllers.loan;
-    opens fr._14.pcd.codingweek15.controllers.loan to javafx.fxml;
-    exports fr._14.pcd.codingweek15.model.element;
-    opens fr._14.pcd.codingweek15.model.element to org.hibernate.orm.core;
+    opens fr.quatorze.pcd.codingweekquinze.controllers to javafx.fxml;
+    opens fr.quatorze.pcd.codingweekquinze to javafx.fxml;
+    opens fr.quatorze.pcd.codingweekquinze.model to org.hibernate.orm.core;
+    exports fr.quatorze.pcd.codingweekquinze;
+    exports fr.quatorze.pcd.codingweekquinze.controllers;
+    exports fr.quatorze.pcd.codingweekquinze.model;
+    exports fr.quatorze.pcd.codingweekquinze.controllers.auth;
+    opens fr.quatorze.pcd.codingweekquinze.controllers.auth to javafx.fxml;
+    exports fr.quatorze.pcd.codingweekquinze.controllers.borrow;
+    opens fr.quatorze.pcd.codingweekquinze.controllers.borrow to javafx.fxml;
+    exports fr.quatorze.pcd.codingweekquinze.controllers.loan;
+    opens fr.quatorze.pcd.codingweekquinze.controllers.loan to javafx.fxml;
+    exports fr.quatorze.pcd.codingweekquinze.model.element;
+    opens fr.quatorze.pcd.codingweekquinze.model.element to org.hibernate.orm.core;
 }
