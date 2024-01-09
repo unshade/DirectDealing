@@ -8,6 +8,12 @@ import org.hibernate.SessionFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class ElementDAO extends DAO<Element> {
@@ -48,6 +54,36 @@ public final class ElementDAO extends DAO<Element> {
 
     @Override
     public List<Element> search(Element criteria) {
-        return null;
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Element> cr = cb.createQuery(Element.class);
+        Root<Element> root = cr.from(Element.class);
+        cr.select(root);
+
+        List<Predicate> predicates = new ArrayList<>();
+        if (criteria.getId() != null) {
+            predicates.add(cb.equal(root.get("id"), criteria.getId()));
+        }
+        if (criteria.getName() != null) {
+            predicates.add(cb.like(root.get("name"), "%" + criteria.getName() + "%"));
+        }
+        if (criteria.getDescription() != null) {
+            predicates.add(cb.like(root.get("description"), "%" + criteria.getDescription() + "%"));
+        }
+        if (criteria.getPrice() != null) {
+            predicates.add(cb.equal(root.get("price"), criteria.getPrice()));
+        }
+
+        if (predicates.isEmpty()) {
+            return getAllElements();
+        }
+
+        Predicate orPredicate = cb.disjunction();
+        for (Predicate predicate : predicates) {
+            orPredicate = cb.or(orPredicate, predicate);
+        }
+        cr.where(orPredicate);
+        Query query = em.createQuery(cr);
+        //noinspection unchecked
+        return query.getResultList();
     }
 }

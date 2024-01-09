@@ -1,16 +1,3 @@
-.container {
-    -fx-padding: 20px;
-    -fx-border-insets: 20px;
-    -fx-background-insets: 20px;
-    -fx-alignment: center;
-    -fx-spacing: 10px;
-}
-
-.h2 {
-    -fx-font-size: 35px;
-    -fx-text-fill: #333;
-}
-
 .form-control {
     -fx-max-width: 200px;
     -fx-pref-height: 30px;
