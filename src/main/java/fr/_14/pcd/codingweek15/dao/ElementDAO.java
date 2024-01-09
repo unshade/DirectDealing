@@ -1,6 +1,7 @@
 package fr._14.pcd.codingweek15.dao;
 
 import fr._14.pcd.codingweek15.model.Element;
+import fr._14.pcd.codingweek15.model.Message;
 import fr._14.pcd.codingweek15.model.User;
 import fr._14.pcd.codingweek15.util.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -8,6 +9,12 @@ import org.hibernate.SessionFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
 
 public final class ElementDAO extends DAO<Element> {
@@ -48,6 +55,28 @@ public final class ElementDAO extends DAO<Element> {
 
     @Override
     public List<Element> search(Element criteria) {
-        return null;
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Element> cr = cb.createQuery(Element.class);
+        Root<Element> root = cr.from(Element.class);
+        cr.select(root);
+
+        System.out.println("criteria: ");
+        List<Predicate> predicates = new ArrayList<>();
+        if (criteria.getId() != null) {
+            predicates.add(cb.equal(root.get("id"), criteria.getId()));
+        }
+        if (criteria.getName() != null) {
+            predicates.add(cb.equal(root.get("name"), criteria.getName()));
+        }
+        if (criteria.getDescription() != null) {
+            predicates.add(cb.equal(root.get("description"), criteria.getDescription()));
+        }
+        if (criteria.getPrice() != null) {
+            predicates.add(cb.equal(root.get("price"), criteria.getPrice()));
+        }
+        cr.where(predicates.toArray(new Predicate[0]));
+        Query query = em.createQuery(cr);
+        //noinspection unchecked
+        return query.getResultList();
     }
 }
