@@ -1,5 +1,6 @@
 package fr._14.pcd.codingweek15.model;
 
+import fr._14.pcd.codingweek15.model.element.Element;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

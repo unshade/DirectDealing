@@ -1,7 +1,9 @@
-package fr._14.pcd.codingweek15.model;
+package fr._14.pcd.codingweek15.model.element;
 
 import fr._14.pcd.codingweek15.dao.ElementDAO;
 import fr._14.pcd.codingweek15.dao.LoanDAO;
+import fr._14.pcd.codingweek15.model.Loan;
+import fr._14.pcd.codingweek15.model.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,6 +31,9 @@ public final class Element {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    @Lob
+    private List<Availability> availabilities;
 
     public Element(String name, Integer price, String description, User owner) {
         this.name = name;
