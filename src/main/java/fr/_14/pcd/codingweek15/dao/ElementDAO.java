@@ -35,6 +35,12 @@ public final class ElementDAO extends DAO<Element> {
         return instance;
     }
 
+    public List<Element> getAllElementExceptUser(User user) {
+        return em.createQuery("SELECT u FROM Element u WHERE u.owner != :user", Element.class)
+                .setParameter("user", user)
+                .getResultList();
+    }
+
     public void createElement(String name, Integer price, String description, User owner) {
         em.getTransaction().begin();
         Element element = new Element(name, price, description, owner);

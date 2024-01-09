@@ -3,6 +3,7 @@ package fr._14.pcd.codingweek15.controllers.borrow;
 import fr._14.pcd.codingweek15.dao.ElementDAO;
 import fr._14.pcd.codingweek15.layout.LayoutManager;
 import fr._14.pcd.codingweek15.model.Element;
+import fr._14.pcd.codingweek15.service.AuthService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -31,7 +32,8 @@ public class SelectElementController {
     @FXML
     private void initialize() {
 
-        List<Element> elements = ElementDAO.getInstance().getAllElements();
+        List<Element> elements = ElementDAO.getInstance().getAllElementExceptUser(AuthService.getInstance().getCurrentUser());
+
         this.elements.setItems(FXCollections.observableList(elements));
         this.elements.setCellFactory(new Callback<ListView<Element>, ListCell<Element>>() {
             @Override
