@@ -26,9 +26,18 @@ public class MessageController {
     @FXML
     private ScrollPane scrollPane;
 
-    private final User currentUser;
-    private final User otherUser;
-    private final Loan loan;
+    @FXML
+    private Label owner;
+    @FXML
+    private Label startDate;
+    @FXML
+    private Label endDate;
+    @FXML
+    private Label item;
+
+    private User currentUser;
+    private User otherUser;
+    private Loan loan;
 
     public MessageController(User currentUser, User otherUser, Loan loan) {
         this.currentUser = currentUser;
@@ -56,6 +65,11 @@ public class MessageController {
         for (Message message : messagesFrom2) {
             addMessage(message.getContent(), Pos.CENTER_LEFT);
         }
+
+        owner.setText(loan.getItem().getOwner().getFirstName() + " " + loan.getItem().getOwner().getLastName());
+        startDate.setText(loan.getStartDate().toString());
+        endDate.setText(loan.getEndDate().toString());
+        item.setText(loan.getItem().getName());
     }
 
     private void addMessage(String message, Pos pos) {

@@ -17,9 +17,14 @@
         </rowConstraints>
 
         <VBox GridPane.columnIndex="0">
-            <Label text="Retour" onMouseClicked="#back"/>
-            <Label text="Destinataire"/>
-            <Label text="Prêt"/>
+            <Label text="Propriétaire"/>
+            <Label fx:id="owner"/>
+            <Label text="Date de début"/>
+            <Label fx:id="startDate"/>
+            <Label text="Date de fin"/>
+            <Label fx:id="endDate"/>
+            <Label text="Item"/>
+            <Label fx:id="item"/>
         </VBox>
 
         <VBox GridPane.columnIndex="1">
@@ -38,7 +43,7 @@
                         <Label text="Non pas vraiment" alignment="CENTER_RIGHT"/>
                     </HBox>
                     <HBox>
-                        <Label text="Oh non que se passe-t-il ? ygthjuzagytudhijagytvdhbajzidazugybh"
+                        <Label text="Gros zizi ? ygthjuzagytudhijagytvdhbajzidazugybh"
                                alignment="CENTER_LEFT"/>
                     </HBox>
 

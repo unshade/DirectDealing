@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 public class NavBarController {
 
     @FXML
+    public Label planning;
+    @FXML
     private Label borrow;
 
     @FXML
@@ -25,6 +27,9 @@ public class NavBarController {
             LayoutManager.setLayout("loan/index.fxml", "Prêt");
         });
 
+        planning.setOnMouseClicked(event -> {
+            LayoutManager.setLayout("planning.fxml", "Planning");
+        });
 
         account.setOnMouseClicked(event -> {
             LayoutManager.setLayout("account.fxml", "Mon compte");
