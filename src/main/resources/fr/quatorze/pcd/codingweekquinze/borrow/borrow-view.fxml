@@ -8,7 +8,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.LoanController"
+            fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.BorrowController"
             prefHeight="400.0" prefWidth="600.0" fx:id="root" styleClass="container">
 
 
@@ -22,8 +22,8 @@
             </VBox>
 
             <HBox>
-                <Label text="Emprunté par : "/>
-                <Label fx:id="borrower"/>
+                <Label text="Propriétaire : "/>
+                <Label fx:id="owner"/>
             </HBox>
             <HBox>
                 <Label text="Durée : de "/>

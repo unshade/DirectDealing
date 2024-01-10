@@ -6,10 +6,17 @@
     -fx-spacing: 10px;
 }
 
+.label {
+    -fx-font-size: 17px;
+    -fx-text-fill: #333;
+
+}
+
 .h2 {
     -fx-font-size: 35px;
     -fx-text-fill: #333;
 }
+
 
 .link {
     -fx-font-size: 14px;

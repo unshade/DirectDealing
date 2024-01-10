@@ -56,7 +56,7 @@ public class CreateLoanController {
         if (element.isAvailable(startDate, endDate)) {
             LoanDAO.getInstance().createLoan(startDate, endDate, element, user);
             LayoutManager.success("Loan created");
-            LayoutManager.setLayout("borrow/my-borrow.fxml", "Home");
+            LayoutManager.setLayout("borrow/my-borrows.fxml", "Home");
 
         } else {
             LayoutManager.alert("This element is not available for the selected dates");

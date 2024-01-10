@@ -12,7 +12,7 @@
             <fx:include source="select-element-view.fxml"/>
         </Tab>
         <Tab text="Mes emprunts">
-            <fx:include source="my-borrow.fxml"/>
+            <fx:include source="my-borrows.fxml"/>
         </Tab>
     </TabPane>
 </VBox>

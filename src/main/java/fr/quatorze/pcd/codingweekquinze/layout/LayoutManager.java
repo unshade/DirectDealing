@@ -91,6 +91,7 @@ public final class LayoutManager {
 
             stage.setTitle(baseTitle);
         } catch (IOException ignored) {
+            ignored.printStackTrace();
         }
     }
 

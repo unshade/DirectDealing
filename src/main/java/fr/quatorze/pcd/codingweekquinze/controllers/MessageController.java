@@ -7,6 +7,7 @@ import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.Message;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -80,7 +81,9 @@ public class MessageController {
         hBox.setAlignment(pos);
         textArea.clear();
         vBox.getChildren().add(vBox.getChildren().size() - 1, hBox);
-        new Thread(() -> scrollPane.setVvalue(1.0)).start();
+        Platform.runLater(() -> {
+            scrollPane.setVvalue(1.0);
+        });
     }
 
     public void sendMessage() {

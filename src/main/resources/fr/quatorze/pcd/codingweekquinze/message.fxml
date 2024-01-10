@@ -8,7 +8,6 @@
       fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.MessageController"
       styleClass="container">
 
-
             <ScrollPane fx:id="scrollPane" VBox.vgrow="ALWAYS" fitToWidth="true" fitToHeight="true"
                         hbarPolicy="NEVER">
                 <VBox fx:id="vBox" styleClass="chatbox" stylesheets="@style/message_style.css">
@@ -31,7 +30,7 @@
                 </VBox>
             </ScrollPane>
             <HBox prefHeight="40" styleClass="send">
-                <TextArea fx:id="textArea" prefWidth="99999" promptText="Envoyer un message..." wrapText="true">
+                <TextArea fx:id="textArea" promptText="Envoyer un message..." wrapText="true">
 
                 </TextArea>
                 <Button minWidth="80" prefHeight="40" text="Envoyer" onAction="#sendMessage"/>

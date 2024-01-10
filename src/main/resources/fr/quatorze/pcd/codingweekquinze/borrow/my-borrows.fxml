@@ -8,7 +8,7 @@
 
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.MyBorrowController"
+      fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.MyBorrowsController"
       prefHeight="400.0" prefWidth="600.0" styleClass="container">
     <Label text="Mes emprunts" styleClass="h2"/>
 

@@ -15,7 +15,7 @@ import javafx.util.Callback;
 import java.util.List;
 
 @RequiresAuth
-public class MyBorrowController {
+public class MyBorrowsController {
     @FXML
     private ListView<Loan> borrows;
 
@@ -40,7 +40,7 @@ public class MyBorrowController {
                             setText(content);
                             setOnMouseClicked(event -> {
                                 if (event.getClickCount() == 2 && (!isEmpty())) {
-                                    LayoutManager.setLayout("message.fxml", "messages", loan.getBorrower(), loan.getItem().getOwner(), loan);
+                                    LayoutManager.setLayout("borrow/borrow-view.fxml", "Borrow", loan);
                                 }
                             });
                         }

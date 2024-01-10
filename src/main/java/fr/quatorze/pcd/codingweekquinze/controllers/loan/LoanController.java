@@ -54,7 +54,7 @@ public class LoanController {
         this.itemType.setText("Type : " + "Matériel");
         this.itemPrice.setText("Prix : " + loan.getItem().getPrice() + "€");
         this.itemName.setText("Nom : " + loan.getItem().getName());
-        this.borrower.setText(loan.getItem().getOwner().getFirstName() + " " + loan.getItem().getOwner().getLastName());
+        this.borrower.setText(loan.getBorrower().getFirstName() + " " + loan.getBorrower().getLastName());
         this.startDate.setText(loan.getStartDate().toString());
         this.endDate.setText(loan.getEndDate().toString());
 
