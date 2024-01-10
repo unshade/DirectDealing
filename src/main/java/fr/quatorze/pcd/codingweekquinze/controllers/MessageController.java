@@ -39,7 +39,7 @@ public class MessageController {
 
     public MessageController(Loan loan) {
         this.currentUser = AuthService.getInstance().getCurrentUser();
-        if (currentUser == loan.getItem().getOwner()) {
+        if (currentUser.equals(loan.getItem().getOwner())) {
             this.otherUser = loan.getBorrower();
         } else {
             this.otherUser = loan.getItem().getOwner();

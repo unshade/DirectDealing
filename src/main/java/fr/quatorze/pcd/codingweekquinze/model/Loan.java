@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.model;
 
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.MessageDAO;
+import fr.quatorze.pcd.codingweekquinze.enums.LoanStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -39,7 +40,7 @@ public final class Loan {
     @ColumnDefault("[]")
     private List<Message> messages;
 
-    private Integer status = 0; // 0 = pending, 1 = accepted, 2 = canceled, 3 = ended
+    private Integer status = LoanStatus.PENDING.ordinal();
     private Integer rating;
 
     public Loan(Date startDate, Date endDate, Element item, User borrower) {
@@ -68,6 +69,15 @@ public final class Loan {
         if (o == null || getClass() != o.getClass()) return false;
         Loan loan = (Loan) o;
         return Objects.equals(id, loan.id) && Objects.equals(startDate, loan.startDate) && Objects.equals(endDate, loan.endDate) && Objects.equals(item, loan.item) && Objects.equals(borrower, loan.borrower) && Objects.equals(rating, loan.rating);
+    }
+
+    @Override
+    public String toString() {
+        return "Loan{" +
+                "id=" + id +
+                ", borrower=" + borrower +
+                ", itemOwner=" + item.getOwner() +
+                '}';
     }
 
     @Override

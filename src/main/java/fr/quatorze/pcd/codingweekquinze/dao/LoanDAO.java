@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.dao;
 
+import fr.quatorze.pcd.codingweekquinze.enums.LoanStatus;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
@@ -34,21 +35,21 @@ public final class LoanDAO extends DAO<Loan> {
 
     public void endLoan(Loan loan) {
         em.getTransaction().begin();
-        loan.setStatus(3);
+        loan.setStatus(LoanStatus.ENDED.ordinal());
         em.merge(loan);
         em.getTransaction().commit();
     }
 
     public void accept(Loan loan) {
         em.getTransaction().begin();
-        loan.setStatus(1);
+        loan.setStatus(LoanStatus.ACCEPTED.ordinal());
         em.merge(loan);
         em.getTransaction().commit();
     }
 
     public void cancel(Loan loan) {
         em.getTransaction().begin();
-        loan.setStatus(2);
+        loan.setStatus(LoanStatus.CANCELED.ordinal());
         em.merge(loan);
         em.getTransaction().commit();
     }

@@ -82,6 +82,7 @@ public class LoanController {
         acceptButton.setVisible(false);
         cancelButton.setVisible(false);
         this.finishButton = new Button("Terminer");
+        finishButton.getStyleClass().add("btn-primary");
         finishButton.setOnAction(event -> finish());
         actionSection.getChildren().add(0, finishButton);
     }
