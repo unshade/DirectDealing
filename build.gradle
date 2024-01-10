@@ -18,6 +18,12 @@ ext {
     junitVersion = '5.10.0'
 }
 
+tasks.register('seedDatabase', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    group = 'application'
+    mainClass = 'fr.quatorze.pcd.codingweekquinze.database.Seeder'
+}
+
 sourceCompatibility = '17'
 targetCompatibility = '17'
 
