@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.model;
 
+import com.calendarfx.model.Calendar;
 import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,11 @@ public final class User {
 
     @OneToMany(mappedBy = "borrower")
     private List<Loan> borrowedLoans;
+
+    @Transient
+    private Calendar<?> loansCalendar;
+    @Transient
+    private Calendar<?> myElementsCalendar;
 
     public User(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
         this.firstName = firstName;

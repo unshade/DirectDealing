@@ -1,9 +1,10 @@
 package fr.quatorze.pcd.codingweekquinze.controllers;
 
-import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.view.CalendarView;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
+import fr.quatorze.pcd.codingweekquinze.model.User;
+import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 
@@ -19,14 +20,10 @@ public class PlanningController {
     public void initialize() {
         CalendarView calendarView = new CalendarView();
 
-        Calendar birthdays = new Calendar("Mes emprunts");
-        Calendar holidays = new Calendar("Mes prêts et services");
-
-        birthdays.setStyle(Calendar.Style.STYLE1);
-        holidays.setStyle(Calendar.Style.STYLE2);
+        User user = AuthService.getInstance().getCurrentUser();
 
         CalendarSource myCalendarSource = new CalendarSource("Mes calendriers");
-        myCalendarSource.getCalendars().addAll(birthdays, holidays);
+        myCalendarSource.getCalendars().addAll(user.getLoansCalendar(), user.getMyElementsCalendar());
 
         calendarView.getCalendarSources().addAll(myCalendarSource);
 
