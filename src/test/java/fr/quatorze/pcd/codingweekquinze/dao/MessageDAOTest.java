@@ -6,11 +6,7 @@ import fr.quatorze.pcd.codingweekquinze.model.Message;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
 import org.hibernate.cfg.Configuration;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 
 import java.util.Date;
 import java.util.logging.Level;
@@ -18,6 +14,7 @@ import java.util.logging.Level;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@Order(1)
 class MessageDAOTest {
 
     @BeforeAll
@@ -49,8 +46,8 @@ class MessageDAOTest {
     @Test
     @Order(2)
     void search() {
-        User sender = UserDAO.getInstance().createUser("John", "Doe", "", "", 0, false, false);
-        User receiver = UserDAO.getInstance().createUser("Jane", "Doe", "", "", 0, false, false);
+        User sender = UserDAO.getInstance().getUserByName("John", "Doe");
+        User receiver = UserDAO.getInstance().getUserByName("Jane", "Doe");
         Element element = ElementDAO.getInstance().createElement("Test", 0, "", sender);
         Loan loan = LoanDAO.getInstance().createLoan(new Date(), new Date(), element, sender);
         Message message = MessageDAO.getInstance().createMessage("Hello", sender, receiver, loan);

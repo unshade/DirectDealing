@@ -35,7 +35,6 @@ public class LoanSeeder {
         loanDAO.addRating(loanDAO.getAllLoans().get(2), 3);
         loanDAO.addRating(loanDAO.getAllLoans().get(3), 2);
         loanDAO.addRating(loanDAO.getAllLoans().get(4), 1);
-
     }
 
 }
