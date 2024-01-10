@@ -25,11 +25,9 @@ import java.util.*;
 @RequiresAuth
 public class CreateElementController {
     @FXML
-    private ListView periodList;
+    private ListView<Availability> periodList;
     @FXML
     private CheckBox serviceBox;
-    @FXML
-    private Label periodLabel;
     @FXML
     private TextField name;
 
@@ -58,7 +56,6 @@ public class CreateElementController {
 
     private final List<Availability> availability = new ArrayList<>();
 
-    @SuppressWarnings("unchecked")
     @FXML
     private void initialize() {
 
@@ -99,8 +96,8 @@ public class CreateElementController {
                 };
             }
         });
-        period.setValue("none");
-        updateViewBasedOnPeriod("none");
+        period.setValue("Aucune");
+        updateViewBasedOnPeriod("Aucune");
     }
 
     private void setupFilter(TextField field) {
@@ -131,15 +128,15 @@ public class CreateElementController {
         startDatePicker = new DatePicker();
         endDatePicker = new DatePicker();
         switch (period) {
-            case "week":
+            case "Semaine":
                 setupPeriod("Nombre de semaines:", "Nombre de semaines", gridPane);
                 chronoUnit = ChronoUnit.WEEKS;
                 break;
-            case "month":
+            case "Mois":
                 setupPeriod("Nombre de mois:", "Nombre de mois", gridPane);
                 chronoUnit = ChronoUnit.MONTHS;
                 break;
-            case "year":
+            case "Année":
                 setupPeriod("Nombre d'années:", "Nombre d'années", gridPane);
                 chronoUnit = ChronoUnit.YEARS;
                 break;
@@ -160,11 +157,10 @@ public class CreateElementController {
         updateViewBasedOnPeriod(selectedPeriod);
     }
 
-    @SuppressWarnings("unchecked")
     @FXML
     private void handleAddPeriod() {
         String value = field.getText();
-        if (!Objects.equals(period.getValue(), "none") && value.isEmpty()) {
+        if (!Objects.equals(period.getValue(), "Aucune") && value.isEmpty()) {
             LayoutManager.alert("Veuillez entrer une valeur");
             return;
         }

@@ -50,9 +50,9 @@ public final class Availability {
     @Override
     public String toString() {
         return switch (chronoUnit) {
-            case WEEKS -> "Du " + fromDate + " au " + toDate + " toutes les " + period + " semaines";
-            case MONTHS -> "Du " + fromDate + " au " + toDate + " tous les " + period + " mois";
-            case YEARS -> "Du " + fromDate + " au " + toDate + " tous les " + period + " ans";
+            case WEEKS -> "Du " + fromDate + " au " + toDate + " toutes les semaines pendant " + period + " semaines";
+            case MONTHS -> "Du " + fromDate + " au " + toDate + " tous les mois pendant " + period + " mois";
+            case YEARS -> "Du " + fromDate + " au " + toDate + " tous les ans pendant " + period + " ans";
             default -> "Du " + fromDate + " au " + toDate;
         };
     }
