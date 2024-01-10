@@ -68,6 +68,7 @@ public final class Element {
 
     public boolean isAvailable(Date startDate, Date endDate) {
         System.out.println("check : " + startDate + " " + endDate);
+        if (owner.isSleeping()) return false;
 
         for (Availability availability : availabilities) {
             ChronoUnit chronoUnit = availability.getChronoUnit();

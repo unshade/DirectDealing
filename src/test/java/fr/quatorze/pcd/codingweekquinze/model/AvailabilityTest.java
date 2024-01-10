@@ -37,5 +37,9 @@ public class AvailabilityTest {
         // Check overlaps
         Assertions.assertTrue(element.isAvailable(LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusMinutes(2)));
         Assertions.assertFalse(element.isAvailable(LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusDays(2)));
+
+        // Sleep
+        sender.setSleeping(true);
+        Assertions.assertFalse(element.isAvailable(LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusDays(2)));
     }
 }
