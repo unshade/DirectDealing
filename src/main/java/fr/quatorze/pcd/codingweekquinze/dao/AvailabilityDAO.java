@@ -47,6 +47,16 @@ public final class AvailabilityDAO extends DAO<Availability> {
         return availability;
     }
 
+    public Availability createAvailability(Availability availability) {
+        em.getTransaction().begin();
+        em.persist(availability);
+        em.getTransaction().commit();
+
+        ElementDAO.getInstance().refresh(availability.getElement());
+
+        return availability;
+    }
+
     public List<Availability> getAllAvailabilities() {
         return em.createQuery("SELECT u FROM Availability u", Availability.class)
                 .getResultList();
