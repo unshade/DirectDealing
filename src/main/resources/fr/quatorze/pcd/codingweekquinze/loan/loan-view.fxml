@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.LoanController"
+            prefHeight="400.0" prefWidth="600.0" fx:id="root">
+
+
+    <center>
+        <VBox>
+            <Label fx:id="title" styleClass="h2"/>
+            <VBox>
+                <Label fx:id="itemType"/>
+                <Label fx:id="itemName"/>
+                <Label fx:id="itemPrice"/>
+            </VBox>
+
+            <HBox>
+                <Label text="Emprunté par : "/>
+                <Label fx:id="borrower"/>
+            </HBox>
+            <HBox>
+                <Label text="Durée : de "/>
+                <Label fx:id="startDate"/>
+                <Label text=" à "/>
+                <Label fx:id="endDate"/>
+            </HBox>
+            <HBox fx:id="actionSection">
+            </HBox>
+
+        </VBox>
+
+    </center>
+
+</BorderPane>

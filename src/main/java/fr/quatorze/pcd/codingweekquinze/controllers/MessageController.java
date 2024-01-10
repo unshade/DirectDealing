@@ -31,20 +31,12 @@ public class MessageController {
     private ScrollPane scrollPane;
 
     @FXML
-    private Label owner;
-    @FXML
-    private Label startDate;
-    @FXML
-    private Label endDate;
-    @FXML
-    private Label item;
-    @FXML
 
     private User currentUser;
     private User otherUser;
     private Loan loan;
 
-    public void init(Loan loan) {
+    public MessageController(Loan loan) {
         this.currentUser = AuthService.getInstance().getCurrentUser();
         if (currentUser == loan.getItem().getOwner()) {
             this.otherUser = loan.getBorrower();
@@ -52,10 +44,10 @@ public class MessageController {
             this.otherUser = loan.getItem().getOwner();
         }
         this.loan = loan;
-        initFx();
     }
 
-    public void initFx() {
+    @FXML
+    public void initialize() {
         // Remove scroll bar
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
@@ -75,10 +67,6 @@ public class MessageController {
             addMessage(message.getContent(), Pos.CENTER_LEFT);
         }
 
-        owner.setText(loan.getItem().getOwner().getFirstName() + " " + loan.getItem().getOwner().getLastName());
-        startDate.setText(loan.getStartDate().toString());
-        endDate.setText(loan.getEndDate().toString());
-        item.setText(loan.getItem().getName());
     }
 
     private void addMessage(String message, Pos pos) {

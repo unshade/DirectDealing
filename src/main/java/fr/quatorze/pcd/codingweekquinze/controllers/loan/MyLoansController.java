@@ -44,7 +44,7 @@ public class MyLoansController {
                             }
                             setOnMouseClicked(event -> {
                                 if (event.getClickCount() == 2 && (!isEmpty())) {
-                                    LayoutManager.setLayout("loan-view.fxml", "Loan", loan);
+                                    LayoutManager.setLayout("loan/loan-view.fxml", "Loan", loan);
                                 }
                             });
                         }
