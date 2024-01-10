@@ -4,40 +4,53 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.Separator?>
 
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="sidebar"
-      fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.NavBarController" stylesheets="@style/navbar_style.css">
-    <Label fx:id="borrow" text="Emprunter" graphicTextGap="10" contentDisplay="TOP">
-        <graphic>
-            <ImageView>
-                <Image url="@icon/shop-solid.png"/>
-            </ImageView>
-        </graphic>
-    </Label>
-    <Separator/>
-    <Label fx:id="loan" text="Prêter" graphicTextGap="10" contentDisplay="TOP">
-        <graphic>
-            <ImageView>
+      fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.NavBarController" stylesheets="@style/form_style.css">
+    <HBox fx:id="walletBox" alignment="CENTER">
+        <Label text="Votre portefeuille :"/>
+        <Label fx:id="wallet" text="0"/>
+    </HBox>
+    <Button fx:id="notifications" text="Notifications" onAction="#notifications" styleClass="btn-primary"/>
 
-                <Image url="@icon/shop-solid.png"/>
-            </ImageView>
-        </graphic>
-    </Label>
-    <Separator/>
+    <HBox>
+    </HBox>
+    <VBox VBox.vgrow="ALWAYS" spacing="50" alignment="CENTER">
+        <Label fx:id="borrow" text="Emprunter" graphicTextGap="10" contentDisplay="TOP">
+            <graphic>
+                <ImageView>
+                    <Image url="@icon/shop-solid.png"/>
+                </ImageView>
+            </graphic>
+        </Label>
+        <Separator/>
+        <Label fx:id="loan" text="Prêter" graphicTextGap="10" contentDisplay="TOP">
+            <graphic>
+                <ImageView>
 
-    <Label fx:id="planning" text="Planning" graphicTextGap="10" contentDisplay="TOP">
-        <graphic>
-            <ImageView>
-                <Image url="@icon/calendar-days-solid.png"/>
-            </ImageView>
-        </graphic>
-    </Label>
-    <Separator/>
+                    <Image url="@icon/shop-solid.png"/>
+                </ImageView>
+            </graphic>
+        </Label>
+        <Separator/>
 
-    <Label fx:id="account" text="Mon profil" graphicTextGap="10" contentDisplay="TOP">
-        <graphic>
-            <ImageView>
-                <Image url="@icon/user-solid.png"/>
-            </ImageView>
-        </graphic>
-    </Label>
+        <Label fx:id="planning" text="Planning" graphicTextGap="10" contentDisplay="TOP">
+            <graphic>
+                <ImageView>
+                    <Image url="@icon/calendar-days-solid.png"/>
+                </ImageView>
+            </graphic>
+        </Label>
+        <Separator/>
+
+        <Label fx:id="account" text="Mon profil" graphicTextGap="10" contentDisplay="TOP">
+            <graphic>
+                <ImageView>
+                    <Image url="@icon/user-solid.png"/>
+                </ImageView>
+            </graphic>
+        </Label>
+    </VBox>
+    <Button fx:id="logout" text="Déconnexion" onAction="#logout" styleClass="btn-primary"/>
 </VBox>

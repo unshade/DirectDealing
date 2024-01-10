@@ -65,6 +65,7 @@ public class SelectElementController {
                                     LayoutManager.setLayout("borrow/create_loan_view.fxml", "Loan", element);
                                 }
                             });
+
                         }
                     }
                 };

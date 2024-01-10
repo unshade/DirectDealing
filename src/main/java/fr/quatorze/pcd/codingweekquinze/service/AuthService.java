@@ -27,6 +27,13 @@ public class AuthService {
         return instance;
     }
 
+    public User getCurrentUser() {
+        UserDAO.getInstance().refresh(currentUser);
+        return currentUser;
+    }
+
+
+
     public static String hashPassword(String password) {
         return getInstance().encoder.encode(password);
     }

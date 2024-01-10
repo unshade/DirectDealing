@@ -2,8 +2,11 @@ package fr.quatorze.pcd.codingweekquinze.controllers.loan;
 
 import fr.quatorze.pcd.codingweekquinze.controllers.MessageController;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
+import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
+import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -97,12 +100,16 @@ public class LoanController {
 
     @FXML
     private void finish() {
-        User borrower = loan.getBorrower();
-        User owner = loan.getItem().getOwner();
+        User authUser = AuthService.getInstance().getCurrentUser();
         try {
-            borrower.pay(owner, loan.getItem().getPrice());
-            loan.end();
-            finishButton.setVisible(false);
+            if (authUser.equals(loan.getItem().getOwner())) {
+                User borrower = loan.getBorrower();
+                borrower.pay(authUser, loan.getItem().getPrice());
+                loan.end();
+                finishButton.setVisible(false);
+            } else {
+                LayoutManager.alert("Vous n'êtes pas le propriétaire de cet objet");
+            }
         } catch (IllegalArgumentException e) {
             LayoutManager.alert("L'emprunteur n'a pas assez d'argent");
         }

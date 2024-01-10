@@ -1,10 +1,12 @@
 package fr.quatorze.pcd.codingweekquinze.controllers;
 
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
+import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 
-public class NavBarController {
+public class NavBarController implements Observer {
 
     @FXML
     public Label planning;
@@ -18,7 +20,24 @@ public class NavBarController {
     private Label account;
 
     @FXML
+    private Label wallet;
+
+    @FXML
+    private HBox walletBox;
+
+    public NavBarController() {
+        AuthService.getInstance().getCurrentUser().addObserver(this);
+    }
+
+    @FXML
     private void initialize() {
+
+        if (AuthService.getInstance().getCurrentUser() == null) {
+            walletBox.setVisible(false);
+        } else {
+            wallet.setText(AuthService.getInstance().getCurrentUser().getFlow() + "⚘");
+        }
+
         borrow.setOnMouseClicked(event -> {
             LayoutManager.setLayout("borrow/index.fxml", "Emprunt");
         });
@@ -36,5 +55,26 @@ public class NavBarController {
         });
     }
 
+    @FXML
+    private void wallet() {
+        LayoutManager.setLayout("wallet.fxml", "Mon porte-monnaie");
+    }
 
+    @FXML
+    private void logout() {
+        AuthService.getInstance().endSession();
+        LayoutManager.removeNavBar();
+        LayoutManager.setLayout("auth/login.fxml", "Login");
+    }
+
+    @FXML
+    private void notifications() {
+        LayoutManager.setLayout("notifications.fxml", "Notifications");
+    }
+
+
+    @Override
+    public void update() {
+        wallet.setText(AuthService.getInstance().getCurrentUser().getFlow() + "⚘");
+    }
 }
