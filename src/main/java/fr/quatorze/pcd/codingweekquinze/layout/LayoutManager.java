@@ -3,6 +3,7 @@ package fr.quatorze.pcd.codingweekquinze.layout;
 import fr.quatorze.pcd.codingweekquinze.MainApplication;
 import fr.quatorze.pcd.codingweekquinze.controllers.NavBarController;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,11 +32,9 @@ public final class LayoutManager {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(currentLayout));
         Scene scene = new Scene(pane = fxmlLoader.load());
 
-        FXMLLoader navLoader = new FXMLLoader(MainApplication.class.getResource("navbar.fxml"));
-        navLoader.setControllerFactory(c -> new NavBarController());
-        Parent nav = navLoader.load();
-
-        pane.setRight(nav);
+        FXMLLoaderUtil.inject("navbar.fxml", new NavBarController(), node -> {
+            pane.setRight(node);
+        });
 
         stage.setTitle(baseTitle);
         stage.setScene(scene);

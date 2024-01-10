@@ -1,24 +1,18 @@
 package fr.quatorze.pcd.codingweekquinze.controllers.loan;
 
-import fr.quatorze.pcd.codingweekquinze.MainApplication;
 import fr.quatorze.pcd.codingweekquinze.controllers.MessageController;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
+import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.io.IOException;
 
 public class LoanController {
 
-    private Loan loan;
+    private final Loan loan;
 
     @FXML
     private BorderPane root;
@@ -43,20 +37,16 @@ public class LoanController {
     private Label startDate;
     @FXML
     private Label endDate;
+
     public LoanController(Loan loan) {
         this.loan = loan;
     }
 
     @FXML
     private void initialize() {
-         try {
-             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("message.fxml"));
-                fxmlLoader.setControllerFactory(c -> new MessageController(loan));
-                Parent node = fxmlLoader.load();
-                root.setRight(node);
-         } catch (IOException e) {
-                e.printStackTrace();
-         }
+        FXMLLoaderUtil.inject("message.fxml", new MessageController(loan), node -> {
+            root.setRight(node);
+        });
 
         this.title.setText("Prêt de " + loan.getItem().getName());
 
