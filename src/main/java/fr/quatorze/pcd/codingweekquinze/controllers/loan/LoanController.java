@@ -1,6 +1,7 @@
 package fr.quatorze.pcd.codingweekquinze.controllers.loan;
 
 import fr.quatorze.pcd.codingweekquinze.controllers.MessageController;
+import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
@@ -96,10 +97,14 @@ public class LoanController {
 
     @FXML
     private void finish() {
-        loan.end();
-        finishButton.setVisible(false);
         User borrower = loan.getBorrower();
         User owner = loan.getItem().getOwner();
-        borrower.pay(owner, loan.getItem().getPrice());
+        try {
+            borrower.pay(owner, loan.getItem().getPrice());
+            loan.end();
+            finishButton.setVisible(false);
+        } catch (IllegalArgumentException e) {
+            LayoutManager.alert("L'emprunteur n'a pas assez d'argent");
+        }
     }
 }

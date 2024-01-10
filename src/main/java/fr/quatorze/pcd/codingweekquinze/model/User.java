@@ -1,6 +1,8 @@
 package fr.quatorze.pcd.codingweekquinze.model;
 
+import fr.quatorze.pcd.codingweekquinze.dao.NotificationDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
+import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,7 +45,14 @@ public final class User {
         this.admin = admin;
     }
 
-    public void pay(User receiver, int amount) {
+    public List<Notification> getNotifications() {
+        return NotificationDAO.getInstance().getNotifications(this);
+    }
+
+    public void pay(User receiver, int amount) throws IllegalArgumentException {
+        if (amount > flow) {
+            throw new IllegalArgumentException("Not enough money");
+        }
         UserDAO.getInstance().transferFunds(this, receiver, amount);
     }
 

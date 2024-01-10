@@ -28,8 +28,6 @@ public final class UserDAO extends DAO<User> {
     }
 
     public void transferFunds(User from, User to, int amount) {
-        System.out.println("Amount: " + amount);
-        System.out.println("transfering " + amount + " from " + from + " to " + to);
         em.getTransaction().begin();
         from.setFlow(from.getFlow() - amount);
         to.setFlow(to.getFlow() + amount);

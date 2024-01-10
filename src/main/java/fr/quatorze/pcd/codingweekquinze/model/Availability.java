@@ -13,7 +13,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Availability {
+public final class Availability {
 
     @Id
     @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)

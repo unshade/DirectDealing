@@ -15,5 +15,6 @@
         <mapping class="fr.quatorze.pcd.codingweekquinze.model.Loan"/>
         <mapping class="fr.quatorze.pcd.codingweekquinze.model.Element"/>
         <mapping class="fr.quatorze.pcd.codingweekquinze.model.Message"/>
+        <mapping class="fr.quatorze.pcd.codingweekquinze.model.Notification"/>
     </session-factory>
 </hibernate-configuration>

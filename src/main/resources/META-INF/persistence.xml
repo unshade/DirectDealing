@@ -6,6 +6,7 @@
         <class>fr.quatorze.pcd.codingweekquinze.model.Element</class>
         <class>fr.quatorze.pcd.codingweekquinze.model.Loan</class>
         <class>fr.quatorze.pcd.codingweekquinze.model.Message</class>
+        <class>fr.quatorze.pcd.codingweekquinze.model.Notification</class>
         <properties>
             <property name="hibernate.connection.driver_class" value="org.sqlite.JDBC"/>
             <property name="hibernate.connection.url" value="jdbc:sqlite:db.db"/>
