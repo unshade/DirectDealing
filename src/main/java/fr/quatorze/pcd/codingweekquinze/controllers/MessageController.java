@@ -1,13 +1,12 @@
 package fr.quatorze.pcd.codingweekquinze.controllers;
 
-import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.MessageDAO;
-import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.Message;
 import fr.quatorze.pcd.codingweekquinze.model.User;
+import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -40,23 +39,23 @@ public class MessageController {
     @FXML
     private Label item;
     @FXML
-    private VBox rightPart;
-    private Button acceptButton;
-    private Button cancelButton;
-    private Button finishButton;
 
     private User currentUser;
     private User otherUser;
     private Loan loan;
 
-    public MessageController(User currentUser, User otherUser, Loan loan) {
-        this.currentUser = currentUser;
-        this.otherUser = otherUser;
+    public void init(Loan loan) {
+        this.currentUser = AuthService.getInstance().getCurrentUser();
+        if (currentUser == loan.getItem().getOwner()) {
+            this.otherUser = loan.getBorrower();
+        } else {
+            this.otherUser = loan.getItem().getOwner();
+        }
         this.loan = loan;
+        initFx();
     }
 
-    @FXML
-    public void initialize() {
+    public void initFx() {
         // Remove scroll bar
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
@@ -80,19 +79,6 @@ public class MessageController {
         startDate.setText(loan.getStartDate().toString());
         endDate.setText(loan.getEndDate().toString());
         item.setText(loan.getItem().getName());
-
-        if (this.loan.getStatus() == 0) {
-            this.acceptButton = new Button("Accepter");
-            acceptButton.setOnAction(event -> accept());
-            rightPart.getChildren().add(acceptButton);
-            this.cancelButton = new Button("Annuler");
-            cancelButton.setOnAction(event -> cancel());
-            rightPart.getChildren().add(cancelButton);
-        } else if (this.loan.getStatus() == 1) {
-            this.finishButton = new Button("Terminer");
-            finishButton.setOnAction(event -> finish());
-            rightPart.getChildren().add(finishButton);
-        }
     }
 
     private void addMessage(String message, Pos pos) {
@@ -118,31 +104,7 @@ public class MessageController {
         addMessage(message, Pos.CENTER_RIGHT);
     }
 
-    @FXML
-    private void accept() {
-        loan.accept();
-        acceptButton.setVisible(false);
-        cancelButton.setVisible(false);
-        this.finishButton = new Button("Terminer");
-        finishButton.setOnAction(event -> finish());
-        rightPart.getChildren().add(finishButton);
-    }
 
-    @FXML
-    public void cancel() {
-        loan.cancel();
-        acceptButton.setVisible(false);
-        cancelButton.setVisible(false);
-    }
-
-    @FXML
-    private void finish() {
-        loan.end();
-        finishButton.setVisible(false);
-        User borrower = loan.getBorrower();
-        User owner = loan.getItem().getOwner();
-        borrower.pay(owner, loan.getItem().getPrice());
-    }
 
     public void back() {
         LayoutManager.setLayout("loan/my_loans.fxml", "Mes emprunts");
