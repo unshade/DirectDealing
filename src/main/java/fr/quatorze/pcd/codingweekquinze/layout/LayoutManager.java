@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public final class LayoutManager {
-
     private static String baseTitle = "Load Layout";
 
     private static Stage stage;
@@ -32,13 +31,19 @@ public final class LayoutManager {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource(currentLayout));
         Scene scene = new Scene(pane = fxmlLoader.load());
 
-        FXMLLoaderUtil.inject("navbar.fxml", new NavBarController(), node -> {
-            pane.setRight(node);
-        });
-
         stage.setTitle(baseTitle);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static void removeNavBar() {
+        pane.setRight(null);
+    }
+
+    public static void addNavBar() {
+        FXMLLoaderUtil.inject("navbar.fxml", new NavBarController(), node -> {
+            pane.setRight(node);
+        });
     }
 
     public static void alert(String message) {

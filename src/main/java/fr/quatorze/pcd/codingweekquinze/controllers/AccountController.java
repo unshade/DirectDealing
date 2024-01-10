@@ -79,6 +79,7 @@ public class AccountController {
     @FXML
     private void logout() {
         AuthService.getInstance().endSession();
+        LayoutManager.removeNavBar();
         LayoutManager.setLayout("auth/login.fxml", "Login");
     }
 
