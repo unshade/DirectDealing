@@ -48,7 +48,16 @@ public final class ElementDAO extends DAO<Element> {
 
     public Element createElement(String name, Integer price, String description, User owner) {
         em.getTransaction().begin();
-        Element element = new Element(name, price, description, owner, null, null);
+        Element element = new Element(name, price, description, owner, false);
+        em.persist(element);
+        em.getTransaction().commit();
+
+        return element;
+    }
+
+    public Element createElement(String name, Integer price, String description, User owner, boolean isService) {
+        em.getTransaction().begin();
+        Element element = new Element(name, price, description, owner, isService);
         em.persist(element);
         em.getTransaction().commit();
 
@@ -69,6 +78,12 @@ public final class ElementDAO extends DAO<Element> {
         return em.createQuery("SELECT u FROM Element u WHERE u.owner = :owner", Element.class)
                 .setParameter("owner", owner)
                 .getResultList();
+    }
+
+    public void refresh(Element element) {
+        em.getTransaction().begin();
+        em.refresh(element);
+        em.getTransaction().commit();
     }
 
     @SuppressWarnings("unchecked")

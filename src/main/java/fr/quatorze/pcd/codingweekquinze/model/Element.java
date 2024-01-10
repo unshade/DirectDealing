@@ -6,14 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,32 +27,24 @@ public final class Element {
     private Integer price;
     private String description;
 
-    private LocalDate fromDate;
-    private LocalDate toDate;
-    private ChronoUnit chronoUnit;
-    private Integer period;
+    private Boolean isService;
+
+    @OneToMany(mappedBy = "element")
+    private List<Availability> availabilities = new ArrayList<>();
 
     @OneToMany(mappedBy = "item")
-    private List<Loan> loans;
+    private List<Loan> loans = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    public Element(String name, Integer price, String description, User owner, LocalDate from, LocalDate to) {
-        this(name, price, description, owner, from, to, ChronoUnit.DAYS, 0);
-    }
-
-    public Element(String name, Integer price, String description, User owner, LocalDate from, LocalDate to, ChronoUnit chronoUnit, int period) {
+    public Element(String name, Integer price, String description, User owner, Boolean service) {
         this.name = name;
         this.price = price;
         this.description = description;
-        this.loans = new ArrayList<>();
         this.owner = owner;
-        this.fromDate = from;
-        this.toDate = to;
-        this.chronoUnit = chronoUnit;
-        this.period = period;
+        this.isService = service;
     }
 
     public void addLoan(User user, Date startDate, Date endDate) {
@@ -75,30 +62,38 @@ public final class Element {
         return rating;
     }
 
+    public boolean isAvailable(LocalDateTime startDate, LocalDateTime endDate) {
+        return isAvailable(java.sql.Date.valueOf(startDate.toLocalDate()), java.sql.Date.valueOf(endDate.toLocalDate()));
+    }
 
     public boolean isAvailable(Date startDate, Date endDate) {
         System.out.println("check : " + startDate + " " + endDate);
 
-        if (period > 0) {
-            // We first get the nearest from date
-            LocalDate fromDate = this.fromDate;
-            while (fromDate.isBefore(LocalDate.now())) {
-                fromDate = fromDate.plus(period, chronoUnit);
-            }
-            fromDate = fromDate.minus(period, chronoUnit);
+        for (Availability availability : availabilities) {
+            ChronoUnit chronoUnit = availability.getChronoUnit();
+            int period = availability.getPeriod();
 
-            // We now get the nearest to date
-            long duration = ChronoUnit.DAYS.between(this.fromDate, this.toDate);
-            LocalDate toDate = fromDate.plus(duration, chronoUnit);
+            if (period > 0) {
+                // We first get the nearest from date
+                LocalDate fromDate = availability.fromDate;
+                while (fromDate.isBefore(LocalDate.now())) {
+                    fromDate = fromDate.plus(period, chronoUnit);
+                }
+                fromDate = fromDate.minus(period, chronoUnit);
 
-            if (startDate.before(java.sql.Date.valueOf(fromDate)) || endDate.after(java.sql.Date.valueOf(toDate))) {
-                return false;
-            }
-        } else {
-            // The two dates must be between the from and to dates
-            if (this.fromDate != null && this.toDate != null) {
-                if (startDate.before(java.sql.Date.valueOf(this.fromDate)) || endDate.after(java.sql.Date.valueOf(this.toDate))) {
+                // We now get the nearest to date
+                long duration = ChronoUnit.DAYS.between(availability.fromDate, availability.toDate);
+                LocalDate toDate = fromDate.plus(duration, chronoUnit);
+
+                if (startDate.before(java.sql.Date.valueOf(fromDate)) || endDate.after(java.sql.Date.valueOf(toDate))) {
                     return false;
+                }
+            } else {
+                // The two dates must be between the from and to dates
+                if (availability.fromDate != null && availability.toDate != null) {
+                    if (startDate.before(java.sql.Date.valueOf(availability.fromDate)) || endDate.after(java.sql.Date.valueOf(availability.toDate))) {
+                        return false;
+                    }
                 }
             }
         }
@@ -117,11 +112,11 @@ public final class Element {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Element element = (Element) o;
-        return Objects.equals(id, element.id) && Objects.equals(name, element.name) && Objects.equals(price, element.price) && Objects.equals(description, element.description) && Objects.equals(fromDate, element.fromDate) && Objects.equals(toDate, element.toDate) && chronoUnit == element.chronoUnit && Objects.equals(period, element.period) && Objects.equals(owner, element.owner);
+        return Objects.equals(id, element.id) && Objects.equals(name, element.name) && Objects.equals(price, element.price) && Objects.equals(description, element.description) && Objects.equals(owner, element.owner);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, description, fromDate, toDate, chronoUnit, period, loans, owner);
+        return Objects.hash(id, name, price, description, loans, owner);
     }
 }

@@ -74,7 +74,7 @@ public class MyElementsController {
             search = null;
         }
 
-        e = new Element(search, null, search, null, null, null);
+        e = new Element(search, null, search, null, null);
         elements = ElementDAO.getInstance().search(e);
 
 
