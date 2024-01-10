@@ -1,6 +1,7 @@
 package fr.quatorze.pcd.codingweekquinze.model;
 
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
+import fr.quatorze.pcd.codingweekquinze.dao.MessageDAO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -49,11 +50,16 @@ public final class Loan {
         this.rating = null;
     }
 
-    public void endLoan() {
-        // TODO to be tested
-        this.status = 3;
-        LoanDAO.getInstance().update(this);
-        this.borrower.pay(this.item.getPrice(), this.item.getOwner());
+    public void end() {
+        LoanDAO.getInstance().endLoan(this);
+    }
+
+    public void accept() {
+        LoanDAO.getInstance().accept(this);
+    }
+
+    public void cancel() {
+        LoanDAO.getInstance().cancel(this);
     }
 
     @Override

@@ -35,18 +35,21 @@ public final class LoanDAO extends DAO<Loan> {
     public void endLoan(Loan loan) {
         em.getTransaction().begin();
         loan.setStatus(3);
+        em.merge(loan);
         em.getTransaction().commit();
     }
 
     public void accept(Loan loan) {
         em.getTransaction().begin();
         loan.setStatus(1);
+        em.merge(loan);
         em.getTransaction().commit();
     }
 
     public void cancel(Loan loan) {
         em.getTransaction().begin();
         loan.setStatus(2);
+        em.merge(loan);
         em.getTransaction().commit();
     }
 

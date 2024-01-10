@@ -43,11 +43,8 @@ public final class User {
         this.admin = admin;
     }
 
-    public void pay(int amount, User receiver) {
-        this.flow -= amount;
-        receiver.setFlow(receiver.getFlow() + amount);
-        UserDAO.getInstance().update(this);
-        UserDAO.getInstance().update(receiver);
+    public void pay(User receiver, int amount) {
+        UserDAO.getInstance().transferFunds(this, receiver, amount);
     }
 
     @Override

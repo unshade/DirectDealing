@@ -104,11 +104,8 @@ public class MessageController {
         }
         hBox.getChildren().add(new Label(message));
         hBox.setAlignment(pos);
-
         textArea.clear();
-
         vBox.getChildren().add(vBox.getChildren().size() - 1, hBox);
-
         new Thread(() -> scrollPane.setVvalue(1.0)).start();
     }
 
@@ -118,13 +115,12 @@ public class MessageController {
             return;
         }
         MessageDAO.getInstance().createMessage(message, currentUser, otherUser, loan);
-
         addMessage(message, Pos.CENTER_RIGHT);
     }
 
     @FXML
     private void accept() {
-        LoanDAO.getInstance().accept(loan);
+        loan.accept();
         acceptButton.setVisible(false);
         cancelButton.setVisible(false);
         this.finishButton = new Button("Terminer");
@@ -134,23 +130,18 @@ public class MessageController {
 
     @FXML
     public void cancel() {
-        LoanDAO.getInstance().cancel(loan);
+        loan.cancel();
         acceptButton.setVisible(false);
         cancelButton.setVisible(false);
     }
 
     @FXML
     private void finish() {
-        LoanDAO.getInstance().endLoan(loan);
+        loan.end();
         finishButton.setVisible(false);
         User borrower = loan.getBorrower();
         User owner = loan.getItem().getOwner();
-
-        UserDAO.getInstance().transferFunds(borrower, owner, loan.getItem().getPrice());
-//        borrower.setFlow(borrower.getFlow() - loan.getItem().getPrice());
-//        owner.setFlow(owner.getFlow() + loan.getItem().getPrice());
-//        UserDAO.getInstance().updateUser(borrower);
-        //UserDAO.getInstance().update(owner);
+        borrower.pay(owner, loan.getItem().getPrice());
     }
 
     public void back() {
