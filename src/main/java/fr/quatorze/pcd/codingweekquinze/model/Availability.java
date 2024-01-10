@@ -52,6 +52,7 @@ public final class Availability {
         return switch (chronoUnit) {
             case WEEKS -> "Du " + fromDate + " au " + toDate + " toutes les " + period + " semaines";
             case MONTHS -> "Du " + fromDate + " au " + toDate + " tous les " + period + " mois";
+            case YEARS -> "Du " + fromDate + " au " + toDate + " tous les " + period + " ans";
             default -> "Du " + fromDate + " au " + toDate;
         };
     }
