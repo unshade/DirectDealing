@@ -7,6 +7,8 @@ import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 public class RegisterController {
 
@@ -20,6 +22,21 @@ public class RegisterController {
     private PasswordField confirmPassword;
     @FXML
     private TextField email;
+
+    @FXML
+    private void initialize() {
+        this.email.setOnKeyPressed(this::handleEnterPressed);
+        this.password.setOnKeyPressed(this::handleEnterPressed);
+        this.confirmPassword.setOnKeyPressed(this::handleEnterPressed);
+        this.firstName.setOnKeyPressed(this::handleEnterPressed);
+        this.lastName.setOnKeyPressed(this::handleEnterPressed);
+    }
+
+    private void handleEnterPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            submit();
+        }
+    }
 
     @FXML
     private void submit() {
