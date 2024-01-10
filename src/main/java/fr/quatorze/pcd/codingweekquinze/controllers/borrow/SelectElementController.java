@@ -32,6 +32,9 @@ public class SelectElementController {
     @FXML
     private ComboBox<String> rating;
 
+    @FXML
+    private ComboBox<String> type;
+
 
     @FXML
     private void initialize() {
@@ -40,8 +43,10 @@ public class SelectElementController {
         this.startDate.valueProperty().addListener((observable, oldValue, newValue) -> search());
         this.endDate.valueProperty().addListener((observable, oldValue, newValue) -> search());
         this.rating.valueProperty().addListener((observable, oldValue, newValue) -> search());
+        this.type.valueProperty().addListener((observable, oldValue, newValue) -> search());
 
         this.rating.setValue("Sélectionnez une note");
+        this.type.setValue("Sélectionnez un type");
 
         List<Element> elements = ElementDAO.getInstance().getAllElementExceptUser(AuthService.getInstance().getCurrentUser());
 
@@ -73,7 +78,6 @@ public class SelectElementController {
         });
     }
 
-    @FXML
     private void search() {
         String search = searchBar.getText().isEmpty() ? null : searchBar.getText();
 
@@ -88,7 +92,10 @@ public class SelectElementController {
         Integer rating = this.rating.getValue() != null && !this.rating.getValue().equals("Sélectionnez une note")
                 ? Integer.parseInt(this.rating.getValue()) : null;
 
-        List<Element> elements = ElementDAO.getInstance().search(search, start, end, rating);
+        String type = this.type.getValue() != null && !this.type.getValue().equals("Sélectionnez un type")
+                ? this.type.getValue() : null;
+
+        List<Element> elements = ElementDAO.getInstance().search(search, start, end, rating, type,true);
         this.elements.setItems(FXCollections.observableList(elements));
     }
 }

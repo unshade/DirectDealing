@@ -45,8 +45,7 @@ public class BorrowController {
 
         this.title.setText("Emprunt de " + loan.getItem().getName());
 
-        //TODO
-        this.itemType.setText("Type : " + "Matériel");
+        this.itemType.setText("Type : " + (loan.getItem().getIsService() ? "Service" : "Objet"));
         this.itemPrice.setText("Prix : " + loan.getItem().getPrice() + "€");
         this.itemName.setText("Nom : " + loan.getItem().getName());
         this.owner.setText(loan.getItem().getOwner().getFirstName() + " " + loan.getItem().getOwner().getLastName());

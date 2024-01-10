@@ -14,9 +14,19 @@
         <TextField fx:id="searchBar" promptText="Rechercher un nom..."/>
         <DatePicker fx:id="startDate" promptText="Date de début"/>
         <DatePicker fx:id="endDate" promptText="Date de fin"/>
+        <ComboBox fx:id="type" promptText="Type">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Sélectionnez un type"/>
+                    <String fx:value="Service"/>
+                    <String fx:value="Objet"/>
+                </FXCollections>
+            </items>
+        </ComboBox>
         <ComboBox fx:id="rating" promptText="Note">
             <items>
                 <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Sélectionnez une note"/>
                     <String fx:value="1"/>
                     <String fx:value="2"/>
                     <String fx:value="3"/>
@@ -25,7 +35,6 @@
                 </FXCollections>
             </items>
         </ComboBox>
-        <Button text="Rechercher" onAction="#search"/>
     </HBox>
     <ListView fx:id="elements">
         <!-- Les éléments de la liste seront ajoutés ici -->

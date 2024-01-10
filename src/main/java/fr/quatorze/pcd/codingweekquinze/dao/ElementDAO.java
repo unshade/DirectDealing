@@ -87,7 +87,7 @@ public final class ElementDAO extends DAO<Element> {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Element> search(String name, Date startDate, Date endDate, Integer rating) {
+    public List<Element> search(String name, Date startDate, Date endDate, Integer rating, String type, boolean isBorrowed) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Element> cr = cb.createQuery(Element.class);
         Root<Element> root = cr.from(Element.class);
@@ -95,7 +95,11 @@ public final class ElementDAO extends DAO<Element> {
 
         List<Predicate> predicates = new ArrayList<>();
 
-        predicates.add(cb.notEqual(root.get("owner"), AuthService.getInstance().getCurrentUser()));
+        if(isBorrowed) {
+            predicates.add(cb.notEqual(root.get("owner"), AuthService.getInstance().getCurrentUser()));
+        } else {
+            predicates.add(cb.equal(root.get("owner"), AuthService.getInstance().getCurrentUser()));
+        }
 
         if (name != null) {
             predicates.add(cb.or(
@@ -137,6 +141,10 @@ public final class ElementDAO extends DAO<Element> {
 
             // Ajouter la condition pour inclure uniquement les éléments ayant une note moyenne supérieure
             predicates.add(cb.greaterThanOrEqualTo(ratingSubquery, rating.doubleValue()));
+        }
+
+        if (type != null) {
+            predicates.add(cb.equal(root.get("isService"), type.equals("Service")));
         }
 
         cr.where(cb.and(predicates.toArray(new Predicate[0])));
