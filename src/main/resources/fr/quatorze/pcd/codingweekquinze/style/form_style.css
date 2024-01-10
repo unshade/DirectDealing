@@ -14,6 +14,17 @@
     -fx-background-color: #0069d9;
 }
 
+.btn-cancel {
+    -fx-background-color: #dc3545;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-font-size: 17px;
+}
+
+.btn-cancel:hover {
+    -fx-background-color: #c82333;
+}
+
 .error-message {
     -fx-text-fill: red;
     -fx-font-size: 10px;

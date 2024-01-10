@@ -9,7 +9,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.LoanController"
-            prefHeight="400.0" prefWidth="600.0" fx:id="root" styleClass="container">
+            prefHeight="400.0" prefWidth="600.0" fx:id="root" styleClass="container" stylesheets="@../style/form_style.css">
 
 
     <center>
@@ -31,7 +31,7 @@
                 <Label text=" à "/>
                 <Label fx:id="endDate"/>
             </HBox>
-            <HBox fx:id="actionSection">
+            <HBox fx:id="actionSection" spacing="10">
             </HBox>
 
         </VBox>
