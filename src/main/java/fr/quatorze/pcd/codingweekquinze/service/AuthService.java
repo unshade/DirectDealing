@@ -34,9 +34,13 @@ public class AuthService {
             return true;
         }
         User user = UserDAO.getInstance().getUserByEmail(email);
+
+        if (!encoder.matches(enteredPassword, user.getPassword())) {
+            return false;
+        }
         currentUser = user;
 
-        return encoder.matches(enteredPassword, user.getPassword());
+        return true;
     }
 
     public boolean isAuthenticated() {
