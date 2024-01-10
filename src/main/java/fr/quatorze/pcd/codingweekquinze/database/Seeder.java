@@ -1,13 +1,7 @@
 package fr.quatorze.pcd.codingweekquinze.database;
 
-import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
-import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
-import fr.quatorze.pcd.codingweekquinze.dao.MessageDAO;
-import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
-import fr.quatorze.pcd.codingweekquinze.database.seeder.ElementSeeder;
-import fr.quatorze.pcd.codingweekquinze.database.seeder.LoanSeeder;
-import fr.quatorze.pcd.codingweekquinze.database.seeder.MessageSeeder;
-import fr.quatorze.pcd.codingweekquinze.database.seeder.UserSeeder;
+import fr.quatorze.pcd.codingweekquinze.dao.*;
+import fr.quatorze.pcd.codingweekquinze.database.seeder.*;
 
 import java.util.logging.Level;
 
@@ -23,6 +17,7 @@ public class Seeder {
         LoanDAO.getInstance().dropTable();
         ElementDAO.getInstance().dropTable();
         MessageDAO.getInstance().dropTable();
+        NotificationDAO.getInstance().dropTable();
 
         // Create users
         UserSeeder userSeeder = new UserSeeder();
@@ -37,5 +32,9 @@ public class Seeder {
 
         MessageSeeder messageSeeder = new MessageSeeder();
         messageSeeder.seed();
+
+        // Create notifications
+        NotificationSeeder notificationSeeder = new NotificationSeeder();
+        notificationSeeder.seed();
     }
 }

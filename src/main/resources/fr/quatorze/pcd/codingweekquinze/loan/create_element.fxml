@@ -27,21 +27,18 @@
         <ListView fx:id="periodList" GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.columnSpan="2" prefHeight="200" prefWidth="200">
 
         </ListView>
-
-        <Label fx:id="periodLabel" text="Récurrence:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
-
         <Label text="Ajouter une période:" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
         <ChoiceBox fx:id="period" GridPane.rowIndex="7" GridPane.columnIndex="1" onAction="#handlePeriodChange">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="none"/>
-                    <String fx:value="week"/>
-                    <String fx:value="month"/>
-                    <String fx:value="year"/>
+                    <String fx:value="Aucune"/>
+                    <String fx:value="Semaine"/>
+                    <String fx:value="Mois"/>
+                    <String fx:value="Année"/>
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Button text="Ajouter" GridPane.rowIndex="7" GridPane.columnIndex="2" onAction="#handleAddPeriod"/>
-        <Button text="Créer" styleClass="btn-primary" GridPane.rowIndex="11" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#submit"/>
+        <Button text="Ajouter" styleClass="btn-primary" GridPane.rowIndex="11" GridPane.columnIndex="1" onAction="#handleAddPeriod"/>
+        <Button text="Créer" styleClass="btn-primary" GridPane.rowIndex="12" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#submit"/>
     </GridPane>
 </VBox>
