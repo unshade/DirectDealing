@@ -23,12 +23,16 @@ public class NotificationController {
             Notification notification = notifications.get(i);
             Label label = new Label(notification.getMessage());
             grid.add(label, 0, i);
-            Button viewed = new Button("Marquer comme lu");
-            viewed.setOnAction(event -> {
-                notification.markAsRead();
-                grid.getChildren().removeAll(label, viewed);
-            });
-            grid.add(viewed, 1, i);
+            if (notification.isRead()) {
+                label.setStyle("-fx-text-fill: red;");
+            } else {
+                Button viewed = new Button("Marquer comme lu");
+                viewed.setOnAction(event -> {
+                    notification.markAsRead();
+                    grid.getChildren().removeAll(label, viewed);
+                });
+                grid.add(viewed, 1, i);
+            }
         }
 
     }
