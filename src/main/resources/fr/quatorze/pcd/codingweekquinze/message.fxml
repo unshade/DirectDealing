@@ -14,18 +14,6 @@
                     <VBox.margin>
                         <Insets top="10"/>
                     </VBox.margin>
-                    <HBox>
-                        <Label text="Bonjour ça va ?" alignment="CENTER_LEFT"/>
-                    </HBox>
-                    <HBox>
-                        <Pane HBox.hgrow="ALWAYS"/>
-                        <Label text="Non pas vraiment" alignment="CENTER_RIGHT"/>
-                    </HBox>
-                    <HBox>
-                        <Label text="Gros zizi ? ygthjuzagytudhijagytvdhbajzidazugybh"
-                               alignment="CENTER_LEFT"/>
-                    </HBox>
-
                     <Pane VBox.vgrow="ALWAYS"/>
                 </VBox>
             </ScrollPane>
