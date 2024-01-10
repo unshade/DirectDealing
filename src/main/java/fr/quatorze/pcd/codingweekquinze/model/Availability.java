@@ -15,18 +15,16 @@ import java.util.Objects;
 @NoArgsConstructor
 public final class Availability {
 
-    @Id
-    @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)
-    private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "element_id")
-    private Element element;
-
     LocalDate fromDate;
     LocalDate toDate;
     ChronoUnit chronoUnit;
     Integer period;
+    @Id
+    @GeneratedValue(strategy = javax.persistence.GenerationType.AUTO)
+    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "element_id")
+    private Element element;
 
     public Availability(Element element, LocalDate fromDate, LocalDate toDate, ChronoUnit chronoUnit, Integer period) {
         this.element = element;
@@ -47,5 +45,15 @@ public final class Availability {
     @Override
     public int hashCode() {
         return Objects.hash(id, element, fromDate, toDate, chronoUnit, period);
+    }
+
+    @Override
+    public String toString() {
+        return switch (chronoUnit) {
+            case WEEKS -> "Du " + fromDate + " au " + toDate + " toutes les " + period + " semaines";
+            case MONTHS -> "Du " + fromDate + " au " + toDate + " tous les " + period + " mois";
+            case YEARS -> "Du " + fromDate + " au " + toDate + " tous les " + period + " ans";
+            default -> "Du " + fromDate + " au " + toDate;
+        };
     }
 }
