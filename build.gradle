@@ -24,6 +24,13 @@ tasks.register('seedDatabase', JavaExec) {
     mainClass = 'fr.quatorze.pcd.codingweekquinze.database.Seeder'
 }
 
+tasks.register("freshRun", JavaExec) {
+    group = 'application'
+
+    dependsOn("seedDatabase")
+    dependsOn("run")
+}
+
 sourceCompatibility = '17'
 targetCompatibility = '17'
 
@@ -34,7 +41,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'fr.quatorze.pcd.codingweekquinze'
-    mainClass = 'fr.quatorze.pcd.codingweekquinze.HelloApplication'
+    mainClass = 'fr.quatorze.pcd.codingweekquinze.MainApplication'
 }
 
 javafx {
