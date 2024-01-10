@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.model;
 
+import fr.quatorze.pcd.codingweekquinze.dao.NotificationDAO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,9 +31,14 @@ public final class Notification {
     private Date date;
 
     private String message;
+    private boolean read = false;
 
     public Notification(User user, String message) {
         this.user = user;
         this.message = message;
+    }
+
+    public void markAsRead() {
+        NotificationDAO.getInstance().markAsRead(this);
     }
 }

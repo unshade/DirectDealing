@@ -1,8 +1,5 @@
 package fr.quatorze.pcd.codingweekquinze.dao;
 
-import fr.quatorze.pcd.codingweekquinze.enums.LoanStatus;
-import fr.quatorze.pcd.codingweekquinze.model.Element;
-import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.Notification;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
@@ -11,14 +8,14 @@ import org.hibernate.SessionFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.util.Date;
 import java.util.List;
 
 public final class NotificationDAO extends DAO<Notification> {
 
+    private static NotificationDAO instance;
     private final EntityManagerFactory emf;
     private final EntityManager em;
-    private static NotificationDAO instance;
+
 
     private NotificationDAO(SessionFactory sf) {
         super(Notification.class, sf);
@@ -34,10 +31,33 @@ public final class NotificationDAO extends DAO<Notification> {
         return instance;
     }
 
+    public void dropTable() {
+        em.getTransaction().begin();
+        em.createNativeQuery("DROP TABLE IF EXISTS Notification").executeUpdate();
+        em.getTransaction().commit();
+    }
+
+    public void markAsRead(Notification notification) {
+        em.getTransaction().begin();
+        notification.setRead(true);
+        em.merge(notification);
+        em.getTransaction().commit();
+    }
+
+    public void createNotification(User user, String message) {
+        Notification notification = new Notification(user, message);
+        em.getTransaction().begin();
+        em.persist(notification);
+        em.getTransaction().commit();
+    }
+
     public List<Notification> getNotifications(User user) {
-        return em.createQuery("SELECT n FROM Notification n WHERE n.user = :user", Notification.class)
+        em.getTransaction().begin();
+        List<Notification> notifications = em.createQuery("SELECT n FROM Notification n WHERE n.user = :user", Notification.class)
                 .setParameter("user", user)
                 .getResultList();
+        em.getTransaction().commit();
+        return notifications;
     }
 
     @Override

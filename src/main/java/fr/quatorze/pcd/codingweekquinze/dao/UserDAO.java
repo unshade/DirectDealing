@@ -43,6 +43,10 @@ public final class UserDAO extends DAO<User> {
         return instance;
     }
 
+    public List<User> getAll() {
+        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
+    }
+
     public User createUser(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
         em.getTransaction().begin();
         User user = new User(firstName, lastName, email, password, flow, sleeping, admin);
