@@ -2,10 +2,12 @@ package fr.quatorze.pcd.codingweekquinze;
 
 import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
+import fr.quatorze.pcd.codingweekquinze.service.LocationService;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -23,6 +25,11 @@ public class MainApplication extends Application {
 
         Locale.setDefault(Locale.FRANCE);
         HibernateUtil.getSessionFactory();
+        try {
+            LocationService.getInstance().initDatabase(HibernateUtil.getSessionFactory().openSession());
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
         UserDAO.getInstance();
         launch();
     }

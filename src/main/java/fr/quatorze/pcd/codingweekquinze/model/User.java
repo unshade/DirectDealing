@@ -1,11 +1,10 @@
 package fr.quatorze.pcd.codingweekquinze.model;
 
 import com.calendarfx.model.Calendar;
-import fr.quatorze.pcd.codingweekquinze.dao.NotificationDAO;
 import fr.quatorze.pcd.codingweekquinze.controllers.Observable;
 import fr.quatorze.pcd.codingweekquinze.controllers.Observer;
+import fr.quatorze.pcd.codingweekquinze.dao.NotificationDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
-import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -46,6 +45,8 @@ public final class User implements Observable {
     private Calendar<?> loansCalendar;
     @Transient
     private Calendar<?> myElementsCalendar;
+
+    private String city;
 
     public User(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
         this.firstName = firstName;

@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.database;
 
 import fr.quatorze.pcd.codingweekquinze.dao.*;
 import fr.quatorze.pcd.codingweekquinze.database.seeder.*;
+import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
 
 import java.util.logging.Level;
 
@@ -18,6 +19,13 @@ public class Seeder {
         ElementDAO.getInstance().dropTable();
         MessageDAO.getInstance().dropTable();
         NotificationDAO.getInstance().dropTable();
+
+        // Drop commune_data table with query
+        var session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.createNativeQuery("DROP TABLE IF EXISTS commune_data").executeUpdate();
+        session.getTransaction().commit();
+        session.close();
 
         // Create users
         UserSeeder userSeeder = new UserSeeder();
