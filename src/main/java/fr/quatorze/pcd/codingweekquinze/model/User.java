@@ -2,6 +2,8 @@ package fr.quatorze.pcd.codingweekquinze.model;
 
 import com.calendarfx.model.Calendar;
 import fr.quatorze.pcd.codingweekquinze.dao.NotificationDAO;
+import fr.quatorze.pcd.codingweekquinze.controllers.Observable;
+import fr.quatorze.pcd.codingweekquinze.controllers.Observer;
 import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import lombok.Getter;
@@ -9,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,7 +19,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @NoArgsConstructor
-public final class User {
+public final class User implements Observable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -24,6 +27,9 @@ public final class User {
     private String lastName;
     private String email;
     private String password;
+
+    @Transient
+    private List<Observer> observers = new ArrayList<>();
 
     private int flow = 200;
 
@@ -60,7 +66,10 @@ public final class User {
             throw new IllegalArgumentException("Not enough money");
         }
         UserDAO.getInstance().transferFunds(this, receiver, amount);
+        this.notifyObservers();
+        receiver.notifyObservers();
     }
+
 
     @Override
     public boolean equals(Object o) {
@@ -82,5 +91,22 @@ public final class User {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        this.observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer observer : this.observers) {
+            observer.update();
+        }
     }
 }

@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.dao;
 
+import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.Message;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
@@ -77,6 +78,12 @@ public final class UserDAO extends DAO<User> {
     public void dropTable() {
         em.getTransaction().begin();
         em.createQuery("DELETE FROM User").executeUpdate();
+        em.getTransaction().commit();
+    }
+
+    public void refresh(User user) {
+        em.getTransaction().begin();
+        em.refresh(user);
         em.getTransaction().commit();
     }
 
