@@ -86,6 +86,13 @@ public final class ElementDAO extends DAO<Element> {
         em.getTransaction().commit();
     }
 
+    public Element updateElement(Element element) {
+        em.getTransaction().begin();
+        em.merge(element);
+        em.getTransaction().commit();
+        return element;
+    }
+
     @SuppressWarnings("unchecked")
     public List<Element> search(String name, Integer rating, String type, boolean isBorrowed) {
         CriteriaBuilder cb = em.getCriteriaBuilder();

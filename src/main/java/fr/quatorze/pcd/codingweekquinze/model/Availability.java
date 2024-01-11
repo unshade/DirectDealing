@@ -51,8 +51,9 @@ public final class Availability {
     }
 
     public boolean isWithinPeriod(LocalDate start, LocalDate end) {
-        if (period <= 0 || chronoUnit == null) {
-            return false; // Retourne false si la période ou l'unité de temps n'est pas définie correctement.
+        if (period == 0) {
+            return (start.isEqual(fromDate) || start.isAfter(fromDate)) &&
+                    (end.isEqual(toDate) || end.isBefore(toDate));
         }
 
         LocalDate currentStart = fromDate;
@@ -75,6 +76,50 @@ public final class Availability {
         return false;
     }
 
+
+    public boolean isOverlapPeriod(LocalDate start, LocalDate end, ChronoUnit chronoUnitPeriod, Integer recurrence) {
+
+        // La date de fin de la période récurrente
+        LocalDate recurringPeriodEnd = fromDate.plus(period, chronoUnit);
+
+        // La date de fin de la période récurrente de la période donnée en paramètre
+        LocalDate recurringPeriodEndParam = start.plus(recurrence, chronoUnitPeriod);
+
+        while (start.isBefore(recurringPeriodEndParam) || start.isEqual(recurringPeriodEndParam)) {
+            // On veut que la la période donnée en paramètre ne chevauche pas une période déjà existante
+            LocalDate currentStart = fromDate;
+            LocalDate periodEnd = toDate;
+            while (currentStart.isBefore(recurringPeriodEnd) || currentStart.isEqual(recurringPeriodEnd)) {
+                if ((start.isEqual(currentStart) || start.isAfter(currentStart)) &&
+                        (end.isEqual(periodEnd) || end.isBefore(periodEnd))) {
+                    return true;
+                }
+
+                if ((start.isBefore(currentStart) || start.isEqual(currentStart)) &&
+                        (end.isAfter(periodEnd) || end.isEqual(periodEnd))) {
+                    return true;
+                }
+
+                if ((start.isAfter(currentStart) || start.isEqual(currentStart)) &&
+                        (start.isBefore(periodEnd) || start.isEqual(periodEnd))) {
+                    return true;
+                }
+
+                if ((end.isAfter(currentStart) || end.isEqual(currentStart)) &&
+                        (end.isBefore(periodEnd) || end.isEqual(periodEnd))) {
+                    return true;
+                }
+
+                // Préparer pour la prochaine période récurrente
+                currentStart = currentStart.plus(1, chronoUnit);
+                periodEnd = periodEnd.plus(1, chronoUnit);
+            }
+            // Préparer pour la prochaine période récurrente de la période donnée en paramètre
+            start = start.plus(1, chronoUnitPeriod);
+            end = end.plus(1, chronoUnitPeriod);
+        }
+        return false;
+    }
 
     public List<Pair<LocalDate, LocalDate>> getDates() {
         List<Pair<LocalDate, LocalDate>> dates = new ArrayList<Pair<LocalDate, LocalDate>>();

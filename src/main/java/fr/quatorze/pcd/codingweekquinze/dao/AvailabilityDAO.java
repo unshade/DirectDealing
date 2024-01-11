@@ -62,10 +62,30 @@ public final class AvailabilityDAO extends DAO<Availability> {
                 .getResultList();
     }
 
+    public List<Availability> getAvailabilitiesByElement(Element element) {
+        return em.createQuery("SELECT u FROM Availability u WHERE u.element = :element", Availability.class)
+                .setParameter("element", element)
+                .getResultList();
+    }
+
+    public void deleteAvailability(Availability availability) {
+        em.getTransaction().begin();
+        Availability managedAvailability = em.merge(availability);
+        em.remove(managedAvailability);
+        em.getTransaction().commit();
+    }
+
     public void dropTable() {
         em.getTransaction().begin();
         em.createQuery("DELETE FROM Availability").executeUpdate();
         em.getTransaction().commit();
+    }
+
+    public Availability updateAvailability(Availability availability) {
+        em.getTransaction().begin();
+        em.merge(availability);
+        em.getTransaction().commit();
+        return availability;
     }
 
     @Override

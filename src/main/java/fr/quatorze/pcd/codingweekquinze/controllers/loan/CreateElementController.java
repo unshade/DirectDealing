@@ -111,6 +111,38 @@ public class CreateElementController {
                 };
             }
         });
+        startDatePicker = new DatePicker();
+        startDatePicker.setDayCellFactory(d -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                // Parcourir toutes les disponibilités
+                for (Availability availability : availability) {
+                    // Si la date est dans une période de disponibilité, la désactiver
+                    if (availability.isWithinPeriod(item, item)) {
+                        setDisable(true);
+                        break;
+                    }
+                }
+            }
+        });
+        endDatePicker = new DatePicker();
+        endDatePicker.setDayCellFactory(d -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                // Parcourir toutes les disponibilités
+                for (Availability availability : availability) {
+                    // Si la date est dans une période de disponibilité, la désactiver
+                    if (availability.isWithinPeriod(item, item)) {
+                        setDisable(true);
+                        break;
+                    }
+                }
+            }
+        });
         period.setValue("Aucune");
         updateViewBasedOnPeriod("Aucune");
     }
@@ -140,8 +172,8 @@ public class CreateElementController {
         clearGridPaneRow(gridPane, 10);
         clearGridPaneRow(gridPane, 11);
         field = new TextField();
-        startDatePicker = new DatePicker();
-        endDatePicker = new DatePicker();
+        startDatePicker.setValue(null);
+        endDatePicker.setValue(null);
         switch (period) {
             case "Semaine":
                 setupPeriod("Nombre de semaines:", "Nombre de semaines", gridPane);
@@ -213,6 +245,13 @@ public class CreateElementController {
         } else if (chronoUnit == ChronoUnit.YEARS) {
             if (startDate.getYear() != endDate.getYear()) {
                 LayoutManager.alert("La date de début doit être dans la même année que la date de fin");
+                return;
+            }
+        }
+
+        for (Availability availability : availability) {
+            if (availability.isOverlapPeriod(startDate, endDate, chronoUnit, period)) {
+                LayoutManager.alert("La période chevauche une période existante");
                 return;
             }
         }

@@ -24,7 +24,7 @@
         <StackPane GridPane.rowIndex="3" GridPane.columnIndex="1">
             <Button fx:id="choosePhoto" text="Choisir une photo" onAction="#handleChoosePhoto"/>
             <Button fx:id="deletePhoto" text="Supprimer la photo" onAction="#handleDeletePhoto" visible="false"/>
-            <Label fx:id="photoName" text="Aucune photo choisie" visible="false"/>
+            <Label fx:id="photoName" visible="false"/>
         </StackPane>
         <ImageView fx:id="photo" GridPane.rowIndex="3" GridPane.columnIndex="2" fitHeight="100" fitWidth="100"/>
 

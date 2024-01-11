@@ -19,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
+import javafx.util.Pair;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -74,19 +75,19 @@ public class EditElementController {
     private final Element element;
 
 
-
     public EditElementController(Element element) {
         this.element = element;
     }
 
     @FXML
     private void initialize() {
-
+        System.out.println("EditElementController.initialize");
         this.name.setText(element.getName());
         this.description.setText(element.getDescription());
         this.price.setText(String.valueOf(element.getPrice()));
         this.serviceBox.setSelected(element.getIsService());
         this.photoName.setText(element.getImage());
+        System.out.println("element.getImage() = " + element.getImage());
         if (element.getImage() != null && !element.getImage().isEmpty()) {
             this.photo.setImage(new Image(element.getImage()));
             this.photo.setFitWidth(100);
@@ -94,17 +95,15 @@ public class EditElementController {
             this.photo.setVisible(true);
             this.deletePhoto.setVisible(true);
             this.choosePhoto.setVisible(false);
+        } else {
+            this.photo.setVisible(false);
+            this.deletePhoto.setVisible(false);
+            this.choosePhoto.setVisible(true);
         }
-        this.photo.setFitWidth(100);
-        this.photo.setPreserveRatio(true);
-        this.photo.setVisible(true);
-        this.deletePhoto.setVisible(true);
-        this.choosePhoto.setVisible(false);
         this.availability.addAll(element.getAvailabilities());
         this.periodList.setItems(FXCollections.observableList(availability));
 
         setupFilter(price);
-
         this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
             @Override
             public ListCell<Availability> call(ListView<Availability> param) {
@@ -140,6 +139,38 @@ public class EditElementController {
                 };
             }
         });
+        startDatePicker = new DatePicker();
+        startDatePicker.setDayCellFactory(d -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                // Parcourir toutes les disponibilités
+                for (Availability availability : availability) {
+                    // Si la date est dans une période de disponibilité, la désactiver
+                    if (availability.isWithinPeriod(item, item)) {
+                        setDisable(true);
+                        break;
+                    }
+                }
+            }
+        });
+        endDatePicker = new DatePicker();
+        endDatePicker.setDayCellFactory(d -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+
+                // Parcourir toutes les disponibilités
+                for (Availability availability : availability) {
+                    // Si la date est dans une période de disponibilité, la désactiver
+                    if (availability.isWithinPeriod(item, item)) {
+                        setDisable(true);
+                        break;
+                    }
+                }
+            }
+        });
         period.setValue("Aucune");
         updateViewBasedOnPeriod("Aucune");
     }
@@ -169,8 +200,8 @@ public class EditElementController {
         clearGridPaneRow(gridPane, 10);
         clearGridPaneRow(gridPane, 11);
         field = new TextField();
-        startDatePicker = new DatePicker();
-        endDatePicker = new DatePicker();
+        startDatePicker.setValue(null);
+        endDatePicker.setValue(null);
         switch (period) {
             case "Semaine":
                 setupPeriod("Nombre de semaines:", "Nombre de semaines", gridPane);
@@ -246,8 +277,18 @@ public class EditElementController {
             }
         }
 
+        // On check si les périodes se chevauchent
+        for (Availability availability : availability) {
+            if (availability.isOverlapPeriod(startDate, endDate, chronoUnit, period)) {
+                LayoutManager.alert("La période chevauche une période existante");
+                return;
+            }
+        }
+
         // Ajouter la période
-        availability.add(new Availability(null, startDate, endDate, chronoUnit, period));
+        availability.add(new Availability(this.element, startDate, endDate, chronoUnit, period));
+        // On affiche dans la console celui qu'on vient d'ajouter
+        System.out.println(availability.get(availability.size() - 1));
         // Mettre à jour la vue
         this.periodList.setItems(FXCollections.observableList(availability));
         updateViewBasedOnPeriod(this.period.getValue());
@@ -288,15 +329,33 @@ public class EditElementController {
             return;
         }
 
+        // On vérifie si il y a des périodes qui ont été supprimées
+        // Si oui, on les supprime de la base de données
+        List<Availability> availabilities = this.element.getAvailabilities();
+        for (Availability availability : availabilities) {
+            if (!this.availability.contains(availability)) {
+                AvailabilityDAO.getInstance().deleteAvailability(availability);
+            }
+        }
+
         this.element.setName(name.getText());
         this.element.setDescription(description.getText());
         this.element.setPrice(Integer.parseInt(price.getText()));
         this.element.setIsService(serviceBox.isSelected());
         this.element.setImage(photoName.getText());
         this.element.setAvailabilities(availability);
-        this.element.setOwner(AuthService.getInstance().getCurrentUser());
 
-        ElementDAO.getInstance().refresh(this.element);
+        for (Availability availability : availability) {
+            if (availability.getId() == null) {
+                availability.setElement(element);
+                AvailabilityDAO.getInstance().createAvailability(availability);
+            } else {
+                AvailabilityDAO.getInstance().updateAvailability(availability);
+            }
+        }
+
+        ElementDAO.getInstance().updateElement(element);
+        ElementDAO.getInstance().refresh(element);
 
         LayoutManager.success("Element updated");
         LayoutManager.setLayout("loan/index.fxml", "My Elements");
