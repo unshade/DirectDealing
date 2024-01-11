@@ -1,11 +1,13 @@
 package fr.quatorze.pcd.codingweekquinze.controllers.borrow;
 
+import fr.quatorze.pcd.codingweekquinze.controllers.components.ElementComponent;
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -36,8 +38,7 @@ public class MyBorrowsController {
                             setText(null);
                             setOnMouseClicked(null);
                         } else {
-                            String content = "ID: " + loan.getId() + ", Item: " + loan.getItem().getName() + " ,Emprunté à " + loan.getItem().getOwner().getFirstName() + " " + loan.getItem().getOwner().getLastName();
-                            setText(content);
+                            FXMLLoaderUtil.inject("components/element.fxml", new ElementComponent(loan.getItem()), this::setGraphic);
                             setOnMouseClicked(event -> {
                                 if (event.getClickCount() == 2 && (!isEmpty())) {
                                     LayoutManager.setLayout("borrow/borrow-view.fxml", "Borrow", loan);

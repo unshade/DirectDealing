@@ -22,6 +22,7 @@ module fr.quatorze.pcd.codingweekquinze {
     requires org.mnode.ical4j.core;
 
     opens fr.quatorze.pcd.codingweekquinze.controllers to javafx.fxml;
+    opens fr.quatorze.pcd.codingweekquinze.controllers.components to javafx.fxml;
     opens fr.quatorze.pcd.codingweekquinze to javafx.fxml;
     opens fr.quatorze.pcd.codingweekquinze.model to org.hibernate.orm.core;
     exports fr.quatorze.pcd.codingweekquinze;
