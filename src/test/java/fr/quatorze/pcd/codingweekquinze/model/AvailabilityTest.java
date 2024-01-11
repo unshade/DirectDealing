@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Order(2)
+@Order(3)
 public class AvailabilityTest {
 
     @Test
