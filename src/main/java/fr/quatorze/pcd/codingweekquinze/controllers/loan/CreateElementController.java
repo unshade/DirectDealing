@@ -12,9 +12,12 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
 
 import java.time.LocalDate;
@@ -51,6 +54,18 @@ public class CreateElementController {
 
     @FXML
     private TextField field;
+
+    @FXML
+    private Label photoName;
+
+    @FXML
+    private ImageView photo;
+
+    @FXML
+    private Button deletePhoto;
+
+    @FXML
+    private Button choosePhoto;
 
     private ChronoUnit chronoUnit;
 
@@ -111,19 +126,19 @@ public class CreateElementController {
     private void setupPeriod(String label, String prompt, GridPane gridPane) {
         setupFilter(field);
         field.setPromptText(prompt);
-        gridPane.add(new Label(label), 0, 8);
-        gridPane.add(field, 1, 8);
-        gridPane.add(new Label("Date de début:"), 0, 9);
-        gridPane.add(startDatePicker, 1, 9);
-        gridPane.add(new Label("Date de fin:"), 0, 10);
-        gridPane.add(endDatePicker, 1, 10);
+        gridPane.add(new Label(label), 0, 9);
+        gridPane.add(field, 1, 9);
+        gridPane.add(new Label("Date de début:"), 0, 10);
+        gridPane.add(startDatePicker, 1, 10);
+        gridPane.add(new Label("Date de fin:"), 0, 11);
+        gridPane.add(endDatePicker, 1, 11);
     }
 
     private void updateViewBasedOnPeriod(String period) {
         // On supprime les éléments de la grille
-        clearGridPaneRow(gridPane, 8);
         clearGridPaneRow(gridPane, 9);
         clearGridPaneRow(gridPane, 10);
+        clearGridPaneRow(gridPane, 11);
         field = new TextField();
         startDatePicker = new DatePicker();
         endDatePicker = new DatePicker();
@@ -143,10 +158,10 @@ public class CreateElementController {
             default:
                 chronoUnit = ChronoUnit.DAYS;
                 // Configurez le datePicker comme nécessaire
-                gridPane.add(new Label("Date de début:"), 0, 8);
-                gridPane.add(startDatePicker, 1, 8);
-                gridPane.add(new Label("Date de fin:"), 0, 9);
-                gridPane.add(endDatePicker, 1, 9);
+                gridPane.add(new Label("Date de début:"), 0, 9);
+                gridPane.add(startDatePicker, 1, 9);
+                gridPane.add(new Label("Date de fin:"), 0, 10);
+                gridPane.add(endDatePicker, 1, 10);
                 break;
         }
     }
@@ -245,7 +260,7 @@ public class CreateElementController {
             return;
         }
 
-        Element element = ElementDAO.getInstance().createElement(name.getText(), Integer.parseInt(price.getText()), description.getText(), user, serviceBox.isSelected());
+        Element element = ElementDAO.getInstance().createElement(name.getText(), Integer.parseInt(price.getText()), description.getText(), user, serviceBox.isSelected(), photoName.getText());
         for (Availability availability : availability) {
             availability.setElement(element);
             AvailabilityDAO.getInstance().createAvailability(availability);
@@ -254,4 +269,38 @@ public class CreateElementController {
         LayoutManager.success("Element created");
         LayoutManager.setLayout("loan/index.fxml", "My Elements");
     }
+
+    @FXML
+    private void handleChoosePhoto() {
+
+        // On choisit une photo avec un filechoose
+        // On récupère le chemin de la photo
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une photo");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+
+        String path = fileChooser.showOpenDialog(null).toURI().toString();
+
+        // On affiche la photo dans la vue
+
+        photoName.setText(path);
+        photo.setImage(new Image(path));
+        photo.setFitWidth(100);
+        photo.setPreserveRatio(true);
+        photo.setVisible(true);
+        deletePhoto.setVisible(true);
+        choosePhoto.setVisible(false);
+    }
+
+    @FXML
+    private void handleDeletePhoto() {
+        photoName.setText("");
+        photo.setImage(null);
+        photo.setVisible(false);
+        deletePhoto.setVisible(false);
+        choosePhoto.setVisible(true);
+    }
+
 }

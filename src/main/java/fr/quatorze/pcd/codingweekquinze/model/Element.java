@@ -26,6 +26,7 @@ public final class Element {
     private String name;
     private Integer price;
     private String description;
+    private String image;
 
     private Boolean isService;
 
@@ -39,12 +40,13 @@ public final class Element {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    public Element(String name, Integer price, String description, User owner, Boolean service) {
+    public Element(String name, Integer price, String description, User owner, Boolean service, String image) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.owner = owner;
         this.isService = service;
+        this.image = image;
     }
 
     public void addLoan(User user, Date startDate, Date endDate) {
