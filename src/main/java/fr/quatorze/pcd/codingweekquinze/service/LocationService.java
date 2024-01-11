@@ -127,20 +127,56 @@ public final class LocationService {
         }
     }
 
-    public void getCitiesStartingWith(String prefix) {
+    public List<String> getCitiesStartingWith(String prefix) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         String query = """
-                SELECT * FROM commune_data WHERE nom_commune LIKE :prefix;
+                SELECT DISTINCT nom_commune FROM commune_data WHERE replace(replace(nom_commune_postal, ' ', '-'), '!', '') LIKE :prefix
                 """;
-        session.createNativeQuery(query)
+        List<String> cities = session.createNativeQuery(query)
                 .setParameter("prefix", prefix + "%")
                 .getResultList();
         session.getTransaction().commit();
         session.close();
+
+        return cities;
     }
 
-    public List<String> getCitiesNear(String city, int kmDistance) {
-        return null;
+    public List<String> getCitiesNear(String city, float kmDistance) {
+        float latitude, longitude;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String query = """
+                SELECT latitude, longitude FROM commune_data WHERE nom_commune = :city group by nom_commune
+                """;
+        List<Object[]> result = session.createNativeQuery(query)
+                .setParameter("city", city)
+                .getResultList();
+        session.getTransaction().commit();
+        session.close();
+
+        if (result.size() == 1) {
+            latitude = (float) result.get(0)[0];
+            longitude = (float) result.get(0)[1];
+        } else {
+            return List.of(city);
+        }
+
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        query = """
+                SELECT DISTINCT nom_commune FROM commune_data WHERE
+                acos(sin(latitude * 0.0174533) * sin(:latitude * 0.0174533) + cos(latitude * 0.0174533) * cos(:latitude * 0.0174533) * cos(longitude * 0.0174533 - :longitude * 0.0174533)) * 6378.1 <= :kmDistance
+                ORDER BY acos(sin(latitude * 0.0174533) * sin(:latitude * 0.0174533) + cos(latitude * 0.0174533) * cos(:latitude * 0.0174533) * cos(longitude * 0.0174533 - :longitude * 0.0174533)) * 6378.1
+                """;
+        List<String> cities = session.createNativeQuery(query)
+                .setParameter("latitude", latitude)
+                .setParameter("longitude", longitude)
+                .setParameter("kmDistance", kmDistance)
+                .getResultList();
+        session.getTransaction().commit();
+        session.close();
+
+        return cities;
     }
 }

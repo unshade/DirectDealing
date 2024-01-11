@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Order(1)
+@Order(2)
 class MessageDAOTest {
 
     @BeforeAll
