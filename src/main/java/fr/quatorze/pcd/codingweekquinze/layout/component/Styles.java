@@ -5,6 +5,15 @@ import javafx.scene.text.TextFlow;
 
 public final class Styles {
 
+    public static TextFlow buildTextFlow(String suggestion) {
+        TextFlow textFlow = new TextFlow();
+
+        Text suggestionText = new Text(suggestion);
+        textFlow.getChildren().add(suggestionText);
+
+        return textFlow;
+    }
+
     public static TextFlow buildTextFlow(String suggestion, String searchRequest) {
         TextFlow textFlow = new TextFlow();
         int startIndex = suggestion.toLowerCase().indexOf(searchRequest.toLowerCase());

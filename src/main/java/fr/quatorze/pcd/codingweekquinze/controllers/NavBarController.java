@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.controllers;
 
 import fr.quatorze.pcd.codingweekquinze.MainApplication;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
+import fr.quatorze.pcd.codingweekquinze.layout.component.NotificationButton;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
@@ -65,9 +66,12 @@ public class NavBarController implements Observer {
         ToggleButton t5 = createToggle("fas-user", "Mon compte");
         t5.setOnAction(actionEvent -> LayoutManager.setLayout("account.fxml", "Mon compte"));
         toggleButtons.add(t5);
-        MFXButton t6 = createButton("", "Déconnexion");
-        t6.setOnAction(actionEvent -> logout());
+        MFXButton t6 = createNotificationButton("");
+        //t6.setOnAction(actionEvent -> notifications());
         toggleButtons.add(t6);
+        MFXButton t7 = createButton("", "Déconnexion");
+        t7.setOnAction(actionEvent -> logout());
+        toggleButtons.add(t7);
 
         navbar.getChildren().addAll(0, toggleButtons);
 
@@ -89,7 +93,6 @@ public class NavBarController implements Observer {
         LayoutManager.setLayout("auth/login.fxml", "Se connecter");
     }
 
-    @FXML
     private void notifications() {
         LayoutManager.setLayout("notifications.fxml", "Notifications");
     }
@@ -103,6 +106,25 @@ public class NavBarController implements Observer {
 
     private ToggleButton createToggle(String icon, String text) {
         return createToggle(icon, text, 0);
+    }
+
+    private NotificationButton createNotificationButton(String icon) {
+        MFXIconWrapper wrapper = new MFXIconWrapper(icon, 24, 32);
+        NotificationButton button = new NotificationButton(wrapper);
+        button.setStyle("""
+                -fx-background-color: transparent;
+                	-fx-background-radius: 0;
+                	-fx-border-color: transparent;
+                	-fx-border-radius: 0;
+                	-fx-pref-height: 40;
+
+                	-fx-font-family: 'Open Sans SemiBold';
+                	-fx-font-size: 13;
+                	-fx-text-fill: white;
+                                """);
+        button.setAlignment(Pos.CENTER_LEFT);
+        button.setMaxWidth(Double.MAX_VALUE);
+        return button;
     }
 
     private MFXButton createButton(String icon, String text) {
