@@ -58,6 +58,10 @@ public final class User implements Observable {
         this.admin = admin;
     }
 
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
+
     public List<Notification> getNotifications() {
         return NotificationDAO.getInstance().getNotifications(this);
     }

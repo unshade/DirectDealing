@@ -27,6 +27,7 @@ public final class Element {
     private String description;
     private String image;
 
+
     private Boolean isService;
 
     @OneToMany(mappedBy = "element")
@@ -55,6 +56,9 @@ public final class Element {
     }
 
     public Integer getRating() {
+
+        if (this.loans.isEmpty()) return 0;
+
         Integer rating = 0;
         for (Loan loan : this.loans) {
             rating += loan.getRating();
