@@ -20,6 +20,12 @@ module fr.quatorze.pcd.codingweekquinze {
     requires org.jfxtras.styles.jmetro;
     requires com.calendarfx.view;
     requires org.mnode.ical4j.core;
+    requires mfx.core;
+    requires mfx.effects;
+    requires mfx.localization;
+    requires mfx.resources;
+    requires MaterialFX;
+
 
     opens fr.quatorze.pcd.codingweekquinze.controllers to javafx.fxml;
     opens fr.quatorze.pcd.codingweekquinze.controllers.components to javafx.fxml;
