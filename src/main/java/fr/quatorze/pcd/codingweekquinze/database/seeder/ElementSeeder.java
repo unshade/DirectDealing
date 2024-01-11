@@ -20,15 +20,15 @@ public class ElementSeeder {
         ArrayList<User> users = (ArrayList<User>) userDAO.getAllUsers();
 
         // Create elements
-        elementDAO.createElement("Bike", 30, "A bike", users.get(0));
-        elementDAO.createElement("Car", 25, "A car", users.get(1));
-        Element test = elementDAO.createElement("Motorbike", 5, "A motorbike", users.get(2));
-        elementDAO.createElement("Scooter", 10, "A scooter", users.get(0));
-        elementDAO.createElement("Skateboard", 40, "A skateboard", users.get(1));
-        Element test2 = elementDAO.createElement("Roller", 30, "A roller", users.get(2));
-        elementDAO.createElement("Ski", 80, "A ski", users.get(0));
-        elementDAO.createElement("Snowboard", 100, "A snowboard", users.get(1));
-        elementDAO.createElement("Surf", 68, "A surf", users.get(2));
+        elementDAO.createElement("Bike", 30, "A bike", users.get(0), null);
+        elementDAO.createElement("Car", 25, "A car", users.get(1), null);
+        Element test = elementDAO.createElement("Motorbike", 5, "A motorbike", users.get(2), null);
+        elementDAO.createElement("Scooter", 10, "A scooter", users.get(0), null);
+        elementDAO.createElement("Skateboard", 40, "A skateboard", users.get(1), null);
+        Element test2 = elementDAO.createElement("Roller", 30, "A roller", users.get(2), null);
+        elementDAO.createElement("Ski", 80, "A ski", users.get(0), null);
+        elementDAO.createElement("Snowboard", 100, "A snowboard", users.get(1), null);
+        elementDAO.createElement("Surf", 68, "A surf", users.get(2), null);
 
         AvailabilityDAO.getInstance().createAvailability(test, LocalDate.of(2024, 1, 12), LocalDate.of(2024, 1, 13), ChronoUnit.MONTHS, 1);
         AvailabilityDAO.getInstance().createAvailability(test2, LocalDate.of(2024, 1, 23), LocalDate.of(2024, 1, 23), null, null);

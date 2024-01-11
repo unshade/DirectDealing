@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.control.Label?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.components.ElementComponent">
+    <HBox spacing="10">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        <!-- Uncomment and use MFXImageView when an image is needed -->
+        <!-- <MFXImageView fx:id="productImage" fitWidth="100" fitHeight="100" preserveRatio="true"/> -->
+        <VBox spacing="5">
+            <Label fx:id="productName" styleClass="mfx-bold"/>
+            <Label fx:id="productPrice"/>
+        </VBox>
+    </HBox>
+    <HBox spacing="10">
+        <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+        </padding>
+        <Label fx:id="productType"/>
+        <Label fx:id="productGeo"/>
+        <Label fx:id="owner"/>
+    </HBox>
+</VBox>

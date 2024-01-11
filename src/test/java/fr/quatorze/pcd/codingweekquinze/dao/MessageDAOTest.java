@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@Order(1)
+@Order(2)
 class MessageDAOTest {
 
     @BeforeAll
@@ -34,7 +34,7 @@ class MessageDAOTest {
     void saveMessage() {
         User sender = UserDAO.getInstance().createUser("John", "Doe", "", "", 0, false, false);
         User receiver = UserDAO.getInstance().createUser("Jane", "Doe", "", "", 0, false, false);
-        Element element = ElementDAO.getInstance().createElement("Test", 0, "", sender);
+        Element element = ElementDAO.getInstance().createElement("Test", 0, "", sender, null);
         Loan loan = LoanDAO.getInstance().createLoan(new Date(), new Date(), element, sender);
         Message message = MessageDAO.getInstance().createMessage("Hello", sender, receiver, loan);
 
@@ -48,7 +48,7 @@ class MessageDAOTest {
     void search() {
         User sender = UserDAO.getInstance().getUserByName("John", "Doe");
         User receiver = UserDAO.getInstance().getUserByName("Jane", "Doe");
-        Element element = ElementDAO.getInstance().createElement("Test", 0, "", sender);
+        Element element = ElementDAO.getInstance().createElement("Test", 0, "", sender, null);
         Loan loan = LoanDAO.getInstance().createLoan(new Date(), new Date(), element, sender);
         Message message = MessageDAO.getInstance().createMessage("Hello", sender, receiver, loan);
 

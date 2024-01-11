@@ -46,18 +46,18 @@ public final class ElementDAO extends DAO<Element> {
                 .getResultList();
     }
 
-    public Element createElement(String name, Integer price, String description, User owner) {
+    public Element createElement(String name, Integer price, String description, User owner, String image) {
         em.getTransaction().begin();
-        Element element = new Element(name, price, description, owner, false);
+        Element element = new Element(name, price, description, owner, false, image);
         em.persist(element);
         em.getTransaction().commit();
 
         return element;
     }
 
-    public Element createElement(String name, Integer price, String description, User owner, boolean isService) {
+    public Element createElement(String name, Integer price, String description, User owner, boolean isService, String image) {
         em.getTransaction().begin();
-        Element element = new Element(name, price, description, owner, isService);
+        Element element = new Element(name, price, description, owner, isService, image);
         em.persist(element);
         em.getTransaction().commit();
 
