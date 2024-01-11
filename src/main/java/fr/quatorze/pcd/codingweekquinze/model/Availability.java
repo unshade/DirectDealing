@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.model;
 
+import javafx.util.Pair;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,6 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -45,6 +48,18 @@ public final class Availability {
     @Override
     public int hashCode() {
         return Objects.hash(id, element, fromDate, toDate, chronoUnit, period);
+    }
+
+    public List<Pair<LocalDate, LocalDate>> getDates() {
+        List<Pair<LocalDate, LocalDate>> dates = new ArrayList<Pair<LocalDate, LocalDate>>();
+        if (period == 0) {
+            dates.add(new Pair<LocalDate, LocalDate>(fromDate, toDate));
+        } else {
+            for(int i = 0; i <= period; i++) {
+                dates.add(new Pair<LocalDate, LocalDate>(fromDate.plus(i, chronoUnit), toDate.plus(i, chronoUnit)));
+            }
+        }
+        return dates;
     }
 
     @Override

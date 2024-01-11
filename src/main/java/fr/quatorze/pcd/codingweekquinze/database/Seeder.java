@@ -19,6 +19,7 @@ public class Seeder {
         ElementDAO.getInstance().dropTable();
         MessageDAO.getInstance().dropTable();
         NotificationDAO.getInstance().dropTable();
+        AvailabilityDAO.getInstance().dropTable();
 
         // Drop commune_data table with query
         var session = HibernateUtil.getSessionFactory().openSession();
@@ -44,5 +45,8 @@ public class Seeder {
         // Create notifications
         NotificationSeeder notificationSeeder = new NotificationSeeder();
         notificationSeeder.seed();
+
+        AvailabilitySeeder availabilitySeeder = new AvailabilitySeeder();
+        availabilitySeeder.seed();
     }
 }
