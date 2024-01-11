@@ -50,6 +50,32 @@ public final class Availability {
         return Objects.hash(id, element, fromDate, toDate, chronoUnit, period);
     }
 
+    public boolean isWithinPeriod(LocalDate start, LocalDate end) {
+        if (period <= 0 || chronoUnit == null) {
+            return false; // Retourne false si la période ou l'unité de temps n'est pas définie correctement.
+        }
+
+        LocalDate currentStart = fromDate;
+        LocalDate periodEnd = toDate;
+
+        // La date de fin de la période récurrente.
+        LocalDate recurringPeriodEnd = fromDate.plus(period, chronoUnit);
+
+        while (currentStart.isBefore(recurringPeriodEnd)) {
+            if ((start.isEqual(currentStart) || start.isAfter(currentStart)) &&
+                    (end.isEqual(periodEnd) || end.isBefore(periodEnd))) {
+                return true;
+            }
+
+            // Préparer pour la prochaine période récurrente
+            currentStart = currentStart.plus(1, chronoUnit);
+            periodEnd = periodEnd.plus(1, chronoUnit);
+        }
+
+        return false;
+    }
+
+
     public List<Pair<LocalDate, LocalDate>> getDates() {
         List<Pair<LocalDate, LocalDate>> dates = new ArrayList<Pair<LocalDate, LocalDate>>();
         if (period == 0) {
