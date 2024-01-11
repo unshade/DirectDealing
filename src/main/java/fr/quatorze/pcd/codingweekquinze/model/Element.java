@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.model;
 
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
+import javafx.util.Pair;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,11 +10,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Setter
@@ -108,6 +107,62 @@ public final class Element {
             }
         }
         return true;
+    }
+
+    public List<Pair<LocalDate, LocalDate>> getAvailableDates() {
+        List<Pair<LocalDate, LocalDate>> availableDates = new ArrayList<>();
+
+        for (Availability availability : availabilities) {
+            List<Pair<LocalDate, LocalDate>> availabilityPeriods = availability.getDates();
+            for (Pair<LocalDate, LocalDate> period : availabilityPeriods) {
+                List<Pair<LocalDate, LocalDate>> adjustedPeriods = adjustPeriodWithLoans(period);
+                availableDates.addAll(adjustedPeriods);
+            }
+        }
+
+        return availableDates;
+    }
+
+    private List<Pair<LocalDate, LocalDate>> adjustPeriodWithLoans(Pair<LocalDate, LocalDate> period) {
+        List<Pair<LocalDate, LocalDate>> adjustedPeriods = new ArrayList<>();
+        LocalDate currentStart = period.getKey();
+        LocalDate currentEnd = period.getValue();
+
+        List<Loan> overlappingLoans = getOverlappingLoans(currentStart, currentEnd);
+        Collections.sort(overlappingLoans, Comparator.comparing(Loan::getStartDate));
+
+        for (Loan loan : overlappingLoans) {
+            LocalDate loanStart = toLocalDate(loan.getStartDate());
+            LocalDate loanEnd = toLocalDate(loan.getEndDate());
+
+            if (loanStart.isAfter(currentStart)) {
+                adjustedPeriods.add(new Pair<>(currentStart, loanStart.minusDays(1)));
+            }
+
+            currentStart = loanEnd.plusDays(1);
+        }
+
+        if (currentStart.isBefore(currentEnd) || currentStart.isEqual(currentEnd)) {
+            adjustedPeriods.add(new Pair<>(currentStart, currentEnd));
+        }
+
+        return adjustedPeriods;
+    }
+
+
+    private List<Loan> getOverlappingLoans(LocalDate start, LocalDate end) {
+        List<Loan> overlappingLoans = new ArrayList<>();
+        for (Loan loan : loans) {
+            System.out.println("loan : " + loan.getStartDate() + " " + loan.getEndDate());
+            if (loan.isOverlapping(java.sql.Date.valueOf(start), java.sql.Date.valueOf(end))) {
+                overlappingLoans.add(loan);
+            }
+        }
+        return overlappingLoans;
+    }
+
+    private LocalDate toLocalDate(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     @Override

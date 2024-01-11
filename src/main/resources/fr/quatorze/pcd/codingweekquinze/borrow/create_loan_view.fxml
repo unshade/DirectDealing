@@ -18,14 +18,26 @@
     </HBox>
 
     <!-- Section Réservation -->
-    <VBox spacing="10">
-        <Label text="Réserver cet Élément" style="-fx-font-size: 18;"/>
-        <HBox spacing="10">
-            <Label text="Du:"/>
-            <DatePicker fx:id="startDate"/>
-            <Label text="Au:"/>
-            <DatePicker fx:id="endDate"/>
-        </HBox>
-        <Button text="Réserver"  onAction="#submit"/>
-    </VBox>
+    <Label text="Réservation" styleClass="h2"/>
+    <HBox spacing="30">
+        <VBox spacing="5">
+            <Label text="Créneau de réservation"/>
+            <ListView fx:id="reservationList" prefHeight="300" prefWidth="400"/>
+        </VBox>
+        <VBox spacing="5">
+            <Label text="Choix du créneau"/>
+            <VBox spacing="10">
+                <HBox>
+                    <Label text="Du:"/>
+                    <DatePicker fx:id="startDate"/>
+
+                </HBox>
+                <HBox>
+                    <Label text="Au:"/>
+                    <DatePicker fx:id="endDate"/>
+                </HBox>
+            </VBox>
+            <Button text="Réserver" onAction="#reserve"/>
+        </VBox>
+    </HBox>
 </VBox>

@@ -69,8 +69,7 @@ public class MyElementsController {
                             setText(content);
                             setOnMouseClicked(event -> {
                                 if (event.getClickCount() == 2 && (!isEmpty())) {
-                                    //LayoutManager.setLayout("index.fxml", "Loan", element);
-                                    System.out.println("Double clicked on " + element.getName());
+                                    LayoutManager.setLayout("loan/edit_element.fxml", "Edit Element", element);
                                 }
                             });
                         }

@@ -75,6 +75,8 @@ dependencies {
     implementation 'org.slf4j:slf4j-nop:2.0.7'
     implementation files('lib/view-11.12.6.jar')
 
+    implementation 'io.github.palexdev:materialfx:11.17.0'
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
