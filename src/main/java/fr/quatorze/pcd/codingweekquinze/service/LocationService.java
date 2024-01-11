@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.List;
 
@@ -128,6 +129,10 @@ public final class LocationService {
     }
 
     public List<String> getCitiesStartingWith(String prefix) {
+        // Normalize for accents
+        prefix = Normalizer.normalize(prefix, Normalizer.Form.NFKD);
+        prefix = prefix.replaceAll("\\p{InCombiningDiacriticalMarks}", "");
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         String query = """

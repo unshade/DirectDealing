@@ -11,12 +11,16 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.DatePicker?>
 
+<?import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.SelectElementController"
       prefHeight="400.0" prefWidth="600.0" fx:id="root" styleClass="container">
     <Label text="Voir les annonces" styleClass="h2"/>
     <HBox spacing="10" alignment="CENTER">
+        <AutocompletionTextField fx:id="cityBar" promptText="Rechercher une ville..." text="abc">
+
+        </AutocompletionTextField>
         <TextField fx:id="searchBar" promptText="Rechercher un nom..."/>
         <DatePicker fx:id="startDate" promptText="Date de début"/>
         <DatePicker fx:id="endDate" promptText="Date de fin"/>
