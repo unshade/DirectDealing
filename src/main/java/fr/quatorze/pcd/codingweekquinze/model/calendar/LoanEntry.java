@@ -9,6 +9,6 @@ public final class LoanEntry extends Entry<Loan> {
 
     public LoanEntry(Loan loan) {
         setTitle(loan.getItem().getName());
-        setInterval(loan.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), loan.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        setInterval(loan.getStartDate(), loan.getEndDate());
     }
 }

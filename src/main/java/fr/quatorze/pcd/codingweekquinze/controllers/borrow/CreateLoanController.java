@@ -3,6 +3,7 @@ package fr.quatorze.pcd.codingweekquinze.controllers.borrow;
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
+import fr.quatorze.pcd.codingweekquinze.layout.component.DateTimePicker;
 import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
@@ -15,6 +16,7 @@ import javafx.util.Callback;
 import javafx.util.Pair;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,10 +26,10 @@ public class CreateLoanController {
     private final Element element;
 
     @FXML
-    private DatePicker startDate;
+    private DateTimePicker startDate;
 
     @FXML
-    private DatePicker endDate;
+    private DateTimePicker endDate;
 
     @FXML
     private Label name;
@@ -39,7 +41,7 @@ public class CreateLoanController {
     private Label price;
 
     @FXML
-    private ListView<Pair<LocalDate, LocalDate>> reservationList;
+    private ListView<Pair<LocalDateTime, LocalDateTime>> reservationList;
 
     public CreateLoanController(Element element) {
         this.element = element;
@@ -53,27 +55,27 @@ public class CreateLoanController {
 
         this.reservationList.setItems(FXCollections.observableList(this.element.getAvailableDates()));
 
-        this.reservationList.setCellFactory(new Callback<ListView<Pair<LocalDate,LocalDate>>, ListCell<Pair<LocalDate,LocalDate>>>() {
+        this.reservationList.setCellFactory(new Callback<ListView<Pair<LocalDateTime,LocalDateTime>>, ListCell<Pair<LocalDateTime,LocalDateTime>>>() {
             @Override
-            public ListCell<Pair<LocalDate,LocalDate>> call(ListView<Pair<LocalDate,LocalDate>> listView) {
-                return new ListCell<Pair<LocalDate,LocalDate>>() {
+            public ListCell<Pair<LocalDateTime,LocalDateTime>> call(ListView<Pair<LocalDateTime,LocalDateTime>> listView) {
+                return new ListCell<Pair<LocalDateTime,LocalDateTime>>() {
                     @Override
-                    protected void updateItem(Pair<LocalDate,LocalDate> period, boolean empty) {
+                    protected void updateItem(Pair<LocalDateTime,LocalDateTime> period, boolean empty) {
                         super.updateItem(period, empty);
                         if (empty || period == null) {
                             setText(null);
                             setOnMouseClicked(null);
                         } else {
-                            LocalDate start = period.getKey();
-                            LocalDate end = period.getValue();
+                            LocalDateTime start = period.getKey();
+                            LocalDateTime end = period.getValue();
                             if (start.isEqual(end)) {
                                 setText(start.toString());
                             } else {
                                 setText(start.toString() + " - " + end.toString());
                             }
                             setOnMouseClicked(event -> {
-                                startDate.setValue(period.getKey());
-                                endDate.setValue(period.getValue());
+                                startDate.setDateTimeValue(period.getKey());
+                                endDate.setDateTimeValue(period.getValue());
                             });
                         }
                     }
@@ -85,10 +87,10 @@ public class CreateLoanController {
 
     @FXML
     private void reserve() {
-        Date startDate = Date.from(this.startDate.getValue().atStartOfDay().toInstant(java.time.ZoneOffset.UTC));
-        Date endDate = Date.from(this.endDate.getValue().atStartOfDay().toInstant(java.time.ZoneOffset.UTC));
+        LocalDateTime startDate = this.startDate.getDateTimeValue();
+        LocalDateTime endDate = this.endDate.getDateTimeValue();
 
-        if (startDate.after(endDate)) {
+        if (startDate.isAfter(endDate)) {
             LayoutManager.alert("La date de début doit être avant la date de fin");
             return;
         }

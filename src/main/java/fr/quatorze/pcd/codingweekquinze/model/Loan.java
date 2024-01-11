@@ -9,6 +9,8 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -24,9 +26,9 @@ public final class Loan {
     private Long id;
 
     @ColumnDefault("CURRENT_TIMESTAMP")
-    private Date startDate;
+    private LocalDateTime startDate;
     @ColumnDefault("CURRENT_TIMESTAMP")
-    private Date endDate;
+    private LocalDateTime endDate;
 
     @ManyToOne
     @JoinColumn(name = "item_id")
@@ -43,7 +45,7 @@ public final class Loan {
     private Integer status = LoanStatus.PENDING.ordinal();
     private Integer rating;
 
-    public Loan(Date startDate, Date endDate, Element item, User borrower) {
+    public Loan(LocalDateTime startDate, LocalDateTime endDate, Element item, User borrower) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.item = item;
@@ -68,7 +70,7 @@ public final class Loan {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Loan loan = (Loan) o;
-        return Objects.equals(id, loan.id) && Objects.equals(startDate, loan.startDate) && Objects.equals(endDate, loan.endDate) && Objects.equals(item, loan.item) && Objects.equals(borrower, loan.borrower) && Objects.equals(rating, loan.rating);
+        return Objects.equals(id, loan.id) && Objects.equals(startDate.truncatedTo(java.time.temporal.ChronoUnit.SECONDS), loan.startDate.truncatedTo(java.time.temporal.ChronoUnit.SECONDS)) && Objects.equals(endDate.truncatedTo(java.time.temporal.ChronoUnit.SECONDS), loan.endDate.truncatedTo(java.time.temporal.ChronoUnit.SECONDS)) && Objects.equals(item, loan.item) && Objects.equals(borrower, loan.borrower) && Objects.equals(rating, loan.rating);
     }
 
     @Override
@@ -85,16 +87,17 @@ public final class Loan {
         return Objects.hash(id, startDate, endDate, item, borrower, rating);
     }
 
-    public boolean isOverlapping(Date startDate, Date endDate) {
+    public boolean isOverlapping(LocalDateTime startDate, LocalDateTime endDate) {
         if (this.startDate.equals(startDate) || this.endDate.equals(endDate)) {
+            System.out.println("equals");
             return true;
         }
-        if (this.startDate.before(startDate) && this.endDate.after(startDate)) {
+        if (this.startDate.isBefore(startDate) && this.endDate.isAfter(startDate)) {
             return true;
         }
-        if (this.startDate.before(endDate) && this.endDate.after(endDate)) {
+        if (this.startDate.isBefore(endDate) && this.endDate.isAfter(endDate)) {
             return true;
         }
-        return this.startDate.after(startDate) && this.endDate.before(endDate);
+        return this.startDate.isAfter(startDate) && this.endDate.isBefore(endDate);
     }
 }

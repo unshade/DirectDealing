@@ -20,7 +20,7 @@ public class AvailabilityTest {
         User sender = UserDAO.getInstance().getUserByName("John", "Doe");
         User receiver = UserDAO.getInstance().getUserByName("Jane", "Doe");
         Element element = ElementDAO.getInstance().getElementsByOwner(sender).get(0);
-        Loan loan = LoanDAO.getInstance().createLoan(new Date(), new Date(), element, receiver);
+        Loan loan = LoanDAO.getInstance().createLoan(LocalDateTime.now(), LocalDateTime.now(), element, sender);
 
         // Check if the element knows the loan
         Assertions.assertTrue(element.getLoans().contains(loan));
@@ -28,11 +28,24 @@ public class AvailabilityTest {
         // Check if the loan has the right element
         Assertions.assertEquals(loan.getItem(), element);
 
-        Availability a1 = AvailabilityDAO.getInstance().createAvailability(element, LocalDate.now(), LocalDate.now().plusDays(1), null, 0);
+        Availability a1 = AvailabilityDAO.getInstance().createAvailability(element, LocalDateTime.now(), LocalDateTime.now().plusDays(1), null, 0);
 
         Assertions.assertEquals(1, AvailabilityDAO.getInstance().getAllAvailabilities().size());
         Assertions.assertEquals(a1.getElement(), element);
         Assertions.assertTrue(element.getAvailabilities().contains(a1));
+
+        System.out.println(element.getName());
+        for (Availability a : element.getAvailabilities()) {
+            System.out.println(a.getFromDate());
+            System.out.println(a.getToDate());
+        }
+
+        System.out.println("Loans:");
+
+        for (Loan l : element.getLoans()) {
+            System.out.println(l.getStartDate());
+            System.out.println(l.getEndDate());
+        }
 
         // Check overlaps
         Assertions.assertTrue(element.isAvailable(LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusMinutes(2)));

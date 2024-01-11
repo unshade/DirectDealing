@@ -16,15 +16,15 @@ public class AvailabilitySeeder {
         AvailabilityDAO availabilityDAO = AvailabilityDAO.getInstance();
 
         // Create availabilities
-        availabilityDAO.createAvailability(elements.get(0), java.time.LocalDate.of(2024, 1, 3), java.time.LocalDate.of(2024, 1, 13), java.time.temporal.ChronoUnit.MONTHS, 2);
-        availabilityDAO.createAvailability(elements.get(1), java.time.LocalDate.of(2024, 1, 12), java.time.LocalDate.of(2024, 1, 23), null, 0);
-        availabilityDAO.createAvailability(elements.get(2), java.time.LocalDate.of(2024, 1, 12), java.time.LocalDate.of(2024, 1, 23), java.time.temporal.ChronoUnit.MONTHS, 1);
-        availabilityDAO.createAvailability(elements.get(3), java.time.LocalDate.of(2024, 1, 13), java.time.LocalDate.of(2024, 1, 23), null, 0);
-        availabilityDAO.createAvailability(elements.get(4), java.time.LocalDate.of(2024, 1, 2), java.time.LocalDate.of(2024, 1, 13), java.time.temporal.ChronoUnit.MONTHS, 1);
-        availabilityDAO.createAvailability(elements.get(5), java.time.LocalDate.of(2024, 1, 18), java.time.LocalDate.of(2024, 1, 23), null, 0);
-        availabilityDAO.createAvailability(elements.get(6), java.time.LocalDate.of(2024, 1, 15), java.time.LocalDate.of(2024, 1, 19), java.time.temporal.ChronoUnit.MONTHS, 1);
-        availabilityDAO.createAvailability(elements.get(7), java.time.LocalDate.of(2024, 1, 14), java.time.LocalDate.of(2024, 1, 23), null, 0);
-        availabilityDAO.createAvailability(elements.get(8), java.time.LocalDate.of(2024, 1, 12), java.time.LocalDate.of(2024, 1, 17), java.time.temporal.ChronoUnit.MONTHS, 1);
+        availabilityDAO.createAvailability(elements.get(0), java.time.LocalDateTime.of(2024, 12, 12, 12, 12), java.time.LocalDateTime.of(2024, 12, 12, 12, 12), null, 0);
+        availabilityDAO.createAvailability(elements.get(1), java.time.LocalDateTime.of(2024, 1, 11, 12, 12), java.time.LocalDateTime.of(2024, 1, 11, 12, 12), null, 0);
+        availabilityDAO.createAvailability(elements.get(2), java.time.LocalDateTime.of(2024, 2, 10, 12, 12), java.time.LocalDateTime.of(2024, 2, 10, 12, 12), null, 0);
+        availabilityDAO.createAvailability(elements.get(3), java.time.LocalDateTime.of(2024, 3, 9, 12, 12), java.time.LocalDateTime.of(2024, 4, 9, 12, 12), null, 0);
+        availabilityDAO.createAvailability(elements.get(4), java.time.LocalDateTime.of(2024, 4, 8, 12, 12), java.time.LocalDateTime.of(2024, 5, 8, 12, 12), null, 0);
+        availabilityDAO.createAvailability(elements.get(5), java.time.LocalDateTime.of(2024, 5, 7, 12, 12), java.time.LocalDateTime.of(2024, 6, 7, 12, 12), null, 0);
+        availabilityDAO.createAvailability(elements.get(6), java.time.LocalDateTime.of(2024, 6, 6, 12, 12), java.time.LocalDateTime.of(2024, 7, 6, 12, 12), null, 0);
+        availabilityDAO.createAvailability(elements.get(7), java.time.LocalDateTime.of(2024, 7, 5, 12, 12), java.time.LocalDateTime.of(2024, 8, 5, 12, 12), null, 0);
+        availabilityDAO.createAvailability(elements.get(8), java.time.LocalDateTime.of(2024, 8, 4, 12, 12), java.time.LocalDateTime.of(2024, 9, 4, 12, 12), null, 0);
 
 
 

@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -21,7 +22,7 @@ public final class Message {
     private String content;
 
     @CreationTimestamp
-    private Date date;
+    private LocalDateTime date;
 
     @ManyToOne(targetEntity = Loan.class)
     @JoinColumn(name = "loan_id")
@@ -47,7 +48,9 @@ public final class Message {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message = (Message) o;
-        return Objects.equals(id, message.id) && Objects.equals(content, message.content) && Objects.equals(date, message.date) && Objects.equals(loan, message.loan) && Objects.equals(sender, message.sender) && Objects.equals(receiver, message.receiver);
+        System.out.println("Message : " + message.date.truncatedTo(java.time.temporal.ChronoUnit.SECONDS));
+        System.out.println("This : " + this.date.truncatedTo(java.time.temporal.ChronoUnit.SECONDS));
+        return Objects.equals(id, message.id) && Objects.equals(content, message.content) && Objects.equals(date.truncatedTo(java.time.temporal.ChronoUnit.SECONDS), message.date.truncatedTo(java.time.temporal.ChronoUnit.SECONDS)) && Objects.equals(loan, message.loan) && Objects.equals(sender, message.sender) && Objects.equals(receiver, message.receiver);
     }
 
     @Override

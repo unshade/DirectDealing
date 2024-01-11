@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +19,8 @@ import java.util.Objects;
 @NoArgsConstructor
 public final class Availability {
 
-    LocalDate fromDate;
-    LocalDate toDate;
+    LocalDateTime fromDate;
+    LocalDateTime toDate;
     ChronoUnit chronoUnit;
     Integer period;
     @Id
@@ -29,7 +30,7 @@ public final class Availability {
     @JoinColumn(name = "element_id")
     private Element element;
 
-    public Availability(Element element, LocalDate fromDate, LocalDate toDate, ChronoUnit chronoUnit, Integer period) {
+    public Availability(Element element, LocalDateTime fromDate, LocalDateTime toDate, ChronoUnit chronoUnit, Integer period) {
         this.element = element;
         this.fromDate = fromDate;
         this.toDate = toDate;
@@ -42,7 +43,7 @@ public final class Availability {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Availability that = (Availability) o;
-        return Objects.equals(id, that.id) && Objects.equals(element, that.element) && Objects.equals(fromDate, that.fromDate) && Objects.equals(toDate, that.toDate) && chronoUnit == that.chronoUnit && Objects.equals(period, that.period);
+        return Objects.equals(id, that.id) && Objects.equals(element, that.element) && Objects.equals(fromDate.truncatedTo(java.time.temporal.ChronoUnit.SECONDS), that.fromDate.truncatedTo(java.time.temporal.ChronoUnit.SECONDS)) && Objects.equals(toDate.truncatedTo(java.time.temporal.ChronoUnit.SECONDS), that.toDate.truncatedTo(java.time.temporal.ChronoUnit.SECONDS)) && chronoUnit == that.chronoUnit && Objects.equals(period, that.period);
     }
 
     @Override
@@ -50,17 +51,17 @@ public final class Availability {
         return Objects.hash(id, element, fromDate, toDate, chronoUnit, period);
     }
 
-    public boolean isWithinPeriod(LocalDate start, LocalDate end) {
+    public boolean isWithinPeriod(LocalDateTime start, LocalDateTime end) {
         if (period == 0) {
             return (start.isEqual(fromDate) || start.isAfter(fromDate)) &&
                     (end.isEqual(toDate) || end.isBefore(toDate));
         }
 
-        LocalDate currentStart = fromDate;
-        LocalDate periodEnd = toDate;
+        LocalDateTime currentStart = fromDate;
+        LocalDateTime periodEnd = toDate;
 
         // La date de fin de la période récurrente.
-        LocalDate recurringPeriodEnd = fromDate.plus(period, chronoUnit);
+        LocalDateTime recurringPeriodEnd = fromDate.plus(period, chronoUnit);
 
         while (currentStart.isBefore(recurringPeriodEnd)) {
             if ((start.isEqual(currentStart) || start.isAfter(currentStart)) &&
@@ -77,18 +78,18 @@ public final class Availability {
     }
 
 
-    public boolean isOverlapPeriod(LocalDate start, LocalDate end, ChronoUnit chronoUnitPeriod, Integer recurrence) {
+    public boolean isOverlapPeriod(LocalDateTime start, LocalDateTime end, ChronoUnit chronoUnitPeriod, Integer recurrence) {
 
         // La date de fin de la période récurrente
-        LocalDate recurringPeriodEnd = fromDate.plus(period, chronoUnit);
+        LocalDateTime recurringPeriodEnd = fromDate.plus(period, chronoUnit);
 
         // La date de fin de la période récurrente de la période donnée en paramètre
-        LocalDate recurringPeriodEndParam = start.plus(recurrence, chronoUnitPeriod);
+        LocalDateTime recurringPeriodEndParam = start.plus(recurrence, chronoUnitPeriod);
 
         while (start.isBefore(recurringPeriodEndParam) || start.isEqual(recurringPeriodEndParam)) {
             // On veut que la la période donnée en paramètre ne chevauche pas une période déjà existante
-            LocalDate currentStart = fromDate;
-            LocalDate periodEnd = toDate;
+            LocalDateTime currentStart = fromDate;
+            LocalDateTime periodEnd = toDate;
             while (currentStart.isBefore(recurringPeriodEnd) || currentStart.isEqual(recurringPeriodEnd)) {
                 if ((start.isEqual(currentStart) || start.isAfter(currentStart)) &&
                         (end.isEqual(periodEnd) || end.isBefore(periodEnd))) {
@@ -121,13 +122,14 @@ public final class Availability {
         return false;
     }
 
-    public List<Pair<LocalDate, LocalDate>> getDates() {
-        List<Pair<LocalDate, LocalDate>> dates = new ArrayList<Pair<LocalDate, LocalDate>>();
+
+    public List<Pair<LocalDateTime, LocalDateTime>> getDates() {
+        List<Pair<LocalDateTime, LocalDateTime>> dates = new ArrayList<Pair<LocalDateTime, LocalDateTime>>();
         if (period == 0) {
-            dates.add(new Pair<LocalDate, LocalDate>(fromDate, toDate));
+            dates.add(new Pair<LocalDateTime, LocalDateTime>(fromDate, toDate));
         } else {
             for(int i = 0; i <= period; i++) {
-                dates.add(new Pair<LocalDate, LocalDate>(fromDate.plus(i, chronoUnit), toDate.plus(i, chronoUnit)));
+                dates.add(new Pair<LocalDateTime, LocalDateTime>(fromDate.plus(i, chronoUnit), toDate.plus(i, chronoUnit)));
             }
         }
         return dates;

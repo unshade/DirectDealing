@@ -4,6 +4,7 @@ import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField;
+import fr.quatorze.pcd.codingweekquinze.layout.component.DateTimePicker;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import fr.quatorze.pcd.codingweekquinze.service.LocationService;
@@ -13,6 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Date;
 import java.util.List;
@@ -32,10 +35,10 @@ public class SelectElementController {
     private AutocompletionTextField cityBar;
 
     @FXML
-    private DatePicker startDate;
+    private DateTimePicker startDate;
 
     @FXML
-    private DatePicker endDate;
+    private DateTimePicker endDate;
 
     @FXML
     private ComboBox<String> rating;
@@ -92,13 +95,13 @@ public class SelectElementController {
     private void search() {
         String search = searchBar.getText().isEmpty() ? null : searchBar.getText();
 
-        Date start = startDate.getValue() == null
+        LocalDateTime start = startDate.getValue() == null
                 ? null
-                : Date.from(startDate.getValue().atStartOfDay().toInstant(ZoneOffset.UTC));
+                : startDate.getDateTimeValue();
 
-        Date end = endDate.getValue() == null
+        LocalDateTime end = endDate.getValue() == null
                 ? null
-                : Date.from(endDate.getValue().atStartOfDay().toInstant(ZoneOffset.UTC));
+                : endDate.getDateTimeValue();
 
         Integer rating = this.rating.getValue() != null && !this.rating.getValue().equals("Sélectionnez une note")
                 ? Integer.parseInt(this.rating.getValue()) : null;

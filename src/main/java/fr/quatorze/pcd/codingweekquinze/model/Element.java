@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
 
@@ -49,12 +50,6 @@ public final class Element {
         this.city = city;
     }
 
-    public void addLoan(User user, Date startDate, Date endDate) {
-
-        Loan loan = LoanDAO.getInstance().createLoan(startDate, endDate, this, user);
-        ElementDAO.getInstance().update(this);
-    }
-
     public Integer getRating() {
         Integer rating = 0;
         for (Loan loan : this.loans) {
@@ -64,39 +59,44 @@ public final class Element {
         return rating;
     }
 
-    public boolean isAvailable(Date startDate, Date endDate) {
+   /*public boolean isAvailable(LocalDateTime startDate, LocalDateTime endDate) {
+        return isAvailable(startDate, endDate);
+    }*/
+
+    public boolean isAvailable(LocalDateTime startDate, LocalDateTime endDate) {
         if (owner.isSleeping()) return false;
 
-        LocalDate startLocalDate = toLocalDate(startDate);
-        LocalDate endLocalDate = toLocalDate(endDate);
+        System.out.println("check isWithinAvailabilityPeriods : " + isWithinAvailabilityPeriods(startDate, endDate));
+        System.out.println("check isOverlappingWithLoans : " + !isOverlappingWithLoans(startDate, endDate));
 
-        return isWithinAvailabilityPeriods(startLocalDate, endLocalDate) &&
-                !isOverlappingWithLoans(startLocalDate, endLocalDate);
+        return isWithinAvailabilityPeriods(startDate, endDate) &&
+                !isOverlappingWithLoans(startDate, endDate);
     }
 
-    private boolean isWithinAvailabilityPeriods(LocalDate start, LocalDate end) {
+    private boolean isWithinAvailabilityPeriods(LocalDateTime start, LocalDateTime end) {
         for (Availability availability : availabilities) {
             if (!availability.isWithinPeriod(start, end)) {
+                System.out.println("not within period");
+                System.out.println(availability.getFromDate() + " " + availability.getToDate());
                 return false;
             }
         }
         return true;
     }
 
-    private boolean isOverlappingWithLoans(LocalDate start, LocalDate end) {
+    private boolean isOverlappingWithLoans(LocalDateTime start, LocalDateTime end) {
         for (Loan loan : loans) {
-            if (loan.isOverlapping(java.sql.Date.valueOf(start), java.sql.Date.valueOf(end))) {
+            if (loan.isOverlapping(start, end)) {
+                System.out.println("overlapping with loan");
+                System.out.println(loan.getStartDate() + " " + loan.getEndDate());
+                System.out.println("date : " + start + " " + end);
                 return true;
             }
         }
         return false;
     }
 
-    /*public boolean isAvailable(LocalDateTime startDate, LocalDateTime endDate) {
-        return isAvailable(java.sql.Date.valueOf(startDate.toLocalDate()), java.sql.Date.valueOf(endDate.toLocalDate()));
-    }
-
-    public boolean isAvailable(Date startDate, Date endDate) {
+    /*public boolean isAvailable(Date startDate, Date endDate) {
         System.out.println("check : " + startDate + " " + endDate);
         if (owner.isSleeping()) return false;
 
@@ -138,13 +138,13 @@ public final class Element {
         return true;
     }*/
 
-    public List<Pair<LocalDate, LocalDate>> getAvailableDates() {
-        List<Pair<LocalDate, LocalDate>> availableDates = new ArrayList<>();
+    public List<Pair<LocalDateTime, LocalDateTime>> getAvailableDates() {
+        List<Pair<LocalDateTime, LocalDateTime>> availableDates = new ArrayList<>();
 
         for (Availability availability : availabilities) {
-            List<Pair<LocalDate, LocalDate>> availabilityPeriods = availability.getDates();
-            for (Pair<LocalDate, LocalDate> period : availabilityPeriods) {
-                List<Pair<LocalDate, LocalDate>> adjustedPeriods = adjustPeriodWithLoans(period);
+            List<Pair<LocalDateTime, LocalDateTime>> availabilityPeriods = availability.getDates();
+            for (Pair<LocalDateTime, LocalDateTime> period : availabilityPeriods) {
+                List<Pair<LocalDateTime, LocalDateTime>> adjustedPeriods = adjustPeriodWithLoans(period);
                 availableDates.addAll(adjustedPeriods);
             }
         }
@@ -152,17 +152,17 @@ public final class Element {
         return availableDates;
     }
 
-    private List<Pair<LocalDate, LocalDate>> adjustPeriodWithLoans(Pair<LocalDate, LocalDate> period) {
-        List<Pair<LocalDate, LocalDate>> adjustedPeriods = new ArrayList<>();
-        LocalDate currentStart = period.getKey();
-        LocalDate currentEnd = period.getValue();
+    private List<Pair<LocalDateTime, LocalDateTime>> adjustPeriodWithLoans(Pair<LocalDateTime, LocalDateTime> period) {
+        List<Pair<LocalDateTime, LocalDateTime>> adjustedPeriods = new ArrayList<>();
+        LocalDateTime currentStart = period.getKey();
+        LocalDateTime currentEnd = period.getValue();
 
         List<Loan> overlappingLoans = getOverlappingLoans(currentStart, currentEnd);
         overlappingLoans.sort(Comparator.comparing(Loan::getStartDate));
 
         for (Loan loan : overlappingLoans) {
-            LocalDate loanStart = toLocalDate(loan.getStartDate());
-            LocalDate loanEnd = toLocalDate(loan.getEndDate());
+            LocalDateTime loanStart = loan.getStartDate();
+            LocalDateTime loanEnd = loan.getEndDate();
 
             if (loanStart.isAfter(currentStart)) {
                 adjustedPeriods.add(new Pair<>(currentStart, loanStart.minusDays(1)));
@@ -179,19 +179,15 @@ public final class Element {
     }
 
 
-    private List<Loan> getOverlappingLoans(LocalDate start, LocalDate end) {
+    private List<Loan> getOverlappingLoans(LocalDateTime start, LocalDateTime end) {
         List<Loan> overlappingLoans = new ArrayList<>();
         for (Loan loan : loans) {
             System.out.println("loan : " + loan.getStartDate() + " " + loan.getEndDate());
-            if (loan.isOverlapping(java.sql.Date.valueOf(start), java.sql.Date.valueOf(end))) {
+            if (loan.isOverlapping(start, end)) {
                 overlappingLoans.add(loan);
             }
         }
         return overlappingLoans;
-    }
-
-    private LocalDate toLocalDate(Date date) {
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     @Override

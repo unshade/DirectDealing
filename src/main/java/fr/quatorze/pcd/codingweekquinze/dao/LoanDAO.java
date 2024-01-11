@@ -10,6 +10,8 @@ import org.hibernate.SessionFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public final class LoanDAO extends DAO<Loan> {
         em.getTransaction().commit();
     }
 
-    public Loan createLoan(Date startDate, Date endDate, Element item, User borrower) {
+    public Loan createLoan(LocalDateTime startDate, LocalDateTime endDate, Element item, User borrower) {
         em.getTransaction().begin();
         Loan loan = new Loan(startDate, endDate, item, borrower);
         item.getLoans().add(loan);

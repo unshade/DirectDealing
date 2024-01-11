@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public final class AvailabilityDAO extends DAO<Availability> {
         return instance;
     }
 
-    public Availability createAvailability(Element element, LocalDate fromDate, LocalDate toDate, ChronoUnit chronoUnit, Integer period) {
+    public Availability createAvailability(Element element, LocalDateTime fromDate, LocalDateTime toDate, ChronoUnit chronoUnit, Integer period) {
         em.getTransaction().begin();
         Availability availability = new Availability(element, fromDate, toDate, chronoUnit, period);
         em.persist(availability);

@@ -13,6 +13,7 @@
 
 <?import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField?>
 <?import com.sun.javafx.scene.control.IntegerField?>
+<?import fr.quatorze.pcd.codingweekquinze.layout.component.DateTimePicker?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.SelectElementController"
@@ -24,8 +25,8 @@
         </AutocompletionTextField>
         <TextField fx:id="distance" promptText="Distance en km" text="5"/>
         <TextField fx:id="searchBar" promptText="Rechercher un nom..."/>
-        <DatePicker fx:id="startDate" promptText="Date de début"/>
-        <DatePicker fx:id="endDate" promptText="Date de fin"/>
+        <DateTimePicker fx:id="startDate" promptText="Date de début"/>
+        <DateTimePicker fx:id="endDate" promptText="Date de fin"/>
         <ComboBox fx:id="type" promptText="Type">
             <items>
                 <FXCollections fx:factory="observableArrayList">

@@ -8,6 +8,8 @@ import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.logging.Level;
 
@@ -34,8 +36,8 @@ class MessageDAOTest {
     void saveMessage() {
         User sender = UserDAO.getInstance().createUser("John", "Doe", "", "", 0, false, false);
         User receiver = UserDAO.getInstance().createUser("Jane", "Doe", "", "", 0, false, false);
-        Element element = ElementDAO.getInstance().createElement("Test", 0, "", sender, null);
-        Loan loan = LoanDAO.getInstance().createLoan(new Date(), new Date(), element, sender);
+        Element element = ElementDAO.getInstance().createElement("Test", 0, "", sender,null, null);
+        Loan loan = LoanDAO.getInstance().createLoan(LocalDateTime.now(), LocalDateTime.now(), element, sender);
         Message message = MessageDAO.getInstance().createMessage("Hello", sender, receiver, loan);
 
         Message fetchedMessage = MessageDAO.getInstance().getById(message.getId());
@@ -48,8 +50,8 @@ class MessageDAOTest {
     void search() {
         User sender = UserDAO.getInstance().getUserByName("John", "Doe");
         User receiver = UserDAO.getInstance().getUserByName("Jane", "Doe");
-        Element element = ElementDAO.getInstance().createElement("Test", 0, "", sender, null);
-        Loan loan = LoanDAO.getInstance().createLoan(new Date(), new Date(), element, sender);
+        Element element = ElementDAO.getInstance().createElement("Test", 0, "", sender,null, null);
+        Loan loan = LoanDAO.getInstance().createLoan(LocalDateTime.now(), LocalDateTime.now(), element, sender);
         Message message = MessageDAO.getInstance().createMessage("Hello", sender, receiver, loan);
 
         var result1 = MessageDAO.getInstance().search(message);

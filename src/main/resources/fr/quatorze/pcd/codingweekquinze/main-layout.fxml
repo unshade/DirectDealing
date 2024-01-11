@@ -15,7 +15,7 @@
 <?import javafx.scene.image.Image?>
 
 
-<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="1080.0" prefWidth="1920.0" >
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefHeight="1080.0" prefWidth="1920.0" stylesheets="style/global_style.css">
     <!-- Barre de navigation en haut -->
 
 

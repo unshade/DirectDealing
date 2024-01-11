@@ -8,6 +8,7 @@ import fr.quatorze.pcd.codingweekquinze.model.User;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -23,11 +24,13 @@ public class LoanSeeder {
         ArrayList<Element> elements = (ArrayList<Element>) elementDAO.getAllElements();
 
         // Create loans with differents dates and users and elements
-        loanDAO.createLoan(Date.valueOf(LocalDate.of(2024, 12, 12)), Date.valueOf(LocalDate.of(2024, 12, 12)), elements.get(0), users.get(1));
-        loanDAO.createLoan(Date.valueOf(LocalDate.of(2024, 1, 11)), Date.valueOf(LocalDate.of(2024, 1, 11)), elements.get(1), users.get(2));
-        loanDAO.createLoan(Date.valueOf(LocalDate.of(2024, 2, 10)), Date.valueOf(LocalDate.of(2024, 2, 10)), elements.get(2), users.get(0));
-        loanDAO.createLoan(Date.valueOf(LocalDate.of(2024, 3, 9)), Date.valueOf(LocalDate.of(2024, 4, 9)), elements.get(3), users.get(2));
-        loanDAO.createLoan(Date.valueOf(LocalDate.of(2024, 4, 8)), Date.valueOf(LocalDate.of(2024, 5, 8)), elements.get(4), users.get(0));
+        loanDAO.createLoan(LocalDateTime.of(2024, 12, 12, 12, 12), LocalDateTime.of(2024, 12, 12, 12, 12), elements.get(0), users.get(0));
+        loanDAO.createLoan(LocalDateTime.of(2024, 1, 11, 12, 12), LocalDateTime.of(2024, 1, 11, 12, 12), elements.get(1), users.get(1));
+        loanDAO.createLoan(LocalDateTime.of(2024, 2, 10, 12, 12), LocalDateTime.of(2024, 2, 10, 12, 12), elements.get(2), users.get(2));
+        loanDAO.createLoan(LocalDateTime.of(2024, 3, 9, 12, 12), LocalDateTime.of(2024, 4, 9, 12, 12), elements.get(3), users.get(0));
+        loanDAO.createLoan(LocalDateTime.of(2024, 4, 8, 12, 12), LocalDateTime.of(2024, 5, 8, 12, 12), elements.get(4), users.get(1));
+        loanDAO.createLoan(LocalDateTime.of(2024, 5, 7, 12, 12), LocalDateTime.of(2024, 6, 7, 12, 12), elements.get(5), users.get(2));
+
 
         // Add ratings
         loanDAO.addRating(loanDAO.getAllLoans().get(0), 5);

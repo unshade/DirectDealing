@@ -4,6 +4,7 @@ import fr.quatorze.pcd.codingweekquinze.dao.AvailabilityDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
+import fr.quatorze.pcd.codingweekquinze.layout.component.DateTimePicker;
 import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
@@ -22,6 +23,8 @@ import javafx.util.Callback;
 import javafx.util.Pair;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
@@ -45,10 +48,10 @@ public class EditElementController {
     private ChoiceBox<String> period;
 
     @FXML
-    private DatePicker startDatePicker;
+    private DateTimePicker startDatePicker;
 
     @FXML
-    private DatePicker endDatePicker;
+    private DateTimePicker endDatePicker;
 
     @FXML
     private GridPane gridPane;
@@ -81,13 +84,12 @@ public class EditElementController {
 
     @FXML
     private void initialize() {
-        System.out.println("EditElementController.initialize");
+
         this.name.setText(element.getName());
         this.description.setText(element.getDescription());
         this.price.setText(String.valueOf(element.getPrice()));
         this.serviceBox.setSelected(element.getIsService());
         this.photoName.setText(element.getImage());
-        System.out.println("element.getImage() = " + element.getImage());
         if (element.getImage() != null && !element.getImage().isEmpty()) {
             this.photo.setImage(new Image(element.getImage()));
             this.photo.setFitWidth(100);
@@ -139,7 +141,7 @@ public class EditElementController {
                 };
             }
         });
-        startDatePicker = new DatePicker();
+        startDatePicker = new DateTimePicker();
         startDatePicker.setDayCellFactory(d -> new DateCell() {
             @Override
             public void updateItem(LocalDate item, boolean empty) {
@@ -148,14 +150,14 @@ public class EditElementController {
                 // Parcourir toutes les disponibilités
                 for (Availability availability : availability) {
                     // Si la date est dans une période de disponibilité, la désactiver
-                    if (availability.isWithinPeriod(item, item)) {
+                    if (availability.isWithinPeriod(item.atStartOfDay(), LocalDateTime.of(item.plusDays(1), LocalTime.MIDNIGHT))) {
                         setDisable(true);
                         break;
                     }
                 }
             }
         });
-        endDatePicker = new DatePicker();
+        endDatePicker = new DateTimePicker();
         endDatePicker.setDayCellFactory(d -> new DateCell() {
             @Override
             public void updateItem(LocalDate item, boolean empty) {
@@ -164,7 +166,7 @@ public class EditElementController {
                 // Parcourir toutes les disponibilités
                 for (Availability availability : availability) {
                     // Si la date est dans une période de disponibilité, la désactiver
-                    if (availability.isWithinPeriod(item, item)) {
+                    if (availability.isWithinPeriod(item.atStartOfDay(), LocalDateTime.of(item.plusDays(1), LocalTime.MIDNIGHT))) {
                         setDisable(true);
                         break;
                     }
@@ -200,8 +202,8 @@ public class EditElementController {
         clearGridPaneRow(gridPane, 10);
         clearGridPaneRow(gridPane, 11);
         field = new TextField();
-        startDatePicker.setValue(null);
-        endDatePicker.setValue(null);
+        startDatePicker.setDateTimeValue(null);
+        endDatePicker.setDateTimeValue(null);
         switch (period) {
             case "Semaine":
                 setupPeriod("Nombre de semaines:", "Nombre de semaines", gridPane);
@@ -244,8 +246,8 @@ public class EditElementController {
             LayoutManager.alert("Veuillez entrer une valeur positive");
             return;
         }
-        LocalDate startDate = this.startDatePicker.getValue();
-        LocalDate endDate = this.endDatePicker.getValue();
+        LocalDateTime startDate = this.startDatePicker.getValue().atStartOfDay();
+        LocalDateTime endDate = this.endDatePicker.getValue().atStartOfDay();
         if (startDate == null || endDate == null) {
             LayoutManager.alert("Veuillez entrer une date de début et une date de fin");
             return;
@@ -254,7 +256,7 @@ public class EditElementController {
             LayoutManager.alert("La date de début doit être avant la date de fin");
             return;
         }
-        if (startDate.isBefore(LocalDate.now())) {
+        if (startDate.isBefore(LocalDateTime.now())) {
             LayoutManager.alert("La date de début doit être après aujourd'hui");
             return;
         }
