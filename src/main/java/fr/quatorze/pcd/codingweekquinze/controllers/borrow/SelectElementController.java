@@ -1,13 +1,18 @@
 package fr.quatorze.pcd.codingweekquinze.controllers.borrow;
 
+import fr.quatorze.pcd.codingweekquinze.controllers.components.ElementComponent;
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
+import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
+import io.github.palexdev.materialfx.beans.BiPredicateBean;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
+import io.github.palexdev.materialfx.filter.EnumFilter;
 import io.github.palexdev.materialfx.filter.IntegerFilter;
 import io.github.palexdev.materialfx.filter.StringFilter;
 import io.github.palexdev.materialfx.utils.others.observables.When;
@@ -20,6 +25,8 @@ import javafx.util.Callback;
 import java.net.URL;
 import java.time.ZoneOffset;
 import java.util.*;
+import java.util.function.Function;
+
 
 @RequiresAuth
 public class SelectElementController {
@@ -90,23 +97,50 @@ public class SelectElementController {
     }
 
     private void setupTable() {
-        MFXTableColumn<Element> nameColumn = new MFXTableColumn<>("Titre", true, Comparator.comparing(Element::getName));
-        MFXTableColumn<Element> surnameColumn = new MFXTableColumn<>("Prix", true, Comparator.comparing(Element::getPrice));
-        MFXTableColumn<Element> ageColumn = new MFXTableColumn<>("Description", true, Comparator.comparing(Element::getDescription));
+        MFXTableColumn<Element> nameColumn = new MFXTableColumn<>("Nom", false, Comparator.comparing(Element::getName));
+        MFXTableColumn<Element> descColumn = new MFXTableColumn<>("Description", false, Comparator.comparing(Element::getDescription));
+        MFXTableColumn<Element> ownerColumn = new MFXTableColumn<>("Propriétaire", false, Comparator.comparing(element -> element.getOwner().getFullName()));
+        MFXTableColumn<Element> typeColumn = new MFXTableColumn<>("Type", false, Comparator.comparing(Element::getIsService));
+        MFXTableColumn<Element> ratingColumn = new MFXTableColumn<>("Note", false, Comparator.comparing(Element::getRating));
+
+        elements.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double width = newVal.doubleValue();
+            nameColumn.setPrefWidth(width * 0.3);
+            descColumn.setPrefWidth(width * 0.3);
+            ownerColumn.setPrefWidth(width * 0.2);
+            typeColumn.setPrefWidth(width * 0.1);
+            ratingColumn.setPrefWidth(width * 0.2);
+        });
 
         nameColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getName));
-        surnameColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getPrice));
-        ageColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getDescription) {{
-            setAlignment(Pos.CENTER_RIGHT);
-        }});
-        ageColumn.setAlignment(Pos.CENTER_RIGHT);
+        descColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getDescription));
+        ownerColumn.setRowCellFactory(person -> new MFXTableRowCell<>(element -> element.getOwner().getFullName()));
+        ratingColumn.setRowCellFactory(person -> new MFXTableRowCell<>(element -> element.getRating() == 0 ? "Inconnu" : element.getRating()));
+        typeColumn.setRowCellFactory(person -> new MFXTableRowCell<>(element -> element.getIsService() ? "Service" : "Objet"));
 
-        elements.getTableColumns().addAll(nameColumn, surnameColumn, ageColumn);
-//        elements.getFilters().addAll(
-//                new StringFilter<>("Name", Element::getName),
-//                new StringFilter<>("Surname", Element::getPrice),
-//                new IntegerFilter<>("Age", Element::getDescription)
-//        );
+
+        elements.getTableColumns().addAll(nameColumn, descColumn, ownerColumn, typeColumn, ratingColumn);
+
+
+        elements.setTableRowFactory(tableView -> {
+            MFXTableRow<Element> row = new MFXTableRow<>(elements, tableView);
+
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1) {
+                    Element element = row.getData();
+                    LayoutManager.setLayout("borrow/create_loan_view.fxml", "Loan", element);
+
+                }
+            });
+
+            row.buildCells();
+            row.getCells().forEach(cell -> cell.setMouseTransparent(true));
+
+            return row;
+        });
+
+        elements.setFooterVisible(false);
+
         List<Element> elems = ElementDAO.getInstance().getAllElementExceptUser(AuthService.getInstance().getCurrentUser());
         this.elements.setItems(FXCollections.observableList(elems));
     }
@@ -128,7 +162,7 @@ public class SelectElementController {
         String type = this.type.getValue() != null && !this.type.getValue().equals("Sélectionnez un type")
                 ? this.type.getValue() : null;
 
-        List<Element> elements = ElementDAO.getInstance().search(search, rating, type,true);
+        List<Element> elements = ElementDAO.getInstance().search(search, rating, type, true);
         if (start != null && end != null) {
             elements.removeIf(element -> !element.isAvailable(start, end));
         }
