@@ -9,9 +9,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Entity
@@ -39,13 +37,16 @@ public final class Element {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    public Element(String name, Integer price, String description, User owner, Boolean service, String image) {
+    private String city;
+
+    public Element(String name, Integer price, String description, User owner, Boolean service, String image, String city) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.owner = owner;
         this.isService = service;
         this.image = image;
+        this.city = city;
     }
 
     public void addLoan(User user, Date startDate, Date endDate) {

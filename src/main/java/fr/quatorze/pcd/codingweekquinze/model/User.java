@@ -46,8 +46,6 @@ public final class User implements Observable {
     @Transient
     private Calendar<?> myElementsCalendar;
 
-    private String city;
-
     public User(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -3,15 +3,17 @@ package fr.quatorze.pcd.codingweekquinze.controllers.borrow;
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
+import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.service.LocationService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,10 +21,15 @@ import java.util.List;
 public class SelectElementController {
 
     @FXML
+    public TextField distance;
+    @FXML
     private ListView<Element> elements;
 
     @FXML
     private TextField searchBar;
+
+    @FXML
+    private AutocompletionTextField cityBar;
 
     @FXML
     private DatePicker startDate;
@@ -39,7 +46,10 @@ public class SelectElementController {
 
     @FXML
     private void initialize() {
+        setupFilter(distance);
 
+        this.cityBar.textProperty().addListener((observable, oldValue, newValue) -> search());
+        this.distance.textProperty().addListener((observable, oldValue, newValue) -> search());
         this.searchBar.textProperty().addListener((observable, oldValue, newValue) -> search());
         this.startDate.valueProperty().addListener((observable, oldValue, newValue) -> search());
         this.endDate.valueProperty().addListener((observable, oldValue, newValue) -> search());
@@ -96,11 +106,28 @@ public class SelectElementController {
         String type = this.type.getValue() != null && !this.type.getValue().equals("Sélectionnez un type")
                 ? this.type.getValue() : null;
 
-        List<Element> elements = ElementDAO.getInstance().search(search, rating, type,true);
+        List<Element> elements = ElementDAO.getInstance().search(search, rating, type, true);
         if (start != null && end != null) {
             elements.removeIf(element -> !element.isAvailable(start, end));
         }
+
+        if (cityBar.getText() != null && !cityBar.getText().isEmpty() && distance.getText() != null && !distance.getText().isEmpty()) {
+            if(LocationService.getInstance().doesCityExist(cityBar.getText())) {
+                int distance = Integer.parseInt(this.distance.getText());
+                List<String> citiesNear = LocationService.getInstance().getCitiesNear(cityBar.getText(), distance);
+                elements.removeIf(element -> !citiesNear.contains(element.getCity()));
+            }
+        }
+
         this.elements.setItems(FXCollections.observableList(elements));
     }
 
+
+    private void setupFilter(TextField field) {
+        field.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
+            if (!"0123456789".contains(keyEvent.getCharacter())) {
+                keyEvent.consume();
+            }
+        });
+    }
 }

@@ -4,10 +4,12 @@ import fr.quatorze.pcd.codingweekquinze.dao.AvailabilityDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
+import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField;
 import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.service.LocationService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -39,6 +41,8 @@ public class CreateElementController {
 
     @FXML
     private TextField price;
+    @FXML
+    private AutocompletionTextField cityBar;
 
     @FXML
     private ChoiceBox<String> period;
@@ -245,6 +249,16 @@ public class CreateElementController {
             return;
         }
 
+        if (cityBar.getText().isEmpty()) {
+            LayoutManager.alert("Veuillez entrer une ville");
+            return;
+        }
+
+        if(!LocationService.getInstance().doesCityExist(cityBar.getText())) {
+            LayoutManager.alert("Veuillez entrer une ville valide");
+            return;
+        }
+
         if (price.getText().isEmpty()) {
             LayoutManager.alert("Veuillez entrer un prix");
             return;
@@ -260,7 +274,7 @@ public class CreateElementController {
             return;
         }
 
-        Element element = ElementDAO.getInstance().createElement(name.getText(), Integer.parseInt(price.getText()), description.getText(), user, serviceBox.isSelected(), photoName.getText());
+        Element element = ElementDAO.getInstance().createElement(name.getText(), Integer.parseInt(price.getText()), description.getText(), user, serviceBox.isSelected(), photoName.getText(), cityBar.getText());
         for (Availability availability : availability) {
             availability.setElement(element);
             AvailabilityDAO.getInstance().createAvailability(availability);
