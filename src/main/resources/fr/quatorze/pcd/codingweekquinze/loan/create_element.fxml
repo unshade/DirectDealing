@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.VBox?>
 
-
+<?import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField?>
 <?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<?import javafx.scene.control.skin.SplitPaneSkin.Content?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
 <VBox xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" stylesheets="@../style/form_style.css" styleClass="container" fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.CreateElementController">
     <GridPane fx:id="gridPane" hgap="10" vgap="10" alignment="CENTER">
         <Label text="Créer un Élément" styleClass="h2"  GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"/>
@@ -20,24 +17,29 @@
         <Label text="Prix:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
         <TextField fx:id="price" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Prix de l'objet ou service"/>
 
-        <Label text="Photo:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <StackPane GridPane.rowIndex="3" GridPane.columnIndex="1">
+        <Label text="Ville:" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+        <AutocompletionTextField fx:id="cityBar" GridPane.rowIndex="3" GridPane.columnIndex="1" promptText="Ville concernée...">
+
+        </AutocompletionTextField>
+
+        <Label text="Photo:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <StackPane GridPane.rowIndex="4" GridPane.columnIndex="1">
             <Button fx:id="choosePhoto" text="Choisir une photo" onAction="#handleChoosePhoto"/>
             <Button fx:id="deletePhoto" text="Supprimer la photo" onAction="#handleDeletePhoto" visible="false"/>
             <Label fx:id="photoName" visible="false"/>
         </StackPane>
-        <ImageView fx:id="photo" GridPane.rowIndex="3" GridPane.columnIndex="2" fitHeight="100" fitWidth="100"/>
+        <ImageView fx:id="photo" GridPane.rowIndex="4" GridPane.columnIndex="2" fitHeight="100" fitWidth="100"/>
 
-        <Label text="Description:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <TextArea fx:id="description" GridPane.rowIndex="4" GridPane.columnIndex="1" promptText="Description de l'objet ou service"/>
+        <Label text="Description:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextArea fx:id="description" GridPane.rowIndex="5" GridPane.columnIndex="1" promptText="Description de l'objet ou service"/>
 
-        <CheckBox fx:id="serviceBox" text="C'est un service ?" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <CheckBox fx:id="serviceBox" text="C'est un service ?" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
 
-        <ListView fx:id="periodList" GridPane.rowIndex="6" GridPane.columnIndex="1" GridPane.columnSpan="2" prefHeight="200" prefWidth="200">
+        <ListView fx:id="periodList" GridPane.rowIndex="7" GridPane.columnIndex="1" GridPane.columnSpan="2" prefHeight="200" prefWidth="200">
 
         </ListView>
-        <Label text="Ajouter une période:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-        <ChoiceBox fx:id="period" GridPane.rowIndex="8" GridPane.columnIndex="1" onAction="#handlePeriodChange">
+        <Label text="Ajouter une période:" GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+        <ChoiceBox fx:id="period" GridPane.rowIndex="9" GridPane.columnIndex="1" onAction="#handlePeriodChange">
             <items>
                 <FXCollections fx:factory="observableArrayList">
                     <String fx:value="Aucune"/>

@@ -199,4 +199,19 @@ public final class LocationService {
 
         return cities;
     }
+
+    public boolean doesCityExist(String cityName) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String query = """
+                SELECT COUNT(*) FROM commune_data WHERE nom_commune = :cityName
+                """;
+        int count = (int) session.createNativeQuery(query)
+                .setParameter("cityName", cityName)
+                .getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+
+        return count > 0;
+    }
 }

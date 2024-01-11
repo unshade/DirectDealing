@@ -1,8 +1,8 @@
 package fr.quatorze.pcd.codingweekquinze.dao;
 
+import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
-import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -13,7 +13,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.criteria.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public final class ElementDAO extends DAO<Element> {
@@ -46,18 +45,18 @@ public final class ElementDAO extends DAO<Element> {
                 .getResultList();
     }
 
-    public Element createElement(String name, Integer price, String description, User owner, String image) {
+    public Element createElement(String name, Integer price, String description, User owner, String image, String city) {
         em.getTransaction().begin();
-        Element element = new Element(name, price, description, owner, false, image);
+        Element element = new Element(name, price, description, owner, false, image, city);
         em.persist(element);
         em.getTransaction().commit();
 
         return element;
     }
 
-    public Element createElement(String name, Integer price, String description, User owner, boolean isService, String image) {
+    public Element createElement(String name, Integer price, String description, User owner, boolean isService, String image, String city) {
         em.getTransaction().begin();
-        Element element = new Element(name, price, description, owner, isService, image);
+        Element element = new Element(name, price, description, owner, isService, image, city);
         em.persist(element);
         em.getTransaction().commit();
 
