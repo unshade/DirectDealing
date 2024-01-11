@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="container" fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.auth.LoginController">
-        <Label text="Connexion" styleClass="h2"/>
-        <MFXTextField fx:id="email" promptText="email"/>
-        <MFXPasswordField fx:id="password" promptText="Mot de passe" />
-        <MFXButton text="Se connecter" onAction="#submit"/>
-        <Label text="Pas encore inscrit ?" onMouseClicked="#register"/>
-        <Label fx:id="errorMessage" styleClass="error-message"/>
-</VBox>
+<?import io.github.palexdev.materialfx.controls.MFXPasswordField?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../css/Stepper.css"
+           xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.auth.LoginController">
+    <StackPane style="-fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);">
+        <VBox spacing="10" alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30;">
+            <Label text="Connexion" styleClass="header-label" style="-fx-font-size: 20px;"/>
+            <MFXTextField fx:id="email" promptText="Email" minWidth="400"/>
+            <MFXPasswordField fx:id="password" promptText="Mot de passe" minWidth="400"/>
+            <MFXButton styleClass="outline-button" text="Se connecter" onAction="#submit" minWidth="200"/>
+            <Label text="Pas encore inscrit ?" onMouseClicked="#register" style="-fx-cursor: hand; -fx-underline: true;"/>
+        </VBox>
+    </StackPane>
+</StackPane>

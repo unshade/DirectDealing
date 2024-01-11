@@ -64,7 +64,7 @@ public class NavBarController implements Observer {
     private void logout() {
         AuthService.getInstance().endSession();
         LayoutManager.removeNavBar();
-        LayoutManager.setLayout("auth/login.fxml", "Login");
+        LayoutManager.setLayout("auth/login.fxml", "Se connecter");
     }
 
     @FXML

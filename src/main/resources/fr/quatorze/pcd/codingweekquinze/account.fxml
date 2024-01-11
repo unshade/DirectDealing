@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="@./css/Stepper.css"
+      fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.AccountController"
+      style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30;" spacing="10" alignment="CENTER">
 
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="container" stylesheets="@style/form_style.css" fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.AccountController">
     <!-- Mon compte -->
-    <Label text="Mon compte" styleClass="h2"/>
-    <Label fx:id="email" styleClass="form-control"/>
-    <Label text="Informations personnelles" styleClass="h2"/>
-    <TextField fx:id="firstName" styleClass="form-control"/>
-    <TextField fx:id="lastName" styleClass="form-control"/>
-    <Button text="Modifier" styleClass="btn-primary" onAction="#edit"/>
-    <Label fx:id="errorEdit" styleClass="error-message"/>
+    <Label text="Mon compte" styleClass="header-label" style="-fx-font-size: 20px;"/>
+    <Label fx:id="email" style="-fx-background-color: #f2f2f2; -fx-padding: 10; -fx-background-radius: 5;"
+           minWidth="400"/>
+
+    <!-- Informations personnelles -->
+    <Label text="Informations personnelles" styleClass="header-label" style="-fx-font-size: 20px;"/>
+    <MFXTextField fx:id="firstName" promptText="Prénom" minWidth="400"/>
+    <MFXTextField fx:id="lastName" promptText="Nom" minWidth="400"/>
+    <MFXButton text="Modifier" styleClass="outline-button" onAction="#edit" minWidth="200"/>
+
     <!-- Changer de mot de passe -->
-    <Label text="Changer de mot de passe" styleClass="h2"/>
-    <PasswordField fx:id="oldPassword" promptText="Ancien mot de passe" styleClass="form-control"/>
-    <PasswordField fx:id="password" promptText="Mot de passe" styleClass="form-control"/>
-    <PasswordField fx:id="confirmPassword" promptText="Confirmer le mot de passe" styleClass="form-control"/>
-    <!-- Bouton pour changer de mot de passe -->
-    <Button text="Changer" styleClass="btn-primary" onAction="#submit"/>
+    <Label text="Changer de mot de passe" styleClass="header-label" style="-fx-font-size: 20px;"/>
+    <MFXPasswordField fx:id="oldPassword" promptText="Ancien mot de passe" minWidth="400"/>
+    <MFXPasswordField fx:id="password" promptText="Nouveau mot de passe" minWidth="400"/>
+    <MFXPasswordField fx:id="confirmPassword" promptText="Confirmer le mot de passe" minWidth="400"/>
+    <MFXButton text="Changer" styleClass="outline-button" onAction="#submit" minWidth="200"/>
 
     <!-- Bouton pour se déconnecter -->
-    <Button text="Se déconnecter" styleClass="btn-primary" onAction="#logout"/>
-
-    <Label fx:id="errorMessage" styleClass="error-message"/>
+    <MFXButton text="Se déconnecter" styleClass="outline-button" onAction="#logout" minWidth="200"/>
 </VBox>

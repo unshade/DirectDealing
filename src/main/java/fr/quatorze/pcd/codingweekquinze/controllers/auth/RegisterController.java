@@ -4,6 +4,8 @@ import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -13,15 +15,15 @@ import javafx.scene.input.KeyEvent;
 public class RegisterController {
 
     @FXML
-    private TextField firstName;
+    private MFXTextField firstName;
     @FXML
-    private TextField lastName;
+    private MFXTextField lastName;
     @FXML
-    private PasswordField password;
+    private MFXPasswordField password;
     @FXML
-    private PasswordField confirmPassword;
+    private MFXPasswordField confirmPassword;
     @FXML
-    private TextField email;
+    private MFXTextField email;
 
     @FXML
     private void initialize() {
@@ -63,7 +65,7 @@ public class RegisterController {
 
         if (AuthService.getInstance().authenticate(user.getEmail(), enteredPassword)) {
             LayoutManager.addNavBar();
-            LayoutManager.setLayout("borrow/index.fxml", "login");
+            LayoutManager.setLayout("borrow/index.fxml", "Se connecter");
         } else {
             LayoutManager.alert("Erreur lors de l'authentification");
         }
@@ -71,6 +73,6 @@ public class RegisterController {
 
     @FXML
     private void login() {
-        LayoutManager.setLayout("auth/login.fxml", "Login");
+        LayoutManager.setLayout("auth/login.fxml", "Se connecter");
     }
 }
