@@ -65,9 +65,12 @@ public class NavBarController implements Observer {
         ToggleButton t5 = createToggle("fas-user", "Mon compte");
         t5.setOnAction(actionEvent -> LayoutManager.setLayout("account.fxml", "Mon compte"));
         toggleButtons.add(t5);
-        MFXButton t6 = createButton("", "Déconnexion");
-        t6.setOnAction(actionEvent -> logout());
+        MFXButton t6 = createButton("", "Notifications");
+        t6.setOnAction(actionEvent -> notifications());
         toggleButtons.add(t6);
+        MFXButton t7 = createButton("", "Déconnexion");
+        t7.setOnAction(actionEvent -> logout());
+        toggleButtons.add(t7);
 
         navbar.getChildren().addAll(0, toggleButtons);
 
@@ -89,7 +92,6 @@ public class NavBarController implements Observer {
         LayoutManager.setLayout("auth/login.fxml", "Se connecter");
     }
 
-    @FXML
     private void notifications() {
         LayoutManager.setLayout("notifications.fxml", "Notifications");
     }

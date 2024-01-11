@@ -90,7 +90,7 @@
 	-thumb-hover-color: white;
 }
 
-.rootPane .sidebar .menu-label {
+.rootPane .sidebar Label {
 	-fx-font-family: 'Open Sans Bold';
 	-fx-font-size: 14;
 	-fx-text-fill: white;
