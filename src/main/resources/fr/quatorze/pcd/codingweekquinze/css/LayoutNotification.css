@@ -18,8 +18,22 @@
 
 @import 'MFXColors.css';
 
-.notification {
-	-fx-background-color: white;
+.notification_error {
+	-fx-background-color: rgb(254, 236, 240);
+	-fx-background-radius: 5;
+	-fx-border-color: #ebebeb;
+	-fx-border-radius: 5;
+}
+
+.notification_info {
+	-fx-background-color: rgb(41, 111, 168);
+	-fx-background-radius: 5;
+	-fx-border-color: #ebebeb;
+	-fx-border-radius: 5;
+}
+
+.notification_success {
+	-fx-background-color: rgb(37, 121, 83);
 	-fx-background-radius: 5;
 	-fx-border-color: #ebebeb;
 	-fx-border-radius: 5;

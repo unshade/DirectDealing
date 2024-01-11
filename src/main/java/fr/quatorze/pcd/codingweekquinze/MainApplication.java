@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Locale;
 import java.util.logging.Level;
 
@@ -32,5 +33,13 @@ public class MainApplication extends Application {
         }
         UserDAO.getInstance();
         launch();
+    }
+
+    public static URL loadURL(String path) {
+        return MainApplication.class.getResource(path);
+    }
+
+    public static String load(String path) {
+        return loadURL(path).toString();
     }
 }
