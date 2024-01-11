@@ -64,7 +64,13 @@ public class CreateLoanController {
                             setText(null);
                             setOnMouseClicked(null);
                         } else {
-                            setText(period.getKey().toString() + " - " + period.getValue().toString());
+                            LocalDate start = period.getKey();
+                            LocalDate end = period.getValue();
+                            if (start.isEqual(end)) {
+                                setText(start.toString());
+                            } else {
+                                setText(start.toString() + " - " + end.toString());
+                            }
                             setOnMouseClicked(event -> {
                                 startDate.setValue(period.getKey());
                                 endDate.setValue(period.getValue());
@@ -81,19 +87,19 @@ public class CreateLoanController {
     private void reserve() {
         Date startDate = Date.from(this.startDate.getValue().atStartOfDay().toInstant(java.time.ZoneOffset.UTC));
         Date endDate = Date.from(this.endDate.getValue().atStartOfDay().toInstant(java.time.ZoneOffset.UTC));
-        this.loanElement(element, startDate, endDate);
-    }
 
-    private void loanElement(Element element, Date startDate, Date endDate) {
+        if (startDate.after(endDate)) {
+            LayoutManager.alert("La date de début doit être avant la date de fin");
+            return;
+        }
+        if (!element.isAvailable(startDate, endDate)) {
+            LayoutManager.alert("La période n'est pas disponible");
+            return;
+        }
         User user = AuthService.getInstance().getCurrentUser();
 
-        if (element.isAvailable(startDate, endDate)) {
-            LoanDAO.getInstance().createLoan(startDate, endDate, element, user);
-            LayoutManager.success("Loan created");
-            LayoutManager.setLayout("borrow/my-borrows.fxml", "Home");
-
-        } else {
-            LayoutManager.alert("This element is not available for the selected dates");
-        }
+        LoanDAO.getInstance().createLoan(startDate, endDate, element, user);
+        LayoutManager.success("Loan created");
+        LayoutManager.setLayout("borrow/my-borrows.fxml", "Home");
     }
 }

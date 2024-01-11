@@ -63,7 +63,35 @@ public final class Element {
         return rating;
     }
 
-    public boolean isAvailable(LocalDateTime startDate, LocalDateTime endDate) {
+    public boolean isAvailable(Date startDate, Date endDate) {
+        if (owner.isSleeping()) return false;
+
+        LocalDate startLocalDate = toLocalDate(startDate);
+        LocalDate endLocalDate = toLocalDate(endDate);
+
+        return isWithinAvailabilityPeriods(startLocalDate, endLocalDate) &&
+                !isOverlappingWithLoans(startLocalDate, endLocalDate);
+    }
+
+    private boolean isWithinAvailabilityPeriods(LocalDate start, LocalDate end) {
+        for (Availability availability : availabilities) {
+            if (!availability.isWithinPeriod(start, end)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isOverlappingWithLoans(LocalDate start, LocalDate end) {
+        for (Loan loan : loans) {
+            if (loan.isOverlapping(java.sql.Date.valueOf(start), java.sql.Date.valueOf(end))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*public boolean isAvailable(LocalDateTime startDate, LocalDateTime endDate) {
         return isAvailable(java.sql.Date.valueOf(startDate.toLocalDate()), java.sql.Date.valueOf(endDate.toLocalDate()));
     }
 
@@ -107,7 +135,7 @@ public final class Element {
             }
         }
         return true;
-    }
+    }*/
 
     public List<Pair<LocalDate, LocalDate>> getAvailableDates() {
         List<Pair<LocalDate, LocalDate>> availableDates = new ArrayList<>();
@@ -129,7 +157,7 @@ public final class Element {
         LocalDate currentEnd = period.getValue();
 
         List<Loan> overlappingLoans = getOverlappingLoans(currentStart, currentEnd);
-        Collections.sort(overlappingLoans, Comparator.comparing(Loan::getStartDate));
+        overlappingLoans.sort(Comparator.comparing(Loan::getStartDate));
 
         for (Loan loan : overlappingLoans) {
             LocalDate loanStart = toLocalDate(loan.getStartDate());

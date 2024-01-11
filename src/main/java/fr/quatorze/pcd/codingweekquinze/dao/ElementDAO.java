@@ -87,7 +87,7 @@ public final class ElementDAO extends DAO<Element> {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Element> search(String name, Date startDate, Date endDate, Integer rating, String type, boolean isBorrowed) {
+    public List<Element> search(String name, Integer rating, String type, boolean isBorrowed) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Element> cr = cb.createQuery(Element.class);
         Root<Element> root = cr.from(Element.class);
@@ -108,7 +108,7 @@ public final class ElementDAO extends DAO<Element> {
             ));
         }
 
-        if (startDate != null && endDate != null) {
+        /*if (startDate != null && endDate != null) {
             // Sous-requête pour trouver les emprunts qui se chevauchent avec la période spécifiée
             Subquery<Loan> loanSubquery = cr.subquery(Loan.class);
             Root<Loan> loanRoot = loanSubquery.from(Loan.class);
@@ -128,7 +128,7 @@ public final class ElementDAO extends DAO<Element> {
 
             // Ajouter la condition pour exclure les éléments ayant des emprunts qui se chevauchent
             predicates.add(cb.not(cb.exists(loanSubquery)));
-        }
+        }*/
 
         if (rating != null) {
             // Sous-requête pour calculer la note moyenne des emprunts de chaque élément

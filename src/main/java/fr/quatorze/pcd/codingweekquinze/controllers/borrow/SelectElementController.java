@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.util.Callback;
 
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -95,7 +96,11 @@ public class SelectElementController {
         String type = this.type.getValue() != null && !this.type.getValue().equals("Sélectionnez un type")
                 ? this.type.getValue() : null;
 
-        List<Element> elements = ElementDAO.getInstance().search(search, start, end, rating, type,true);
+        List<Element> elements = ElementDAO.getInstance().search(search, rating, type,true);
+        if (start != null && end != null) {
+            elements.removeIf(element -> !element.isAvailable(start, end));
+        }
         this.elements.setItems(FXCollections.observableList(elements));
     }
+
 }
