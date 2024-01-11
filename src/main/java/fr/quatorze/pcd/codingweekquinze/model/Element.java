@@ -64,7 +64,6 @@ public final class Element {
     }
 
     public boolean isAvailable(Date startDate, Date endDate) {
-        System.out.println(this.name + " " + startDate + " " + endDate);
         if (owner.isSleeping()) return false;
 
         LocalDate startLocalDate = toLocalDate(startDate);
@@ -76,9 +75,7 @@ public final class Element {
 
     private boolean isWithinAvailabilityPeriods(LocalDate start, LocalDate end) {
         for (Availability availability : availabilities) {
-            System.out.println("availability : " + availability.getFromDate() + " " + availability.getToDate());
             if (!availability.isWithinPeriod(start, end)) {
-                System.out.println("not within");
                 return false;
             }
         }
