@@ -83,7 +83,7 @@ public class CreateElementController {
 
         setupFilter(price);
 
-        this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
+        this.periodList.setCellFactory(new Callback<>() {
             @Override
             public ListCell<Availability> call(ListView<Availability> param) {
                 return new ListCell<>() {
@@ -165,19 +165,19 @@ public class CreateElementController {
     private void setupPeriod(String label, String prompt, GridPane gridPane) {
         setupFilter(field);
         field.setPromptText(prompt);
-        gridPane.add(new Label(label), 0, 9);
-        gridPane.add(field, 1, 9);
-        gridPane.add(new Label("Date de début:"), 0, 10);
-        gridPane.add(startDatePicker, 1, 10);
-        gridPane.add(new Label("Date de fin:"), 0, 11);
-        gridPane.add(endDatePicker, 1, 11);
+        gridPane.add(new Label(label), 0, 10);
+        gridPane.add(field, 1, 10);
+        gridPane.add(new Label("Date de début:"), 0, 11);
+        gridPane.add(startDatePicker, 1, 11);
+        gridPane.add(new Label("Date de fin:"), 0, 12);
+        gridPane.add(endDatePicker, 1, 12);
     }
 
     private void updateViewBasedOnPeriod(String period) {
         // On supprime les éléments de la grille
-        clearGridPaneRow(gridPane, 9);
         clearGridPaneRow(gridPane, 10);
         clearGridPaneRow(gridPane, 11);
+        clearGridPaneRow(gridPane, 12);
         field = new TextField();
         startDatePicker.setDateTimeValue(null);
         endDatePicker.setDateTimeValue(null);
@@ -197,10 +197,10 @@ public class CreateElementController {
             default:
                 chronoUnit = ChronoUnit.DAYS;
                 // Configurez le datePicker comme nécessaire
-                gridPane.add(new Label("Date de début:"), 0, 9);
-                gridPane.add(startDatePicker, 1, 9);
-                gridPane.add(new Label("Date de fin:"), 0, 10);
-                gridPane.add(endDatePicker, 1, 10);
+                gridPane.add(new Label("Date de début:"), 0, 10);
+                gridPane.add(startDatePicker, 1, 10);
+                gridPane.add(new Label("Date de fin:"), 0, 11);
+                gridPane.add(endDatePicker, 1, 11);
                 break;
         }
     }

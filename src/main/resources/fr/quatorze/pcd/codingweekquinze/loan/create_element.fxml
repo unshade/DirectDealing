@@ -49,7 +49,7 @@
                 </FXCollections>
             </items>
         </ChoiceBox>
-        <Button text="Ajouter" styleClass="btn-primary" GridPane.rowIndex="12" GridPane.columnIndex="1" onAction="#handleAddPeriod"/>
-        <Button text="Créer" styleClass="btn-primary" GridPane.rowIndex="13" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#submit"/>
+        <Button text="Ajouter" styleClass="btn-primary" GridPane.rowIndex="13" GridPane.columnIndex="1" onAction="#handleAddPeriod"/>
+        <Button text="Créer" styleClass="btn-primary" GridPane.rowIndex="14" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#submit"/>
     </GridPane>
 </VBox>
