@@ -1,56 +1,37 @@
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.control.Separator?>
-
-<?import javafx.scene.layout.HBox?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="sidebar"
-      fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.NavBarController" stylesheets="@style/form_style.css">
-    <HBox fx:id="walletBox" alignment="CENTER">
-        <Label text="Votre portefeuille :"/>
-        <Label fx:id="wallet" text="0"/>
-    </HBox>
-    <Button fx:id="notifications" text="Notifications" onAction="#notifications" styleClass="btn-primary"/>
-
-    <HBox>
-    </HBox>
-    <VBox VBox.vgrow="ALWAYS" spacing="50" alignment="CENTER">
-        <Label fx:id="borrow" text="Emprunter" graphicTextGap="10" contentDisplay="TOP">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefHeight="720.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="rootPane"
+            fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.NavBarController" stylesheets="@demo/css/Demo.css">
+    <VBox layoutX="300.0" prefWidth="300.0" styleClass="sidebar" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <padding>
+            <Insets bottom="10.0" left="10.0" top="60.0"/>
+        </padding>
+        <Label graphicTextGap="15.0" styleClass="header" text="DirectDealing">
             <graphic>
-                <ImageView>
-                    <Image url="@icon/shop-solid.png"/>
-                </ImageView>
+                <StackPane fx:id="logoContainer"/>
             </graphic>
         </Label>
-        <Separator/>
-        <Label fx:id="loan" text="Prêter" graphicTextGap="10" contentDisplay="TOP">
-            <graphic>
-                <ImageView>
+        <HBox fx:id="walletBox" alignment="CENTER">
+            <Label text="Votre portefeuille :"/>
+            <Label fx:id="wallet" text="0"/>
+        </HBox>
+        <Button fx:id="notifications" text="Notifications" onAction="#notifications" styleClass="btn-primary"/>
+        <MFXScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" fitToHeight="true">
+            <VBox.margin>
+                <Insets bottom="10.0" left="5.0" top="25.0"/>
+            </VBox.margin>
+            <padding>
+                <Insets right="10.0"/>
+            </padding>
+            <VBox VBox.vgrow="ALWAYS" spacing="50" alignment="CENTER" fx:id="navbar" maxHeight="1.7976931348623157E308"
+                  maxWidth="1.7976931348623157E308"
+                  styleClass="navbar">
 
-                    <Image url="@icon/shop-solid.png"/>
-                </ImageView>
-            </graphic>
-        </Label>
-        <Separator/>
-
-        <Label fx:id="planning" text="Planning" graphicTextGap="10" contentDisplay="TOP">
-            <graphic>
-                <ImageView>
-                    <Image url="@icon/calendar-days-solid.png"/>
-                </ImageView>
-            </graphic>
-        </Label>
-        <Separator/>
-
-        <Label fx:id="account" text="Mon profil" graphicTextGap="10" contentDisplay="TOP">
-            <graphic>
-                <ImageView>
-                    <Image url="@icon/user-solid.png"/>
-                </ImageView>
-            </graphic>
-        </Label>
+            </VBox>
+        </MFXScrollPane>
     </VBox>
-    <Button fx:id="logout" text="Déconnexion" onAction="#logout" styleClass="btn-primary"/>
-</VBox>
+</AnchorPane>

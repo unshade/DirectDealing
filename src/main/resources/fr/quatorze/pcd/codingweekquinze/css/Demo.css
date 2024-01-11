@@ -130,3 +130,33 @@
 .rootPane .sidebar .navbar .mfx-rectangle-toggle-node:selected .mfx-icon-wrapper .mfx-font-icon {
 	-mfx-color: #601cbe;
 }
+
+/* Simple buttons */
+
+.rootPane .sidebar .navbar .mfx-button {
+	-fx-background-color: transparent;
+	-fx-background-radius: 0;
+	-fx-border-color: transparent;
+	-fx-border-radius: 0;
+	-fx-pref-height: 40;
+
+	-fx-font-family: 'Open Sans SemiBold';
+	-fx-font-size: 13;
+	-fx-text-fill: white;
+}
+
+.mfx-button {
+	-fx-background-color: transparent;
+	-fx-background-radius: 0;
+	-fx-border-color: transparent;
+	-fx-border-radius: 0;
+	-fx-pref-height: 40;
+
+	-fx-font-family: 'Open Sans SemiBold';
+	-fx-font-size: 13;
+	-fx-text-fill: white;
+}
+
+.rootPane .sidebar .navbar .mfx-button .mfx-icon-wrapper .mfx-font-icon {
+	-mfx-color: white;
+}
