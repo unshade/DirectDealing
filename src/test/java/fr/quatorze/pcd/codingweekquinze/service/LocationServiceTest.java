@@ -23,10 +23,12 @@ class LocationServiceTest {
     @Test
     @Order(2)
     void getCitiesStartingWith() {
-        String exampleCity = "Epernay";
-        var cities = LocationService.getInstance().getCitiesStartingWith(exampleCity);
+        List<String> exampleCities = List.of("Épernay", "Epernay", "ePernAY");
+        for (String exampleCity : exampleCities) {
+            var cities = LocationService.getInstance().getCitiesStartingWith(exampleCity);
 
-        assertTrue(List.of("Épernay", "Épernay-sous-Gevrey").containsAll(cities));
+            assertTrue(List.of("Épernay", "Épernay-sous-Gevrey").containsAll(cities));
+        }
     }
 
     @Test

@@ -40,4 +40,5 @@ module fr.quatorze.pcd.codingweekquinze {
     opens fr.quatorze.pcd.codingweekquinze.controllers.borrow to javafx.fxml;
     exports fr.quatorze.pcd.codingweekquinze.controllers.loan;
     opens fr.quatorze.pcd.codingweekquinze.controllers.loan to javafx.fxml;
+    opens fr.quatorze.pcd.codingweekquinze.layout.component to javafx.fxml;
 }

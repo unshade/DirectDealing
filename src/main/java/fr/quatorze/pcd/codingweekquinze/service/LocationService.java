@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.Normalizer;
 import java.util.Arrays;
 import java.util.List;
 
@@ -127,7 +128,18 @@ public final class LocationService {
         }
     }
 
+    /**
+     * Get the list of cities with names starting with the given prefix.
+     * The search does not care about accents or case.
+     *
+     * @param prefix the prefix
+     * @return the list of cities name starting with the given prefix, spelled exactly as they should be (with accents...)
+     */
     public List<String> getCitiesStartingWith(String prefix) {
+        // Normalize for accents
+        prefix = Normalizer.normalize(prefix, Normalizer.Form.NFKD);
+        prefix = prefix.replaceAll("\\p{InCombiningDiacriticalMarks}", "");
+
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         String query = """
@@ -142,6 +154,14 @@ public final class LocationService {
         return cities;
     }
 
+    /**
+     * Get the list of names of cities near the provided city name.
+     * The provided city name must be exactly the one in database.
+     *
+     * @param city       the city name
+     * @param kmDistance the max distance to this city
+     * @return the list of city names near the given city
+     */
     public List<String> getCitiesNear(String city, float kmDistance) {
         float latitude, longitude;
         Session session = HibernateUtil.getSessionFactory().openSession();
