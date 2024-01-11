@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../css/Stepper.css"
-           xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.auth.LoginController">
     <StackPane style="-fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);">
         <VBox spacing="10" alignment="CENTER" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30;">

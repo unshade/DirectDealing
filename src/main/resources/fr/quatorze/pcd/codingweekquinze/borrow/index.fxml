@@ -3,15 +3,12 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
-    <!-- Système d'onglets avec 2 onglets qui affiche la vue my-loans.fxml and my-elements.fxml -->
-    <!-- Les onglets en haut de la page et en plus beau -->
-    <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE">
-        <Tab text="Voir les annonces">
-            <fx:include source="select-element-view.fxml"/>
+<?import javafx.scene.layout.StackPane?>
+ <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefWidth="-Infinity" prefHeight="-Infinity">
+        <Tab text="Voir les annonces" >
+                <fx:include source="select-element-view.fxml"/>
         </Tab>
         <Tab text="Mes emprunts">
             <fx:include source="my-borrows.fxml"/>
         </Tab>
     </TabPane>
-</VBox>

@@ -1,43 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<VBox spacing="10" xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.CreateLoanController" styleClass="container">
-    <!-- Titre et Description de l'élément -->
-    <VBox spacing="5">
-        <Label fx:id="name" styleClass="h2"/>
-        <TextArea fx:id="description" promptText="Description de l'élément" editable="false" wrapText="true"/>
-    </VBox>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<?import io.github.palexdev.mfxcore.controls.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.DatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
+<GridPane alignment="CENTER" hgap="20.0" styleClass="grid-pane"
+          stylesheets="@../css/TextFields.css, @../css/Buttons.css" vgap="10.0"
+          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.CreateLoanController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER"/>
+        <ColumnConstraints halignment="CENTER"/>
+        <ColumnConstraints halignment="CENTER"/>
+        <ColumnConstraints halignment="CENTER"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="150.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+    </rowConstraints>
+    <padding>
+        <Insets bottom="20.0" left="30.0" right="30.0" top="20.0"/>
+    </padding>
+    <StackPane minHeight="150.0" minWidth="300.0" styleClass="grid-background" GridPane.columnSpan="2147483647"
+               GridPane.rowSpan="4">
+        <opaqueInsets>
+            <Insets/>
+        </opaqueInsets>
+        <GridPane.margin>
+            <Insets bottom="-7.0" left="-15.0" right="-15.0"/>
+        </GridPane.margin>
+    </StackPane>
 
-    <!-- Prix -->
-    <HBox spacing="10">
-        <Label text="Prix:" style="-fx-font-weight: bold;"/>
-        <Label fx:id="price"/>
-    </HBox>
+    <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+           styleClass="header-label" GridPane.columnSpan="2147483647" text="Annonce"/>
 
-    <!-- Section Réservation -->
-    <Label text="Réservation" styleClass="h2"/>
-    <HBox spacing="30">
-        <VBox spacing="5">
-            <Label text="Créneau de réservation"/>
-            <ListView fx:id="reservationList" prefHeight="300" prefWidth="400"/>
-        </VBox>
-        <VBox spacing="5">
-            <Label text="Choix du créneau"/>
-            <VBox spacing="10">
-                <HBox>
-                    <Label text="Du:"/>
-                    <DatePicker fx:id="startDate"/>
+    <Label fx:id="type" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-font-weight: bold;"/>
+    <Label fx:id="name" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
 
-                </HBox>
-                <HBox>
-                    <Label text="Au:"/>
-                    <DatePicker fx:id="endDate"/>
-                </HBox>
-            </VBox>
-            <Button text="Réserver" onAction="#reserve"/>
-        </VBox>
-    </HBox>
-</VBox>
+    <Label text="Description:" style="-fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+    <TextArea fx:id="description" editable="false" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+
+
+
+
+    <Label text="Prix:" style="-fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+    <Label fx:id="price" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+
+    <StackPane minHeight="150.0" minWidth="300.0" styleClass="grid-background" GridPane.columnSpan="2147483647"
+               GridPane.rowIndex="5" GridPane.rowSpan="2147483647">
+        <GridPane.margin>
+            <Insets bottom="-15.0" left="-15.0" right="-15.0"/>
+        </GridPane.margin>
+    </StackPane>
+    <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+           styleClass="header-label" GridPane.columnSpan="2147483647" GridPane.rowIndex="5"
+           text="Faire une demande d'emprunt"/>
+
+    <Label text="Créneau de réservation" GridPane.rowIndex="6" GridPane.columnSpan="2147483647"/>
+    <MFXListView fx:id="reservationList" prefWidth="300" prefHeight="200" GridPane.rowIndex="7"
+                 GridPane.columnSpan="2147483647"/>
+
+    <Label text="Choix du créneau" GridPane.rowIndex="8" GridPane.columnSpan="2147483647"/>
+    <Label text="Du:" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+    <MFXDatePicker fx:id="startDate" GridPane.rowIndex="9" GridPane.columnIndex="2"/>
+
+    <Label text="Au:" GridPane.rowIndex="9" GridPane.columnIndex="3"/>
+    <MFXDatePicker fx:id="endDate" GridPane.rowIndex="9" GridPane.columnIndex="4"/>
+
+    <MFXButton styleClass="outline-button" text="Réserver" onAction="#reserve" minWidth="200" GridPane.rowIndex="10"
+               GridPane.columnSpan="2147483647"/>
+
+</GridPane>

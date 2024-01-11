@@ -3,31 +3,37 @@ package fr.quatorze.pcd.codingweekquinze.controllers.borrow;
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
-import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.util.DateUtil;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import io.github.palexdev.materialfx.controls.MFXListView;
+import io.github.palexdev.materialfx.controls.cell.MFXListCell;
+import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
+import io.github.palexdev.mfxcore.controls.Label;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import javafx.util.StringConverter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @RequiresAuth
 public class CreateLoanController {
     private final Element element;
 
     @FXML
-    private DatePicker startDate;
+    private Label type;
 
     @FXML
-    private DatePicker endDate;
+    private MFXDatePicker startDate;
+
+    @FXML
+    private MFXDatePicker endDate;
 
     @FXML
     private Label name;
@@ -39,7 +45,7 @@ public class CreateLoanController {
     private Label price;
 
     @FXML
-    private ListView<Pair<LocalDate, LocalDate>> reservationList;
+    private MFXListView<Pair<LocalDate, LocalDate>> reservationList;
 
     public CreateLoanController(Element element) {
         this.element = element;
@@ -50,10 +56,24 @@ public class CreateLoanController {
         this.name.setText(this.element.getName());
         this.description.setText(this.element.getDescription());
         this.price.setText(this.element.getPrice().toString());
+        this.type.setText(this.element.getIsService() ? "Service" : "Object");
+
+        StringConverter<Pair<LocalDate, LocalDate>> converter = FunctionalStringConverter.to(period -> {
+            LocalDate start = period.getKey();
+            LocalDate end = period.getValue();
+            if (start.isEqual(end)) {
+                return DateUtil.format(start);
+            } else {
+                return "Du " + DateUtil.format(start) + " au " + DateUtil.format(end);
+            }
+
+        });
+
+        this.reservationList.setConverter(converter);
 
         this.reservationList.setItems(FXCollections.observableList(this.element.getAvailableDates()));
 
-        this.reservationList.setCellFactory(new Callback<ListView<Pair<LocalDate,LocalDate>>, ListCell<Pair<LocalDate,LocalDate>>>() {
+        /*this.reservationList.setCellFactory(new Callback<ListView<Pair<LocalDate,LocalDate>>, ListCell<Pair<LocalDate,LocalDate>>>() {
             @Override
             public ListCell<Pair<LocalDate,LocalDate>> call(ListView<Pair<LocalDate,LocalDate>> listView) {
                 return new ListCell<Pair<LocalDate,LocalDate>>() {
@@ -79,6 +99,16 @@ public class CreateLoanController {
                     }
                 };
 
+            }
+        });*/
+
+        this.reservationList.setOnMouseClicked(event -> {
+            // Obtenir l'élément sélectionné
+            Pair<LocalDate, LocalDate> selectedItem = reservationList.getSelectionModel().getSelectedValue();
+
+            if (selectedItem != null) {
+                startDate.setValue(selectedItem.getKey());
+                endDate.setValue(selectedItem.getValue());
             }
         });
     }
