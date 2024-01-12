@@ -1,7 +1,5 @@
 package fr.quatorze.pcd.codingweekquinze.dao;
 
-import fr.quatorze.pcd.codingweekquinze.model.Element;
-import fr.quatorze.pcd.codingweekquinze.model.Message;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -41,6 +39,10 @@ public final class UserDAO extends DAO<User> {
             instance = new UserDAO(HibernateUtil.getSessionFactory());
         }
         return instance;
+    }
+
+    public List<User> getAllAdmins() {
+        return em.createQuery("SELECT u FROM User u WHERE u.admin = true", User.class).getResultList();
     }
 
     public List<User> getAll() {

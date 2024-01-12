@@ -1,16 +1,17 @@
 package fr.quatorze.pcd.codingweekquinze.controllers.loan;
 
 import fr.quatorze.pcd.codingweekquinze.controllers.MessageController;
-import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
+import fr.quatorze.pcd.codingweekquinze.dao.NotificationDAO;
+import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
-import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -111,6 +112,14 @@ public class LoanController {
             }
         } catch (IllegalArgumentException e) {
             LayoutManager.alert("L'emprunteur n'a pas assez d'argent");
+        }
+    }
+
+    public void askAdminHelp(MouseEvent mouseEvent) {
+        LayoutManager.info("L'administrateur a été prévenu");
+
+        for (User allAdmin : UserDAO.getInstance().getAllAdmins()) {
+            NotificationDAO.getInstance().createNotification(allAdmin, "L'utilisateur " + AuthService.getInstance().getCurrentUser().getFirstName() + " " + AuthService.getInstance().getCurrentUser().getLastName() + " a besoin d'aide");
         }
     }
 }

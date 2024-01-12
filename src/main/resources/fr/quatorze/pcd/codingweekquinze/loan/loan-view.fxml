@@ -34,6 +34,8 @@
             <HBox fx:id="actionSection" spacing="10">
             </HBox>
 
+            <Button text="C'est la cata, administrateur, aidez-moi" onMouseClicked="#askAdminHelp"/>
+
         </VBox>
 
     </center>

@@ -14,6 +14,7 @@ import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -42,7 +43,8 @@ public final class NotificationButton extends MFXButton implements Observable {
                 entriesPopup.hide();
             } else {
                 User current = AuthService.getInstance().getCurrentUser();
-                List<Notification> notifications = current.getNotifications().stream().filter(notification -> !notification.isRead()).toList();
+                List<Notification> notifications = current.getNotifications().stream().filter(notification -> !notification.isRead())
+                        .sorted(Comparator.comparing(Notification::getDate).reversed()).toList();
                 if (!notifications.isEmpty()) {
                     populatePopup(notifications);
                     if (!entriesPopup.isShowing()) {
@@ -70,6 +72,7 @@ public final class NotificationButton extends MFXButton implements Observable {
             entryLabel.setGraphic(Styles.buildTextFlow("✗ " + result));
             entryLabel.setPrefHeight(10);
             entryLabel.setTextFill(Color.BLACK);
+            entryLabel.setWrapText(true);
             CustomMenuItem item = new CustomMenuItem(entryLabel, true);
             menuItems.add(item);
 
