@@ -24,20 +24,15 @@ public class LoanSeeder {
         ArrayList<Element> elements = (ArrayList<Element>) elementDAO.getAllElements();
 
         // Create loans with differents dates and users and elements
-        loanDAO.createLoan(LocalDateTime.of(2024, 12, 12, 12, 12), LocalDateTime.of(2024, 12, 12, 12, 12), elements.get(0), users.get(0));
-        loanDAO.createLoan(LocalDateTime.of(2024, 1, 11, 12, 12), LocalDateTime.of(2024, 1, 11, 12, 12), elements.get(1), users.get(1));
-        loanDAO.createLoan(LocalDateTime.of(2024, 2, 10, 12, 12), LocalDateTime.of(2024, 2, 10, 12, 12), elements.get(2), users.get(2));
-        loanDAO.createLoan(LocalDateTime.of(2024, 3, 9, 12, 12), LocalDateTime.of(2024, 4, 9, 12, 12), elements.get(3), users.get(0));
-        loanDAO.createLoan(LocalDateTime.of(2024, 4, 8, 12, 12), LocalDateTime.of(2024, 5, 8, 12, 12), elements.get(4), users.get(1));
-        loanDAO.createLoan(LocalDateTime.of(2024, 5, 7, 12, 12), LocalDateTime.of(2024, 6, 7, 12, 12), elements.get(5), users.get(2));
+        loanDAO.createLoan(LocalDateTime.of(2024, 11, 20, 12, 12), LocalDateTime.of(2024, 11, 25, 12, 12), elements.get(0), users.get(1));
+        loanDAO.createLoan(LocalDateTime.of(2024, 6, 5, 12, 12), LocalDateTime.of(2024, 6, 15, 12, 12), elements.get(6), users.get(2));
+        loanDAO.createLoan(LocalDateTime.of(2024, 11, 10, 12, 12), LocalDateTime.of(2024, 11, 20, 12, 12), elements.get(11), users.get(0));
 
 
         // Add ratings
         loanDAO.addRating(loanDAO.getAllLoans().get(0), 5);
         loanDAO.addRating(loanDAO.getAllLoans().get(1), 4);
         loanDAO.addRating(loanDAO.getAllLoans().get(2), 3);
-        loanDAO.addRating(loanDAO.getAllLoans().get(3), 2);
-        loanDAO.addRating(loanDAO.getAllLoans().get(4), 1);
     }
 
 }

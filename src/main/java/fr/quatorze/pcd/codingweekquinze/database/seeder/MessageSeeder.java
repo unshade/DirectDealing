@@ -26,10 +26,6 @@ public class MessageSeeder {
         messageDAO.createMessage("Hi bro", users.get(1), users.get(2), loans.get(1));
         messageDAO.createMessage("Hello bro", users.get(0), users.get(2), loans.get(2));
         messageDAO.createMessage("Hi bro", users.get(2), users.get(0), loans.get(2));
-        messageDAO.createMessage("Hello bro", users.get(2), users.get(0), loans.get(3));
-        messageDAO.createMessage("Hi bro", users.get(0), users.get(2), loans.get(3));
-        messageDAO.createMessage("Hello bro", users.get(0), users.get(1), loans.get(4));
-        messageDAO.createMessage("Hi bro", users.get(1), users.get(0), loans.get(4));
     }
 
 }
