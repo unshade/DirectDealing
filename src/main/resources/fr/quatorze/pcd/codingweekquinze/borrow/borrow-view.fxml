@@ -37,7 +37,7 @@
                 <Label text=" à "/>
                 <Label fx:id="endDate"/>
             </HBox>
-            <HBox fx:id="actionSection">
+            <HBox fx:id="actionSection" spacing="10">
                 <MFXButton styleClass="btn-cancel" text="Demander de l'aide à un administrateur" onMouseClicked="#askAdminHelp"/>
             </HBox>
         </VBox>

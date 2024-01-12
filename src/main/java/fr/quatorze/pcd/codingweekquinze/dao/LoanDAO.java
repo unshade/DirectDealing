@@ -10,9 +10,7 @@ import org.hibernate.SessionFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public final class LoanDAO extends DAO<Loan> {
@@ -33,6 +31,13 @@ public final class LoanDAO extends DAO<Loan> {
             instance = new LoanDAO(HibernateUtil.getSessionFactory());
         }
         return instance;
+    }
+
+    public void awaitRating(Loan loan) {
+        em.getTransaction().begin();
+        loan.setStatus(LoanStatus.AWAITING_RATING.ordinal());
+        em.merge(loan);
+        em.getTransaction().commit();
     }
 
     public void endLoan(Loan loan) {

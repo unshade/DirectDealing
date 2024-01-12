@@ -112,8 +112,14 @@ public class LoanController {
             if (authUser.equals(loan.getItem().getOwner())) {
                 User borrower = loan.getBorrower();
                 borrower.pay(authUser, loan.getItem().getPrice());
-                loan.end();
+                loan.awaitRating();
                 finishButton.setVisible(false);
+
+                if (loan.getItem().getIsService()) {
+                    NotificationDAO.getInstance().createNotification(borrower, "Le service " + loan.getItem().getName() + " a été rendu, allez notez dans les vos emprunts.");
+                } else {
+                    NotificationDAO.getInstance().createNotification(borrower, "L'objet " + loan.getItem().getName() + " a été rendu, allez notez dans les vos emprunts.");
+                }
             } else {
                 LayoutManager.alert("Vous n'êtes pas le propriétaire de cet objet");
             }
