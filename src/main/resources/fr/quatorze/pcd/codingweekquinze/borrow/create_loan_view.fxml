@@ -37,6 +37,7 @@
         <RowConstraints minHeight="10.0" prefHeight="32.0"/>
         <RowConstraints minHeight="10.0" prefHeight="150.0"/>
         <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="100.0"/>
         <RowConstraints minHeight="10.0" prefHeight="32.0"/>
     </rowConstraints>
     <padding>
@@ -81,7 +82,7 @@
                  GridPane.columnSpan="2147483647"/>
 
     <Label text="Choix du créneau" GridPane.rowIndex="8" GridPane.columnSpan="2147483647"/>
-    <HBox GridPane.columnSpan="2147483647" spacing="10" alignment="CENTER" GridPane.rowIndex="9">
+    <HBox GridPane.columnSpan="2147483647" spacing="10" alignment="CENTER" GridPane.rowIndex="9" prefHeight="80">
         <Label text="Du:"/>
         <CustomDateTimePicker fx:id="startDate"/>
 

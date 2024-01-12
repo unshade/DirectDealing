@@ -134,14 +134,6 @@ public class MyElementsController {
     private void search() {
         String search = searchBar.getText().isEmpty() ? null : searchBar.getText();
 
-        LocalDateTime start = startDate.getValue() == null
-                ? null
-                : startDate.getValue().atStartOfDay();
-
-        LocalDateTime end = endDate.getValue() == null
-                ? null
-                : endDate.getValue().atStartOfDay();
-
         Integer rating = this.rating.getValue() != null && !this.rating.getValue().equals("Tous")
                 ? Integer.parseInt(this.rating.getValue()) : null;
 
@@ -149,9 +141,7 @@ public class MyElementsController {
                 ? this.type.getValue() : null;
 
         List<Element> elements = ElementDAO.getInstance().search(search, rating, type,false);
-        if (start != null && end != null) {
-            elements.removeIf(element -> !element.isAvailable(start, end));
-        }
+
         this.elements.setItems(FXCollections.observableList(elements));
     }
 

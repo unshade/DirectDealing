@@ -8,18 +8,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import lombok.Getter;
 
+import javax.swing.event.ChangeListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+@Getter
 public class CustomDateTimePicker extends VBox {
+
 
     private MFXDatePicker datePicker;
 
     private TextField timePicker;
 
-    @Getter
     private LocalDateTime dateTime;
 
     public CustomDateTimePicker() {
@@ -29,6 +31,7 @@ public class CustomDateTimePicker extends VBox {
         this.getChildren().addAll(datePicker, timePicker);
         initialize();
     }
+
 
     private void initialize() {
         this.dateTime = LocalDateTime.now();

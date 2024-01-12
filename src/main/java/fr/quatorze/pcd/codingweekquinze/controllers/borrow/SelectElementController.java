@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.controllers.borrow;
 
+import fr.quatorze.pcd.codingweekquinze.controllers.components.CustomDateTimePicker;
 import fr.quatorze.pcd.codingweekquinze.controllers.components.ElementComponent;
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
@@ -44,19 +45,19 @@ import java.util.List;
 public class SelectElementController {
 
     @FXML
-    public TextField distance;
-    @FXML
     private MFXTableView<Element> elements;
 
     @FXML
     private MFXTextField searchBar;
 
     @FXML
-    private MFXDatePicker startDate;
+    private CustomDateTimePicker startDate;
+
+    @FXML
     private AutocompletionTextField cityBar;
 
     @FXML
-    private MFXDatePicker endDate;
+    private CustomDateTimePicker endDate;
 
     @FXML
     private MFXComboBox<String> rating;
@@ -64,20 +65,23 @@ public class SelectElementController {
     @FXML
     private MFXComboBox<String> type;
     @FXML
-    private AutocompletionTextField cityBar;
+    private MFXTextField distance;
 
 
     @FXML
     private void initialize() {
-        setupFilter(distance);
+        setupFilter(this.distance);
 
         this.cityBar.textProperty().addListener((observable, oldValue, newValue) -> search());
         this.distance.textProperty().addListener((observable, oldValue, newValue) -> search());
         this.searchBar.textProperty().addListener((observable, oldValue, newValue) -> search());
-        this.startDate.valueProperty().addListener((observable, oldValue, newValue) -> search());
-        this.endDate.valueProperty().addListener((observable, oldValue, newValue) -> search());
+        this.startDate.getDatePicker().valueProperty().addListener((observable, oldValue, newValue) -> search());
+        this.endDate.getDatePicker().valueProperty().addListener((observable, oldValue, newValue) -> search());
+        this.startDate.getTimePicker().textProperty().addListener((observable, oldValue, newValue) -> search());
+        this.endDate.getTimePicker().textProperty().addListener((observable, oldValue, newValue) -> search());
         this.rating.valueProperty().addListener((observable, oldValue, newValue) -> search());
         this.type.valueProperty().addListener((observable, oldValue, newValue) -> search());
+        this.distance.textProperty().addListener((observable, oldValue, newValue) -> search());
 
         this.rating.setValue("Tous");
         this.type.setValue("Tous");
@@ -192,11 +196,11 @@ public class SelectElementController {
 
         LocalDateTime start = startDate.getValue() == null
                 ? null
-                : startDate.getDateTimeValue();
+                : startDate.getValue();
 
         LocalDateTime end = endDate.getValue() == null
                 ? null
-                : endDate.getDateTimeValue();
+                : endDate.getValue();
 
         Integer rating = this.rating.getValue() != null && !this.rating.getValue().equals("Tous")
                 ? Integer.parseInt(this.rating.getValue()) : null;
@@ -221,7 +225,7 @@ public class SelectElementController {
     }
 
 
-    private void setupFilter(TextField field) {
+    private void setupFilter(MFXTextField field) {
         field.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
             if (!"0123456789".contains(keyEvent.getCharacter())) {
                 keyEvent.consume();

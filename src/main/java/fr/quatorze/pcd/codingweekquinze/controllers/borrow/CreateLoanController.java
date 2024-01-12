@@ -55,7 +55,7 @@ public class CreateLoanController {
     private Label price;
 
     @FXML
-    private MFXListView<Pair<LocalDate, LocalDate>> reservationList;
+    private MFXListView<Pair<LocalDateTime, LocalDateTime>> reservationList;
 
     public CreateLoanController(Element element) {
         this.element = element;
@@ -69,9 +69,9 @@ public class CreateLoanController {
         this.type.setText(this.element.getIsService() ? "Service" : "Object");
 
 
-        StringConverter<Pair<LocalDate, LocalDate>> converter = FunctionalStringConverter.to(period -> {
-            LocalDate start = period.getKey();
-            LocalDate end = period.getValue();
+        StringConverter<Pair<LocalDateTime, LocalDateTime>> converter = FunctionalStringConverter.to(period -> {
+            LocalDateTime start = period.getKey();
+            LocalDateTime end = period.getValue();
             if (start.isEqual(end)) {
                 return DateUtil.format(start);
             } else {
@@ -115,7 +115,7 @@ public class CreateLoanController {
 
         this.reservationList.setOnMouseClicked(event -> {
             // Obtenir l'élément sélectionné
-            Pair<LocalDate, LocalDate> selectedItem = reservationList.getSelectionModel().getSelectedValue();
+            Pair<LocalDateTime, LocalDateTime> selectedItem = reservationList.getSelectionModel().getSelectedValue();
 
             if (selectedItem != null) {
                 startDate.setValue(selectedItem.getKey());
@@ -126,8 +126,8 @@ public class CreateLoanController {
 
     @FXML
     private void reserve() {
-        LocalDateTime startDate = this.startDate.getDateTimeValue();
-        LocalDateTime endDate = this.endDate.getDateTimeValue();
+        LocalDateTime startDate = this.startDate.getValue();
+        LocalDateTime endDate = this.endDate.getValue();
 
         if (startDate.isAfter(endDate)) {
             LayoutManager.alert("La date de début doit être avant la date de fin");

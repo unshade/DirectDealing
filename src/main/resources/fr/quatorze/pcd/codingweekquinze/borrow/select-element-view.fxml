@@ -8,6 +8,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.*?>
+<?import fr.quatorze.pcd.codingweekquinze.controllers.components.CustomDateTimePicker?>
 <GridPane alignment="CENTER" hgap="20"
           styleClass="grid-pane" stylesheets="@../css/Common.css" vgap="10.0" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
@@ -39,30 +40,15 @@
             <Insets bottom="10.0" top="10.0"/>
         </padding>
     </Label>
-<?import com.sun.javafx.scene.control.IntegerField?>
-<?import fr.quatorze.pcd.codingweekquinze.layout.component.DateTimePicker?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.SelectElementController"
-      prefHeight="400.0" prefWidth="600.0" fx:id="root" styleClass="container">
-    <Label text="Voir les annonces" styleClass="h2"/>
-    <HBox spacing="10" alignment="CENTER">
-        <AutocompletionTextField fx:id="cityBar" promptText="Rechercher une ville...">
-
-        </AutocompletionTextField>
-        <TextField fx:id="distance" promptText="Distance en km" text="5"/>
-        <TextField fx:id="searchBar" promptText="Rechercher un nom..."/>
-        <DateTimePicker fx:id="startDate" promptText="Date de début"/>
-        <DateTimePicker fx:id="endDate" promptText="Date de fin"/>
-        <ComboBox fx:id="type" promptText="Type">
     <MFXTableView fx:id="elements" prefHeight="400.0" prefWidth="800.0" GridPane.columnSpan="2147483647"
                   GridPane.rowIndex="2"/>
 
     <HBox spacing="10" alignment="CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
         <AutocompletionTextField fx:id="cityBar" promptText="Rechercher une ville..." minWidth="300"/>
+        <MFXTextField fx:id="distance" promptText="Distance max (km)" text="5"/>
         <MFXTextField fx:id="searchBar" promptText="Rechercher un nom..." minWidth="300"/>
-        <MFXDatePicker fx:id="startDate" promptText="Date de début"/>
-        <MFXDatePicker fx:id="endDate" promptText="Date de fin"/>
+        <CustomDateTimePicker fx:id="startDate"/>
+        <CustomDateTimePicker fx:id="endDate"/>
         <MFXComboBox fx:id="type" floatingText="Type">
             <items>
                 <FXCollections fx:factory="observableArrayList">

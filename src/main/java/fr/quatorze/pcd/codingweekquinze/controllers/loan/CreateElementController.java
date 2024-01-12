@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.controllers.loan;
 
+import fr.quatorze.pcd.codingweekquinze.controllers.components.CustomDateTimePicker;
 import fr.quatorze.pcd.codingweekquinze.dao.AvailabilityDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
@@ -50,19 +51,19 @@ public class CreateElementController {
     private TextArea description;
 
     @FXML
-    private TextField price;
-    @FXML
     private AutocompletionTextField cityBar;
+
+    @FXML
     private MFXTextField price;
 
     @FXML
     private MFXComboBox<String> period;
 
     @FXML
-    private MFXDatePicker startDatePicker;
+    private CustomDateTimePicker startDatePicker;
 
     @FXML
-    private MFXDatePicker endDatePicker;
+    private CustomDateTimePicker endDatePicker;
 
     @FXML
     private GridPane gridPane;
@@ -154,32 +155,23 @@ public class CreateElementController {
     private void setupPeriod(String label, String prompt, GridPane gridPane) {
         setupFilter(field);
         field.setPromptText(prompt);
-        gridPane.add(new Label(label), 1, 9);
-        gridPane.add(field, 2, 9);
-        gridPane.add(new Label("Date de début:"), 1, 10);
-        gridPane.add(startDatePicker, 2, 10);
-        gridPane.add(new Label("Date de fin:"), 1, 11);
-        gridPane.add(endDatePicker, 2, 11);
+        gridPane.add(new Label(label), 1, 10);
+        gridPane.add(field, 2, 10);
+        gridPane.add(new Label("Date de début:"), 1, 11);
+        gridPane.add(startDatePicker, 2, 11);
+        gridPane.add(new Label("Date de fin:"), 1, 12);
+        gridPane.add(endDatePicker, 2, 12);
     }
 
     private void updateViewBasedOnPeriod(String period) {
         // On supprime les éléments de la grille
-        clearGridPaneRow(gridPane, 9);
         clearGridPaneRow(gridPane, 10);
         clearGridPaneRow(gridPane, 11);
+        clearGridPaneRow(gridPane, 12);
         field = new MFXTextField();
-        startDatePicker = new MFXDatePicker();
-        this.startDatePicker.setCellFactory(datePicker -> new MFXDateCell(this.startDatePicker,datePicker) {
-            @Override
-            public void updateItem(LocalDate item) {
-                super.updateItem(item);
-                if (item != null && item.isBefore(LocalDate.now())) {
-                    setDisable(true);
-                }
-                this.getChildren().add(new Label("test"));
-            }
-        });
-        endDatePicker = new MFXDatePicker();
+        startDatePicker = new CustomDateTimePicker();
+
+        endDatePicker = new CustomDateTimePicker();
         switch (period) {
             case "Semaine":
                 setupPeriod("Nombre de semaines:", "Nombre de semaines", gridPane);
@@ -196,10 +188,10 @@ public class CreateElementController {
             default:
                 chronoUnit = ChronoUnit.DAYS;
                 // Configurez le datePicker comme nécessaire
-                gridPane.add(new Label("Date de début:"), 1, 9);
-                gridPane.add(startDatePicker, 2, 9);
-                gridPane.add(new Label("Date de fin:"), 1, 10);
-                gridPane.add(endDatePicker, 2, 10);
+                gridPane.add(new Label("Date de début:"), 1, 10);
+                gridPane.add(startDatePicker, 2, 10);
+                gridPane.add(new Label("Date de fin:"), 1, 11);
+                gridPane.add(endDatePicker, 2, 11);
                 break;
         }
     }
@@ -222,8 +214,8 @@ public class CreateElementController {
             LayoutManager.alert("Veuillez entrer une valeur positive");
             return;
         }
-        LocalDateTime startDate = this.startDatePicker.getDateTimeValue();
-        LocalDateTime endDate = this.endDatePicker.getDateTimeValue();
+        LocalDateTime startDate = this.startDatePicker.getValue();
+        LocalDateTime endDate = this.endDatePicker.getValue();
         if (startDate == null || endDate == null) {
             LayoutManager.alert("Veuillez entrer une date de début et une date de fin");
             return;

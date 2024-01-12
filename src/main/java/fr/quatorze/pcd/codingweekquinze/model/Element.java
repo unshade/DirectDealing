@@ -57,7 +57,9 @@ public final class Element {
 
         Integer rating = 0;
         for (Loan loan : this.loans) {
-            rating += loan.getRating();
+            if (loan.getRating() != null){
+                rating += loan.getRating();
+            }
         }
         rating /= this.loans.size();
         return rating;
