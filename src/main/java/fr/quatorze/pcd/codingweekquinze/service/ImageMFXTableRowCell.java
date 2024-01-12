@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.service;
 
+import fr.quatorze.pcd.codingweekquinze.MainApplication;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,11 +25,15 @@ public class ImageMFXTableRowCell<T> extends MFXTableRowCell<T, String> {
             String imageUrl = getExtractor().apply(item);
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 imageView.setImage(new Image(imageUrl));
-                imageView.setFitHeight(80); // Ajustez la hauteur et la largeur comme vous le souhaitez
+                imageView.setFitHeight(80);
                 imageView.setFitWidth(80);
                 setGraphic(imageView);
             } else {
-                setGraphic(null);
+                Image defaultImage = new Image(String.valueOf(MainApplication.class.getResource("default.png")));
+                imageView.setImage(defaultImage);
+                imageView.setFitHeight(80);
+                imageView.setFitWidth(80);
+                setGraphic(imageView);
             }
         }
     }
