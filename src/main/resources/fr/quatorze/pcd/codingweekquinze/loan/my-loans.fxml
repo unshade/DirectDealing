@@ -1,17 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- Affichage de la liste des prêts en cours -->
+<?import io.github.palexdev.materialfx.controls.MFXTableView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.VBox?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.MyLoansController"
-      prefHeight="400.0" prefWidth="600.0" fx:id="root" styleClass="container">
-    <Label text="Mes Prêts" styleClass="h2"/>
+<?import javafx.scene.layout.*?>
+<GridPane xmlns="http://javafx.com/javafx"
+          alignment="CENTER"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.MyLoansController"
+          prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/Common.css, @../css/Stepper.css">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" minWidth="10.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="100.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="400.0"/>
+    </rowConstraints>
+    <padding>
+        <Insets bottom="20.0" left="30.0" right="30.0" top="20.0"/>
+    </padding>
+    <StackPane minHeight="150.0" minWidth="300.0" styleClass="grid-background" GridPane.columnSpan="2147483647"
+               GridPane.rowSpan="4">
+        <GridPane.margin>
+            <Insets bottom="-15.0" left="-15.0" right="-15.0" top="-15.0"/>
+        </GridPane.margin>
+    </StackPane>
+    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308"
+           styleClass="header-label" text="Mes prêts"
+           GridPane.columnSpan="2147483647">
+        <GridPane.margin>
+            <Insets/>
+        </GridPane.margin>
+        <padding>
+            <Insets bottom="10.0" top="10.0"/>
+        </padding>
+    </Label>
+    <MFXTableView fx:id="loans" prefHeight="400.0" prefWidth="800.0" GridPane.columnSpan="2147483647"
+                  GridPane.rowIndex="2"/>
 
-    <ListView fx:id="loans">
-        <!-- Les éléments de la liste seront ajoutés ici -->
-    </ListView>
-
-</VBox>
+</GridPane>
