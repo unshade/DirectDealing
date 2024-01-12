@@ -12,6 +12,7 @@ import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.util.DateUtil;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.controls.cell.MFXDateCell;
 import io.github.palexdev.materialfx.controls.cell.MFXListCell;
@@ -41,7 +42,7 @@ import java.util.*;
 @RequiresAuth
 public class CreateElementController {
     @FXML
-    private MFXListView<Availability> periodList;
+    private ListView<Availability> periodList;
     @FXML
     private MFXCheckbox serviceBox;
     @FXML
@@ -97,15 +98,7 @@ public class CreateElementController {
         this.periodList.setItems(availability);
 
 
-       /* this.periodList.setCellFactory(availability -> new MFXListCell<>(this.periodList, availability) {
-            @Override
-            protected void render(Availability item) {
-                super.render(item);
-                System.out.println(item.getFromDate());
-            }
-        });*/
-
-        /*this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
+        this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
             @Override
             public ListCell<Availability> call(ListView<Availability> param) {
                 return new ListCell<>() {
@@ -139,7 +132,7 @@ public class CreateElementController {
                     }
                 };
             }
-        });*/
+        });
         this.period.setValue("Aucune");
         updateViewBasedOnPeriod("Aucune");
     }

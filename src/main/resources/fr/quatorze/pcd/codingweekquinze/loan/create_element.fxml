@@ -27,6 +27,7 @@
 <?import com.sun.javafx.scene.control.DatePickerContent?>
 
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
 <ScrollPane stylesheets="@../css/TextFields.css, @../css/Buttons.css" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.CreateElementController" fitToWidth="true" hbarPolicy="NEVER">
 <GridPane alignment="CENTER" hgap="40.0" styleClass="grid-pane" fx:id="gridPane" prefWidth="-Infinity"
@@ -83,7 +84,7 @@
         <StackPane>
             <MFXButton fx:id="choosePhoto" text="Choisir une photo" onAction="#handleChoosePhoto"/>
             <MFXButton fx:id="deletePhoto" text="Supprimer la photo" onAction="#handleDeletePhoto" visible="false"/>
-            <Label fx:id="photoName" text="Aucune photo choisie" visible="false"/>
+            <Label fx:id="photoName" visible="false"/>
         </StackPane>
         <ImageView fx:id="photo" fitHeight="100" fitWidth="100"/>
     </HBox>
@@ -96,10 +97,10 @@
               GridPane.columnSpan="2147483647"/>
 
     <Label text="Choisissez des périodes de disponibilités :" GridPane.rowIndex="7" GridPane.columnIndex="1" styleClass="sub-header-label"/>
-    <MFXListView fx:id="periodList" GridPane.rowIndex="8" GridPane.columnSpan="2147483647"
+    <ListView fx:id="periodList" GridPane.rowIndex="8" GridPane.columnSpan="2147483647"
                  prefWidth="600" prefHeight="200">
 
-    </MFXListView>
+    </ListView>
     <Label text="Ajouter une période:" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
     <MFXComboBox fx:id="period" GridPane.rowIndex="9" GridPane.columnIndex="2" onAction="#handlePeriodChange" floatingText="Période">
         <items>
