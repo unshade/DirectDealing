@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import io.github.palexdev.materialfx.controls.*?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -9,7 +8,7 @@
            xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
            fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.auth.RegisterController">
     <StackPane style="-fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);">
-        <VBox spacing="10" alignment="CENTER"
+        <VBox fx:id="stack" spacing="10" alignment="CENTER"
               style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30;">
             <Label text="Inscription" styleClass="header-label" style="-fx-font-size: 20px;"/>
             <MFXTextField fx:id="firstName" promptText="Prénom" minWidth="400"/>
@@ -17,7 +16,7 @@
             <MFXTextField fx:id="email" promptText="Email" minWidth="400"/>
             <MFXPasswordField fx:id="password" promptText="Mot de passe" minWidth="400"/>
             <MFXPasswordField fx:id="confirmPassword" promptText="Confirmer le mot de passe" minWidth="400"/>
-            <MFXButton styleClass="outline-button" text="S'inscrire" onAction="#submit" minWidth="200"/>
+            <MFXButton fx:id="connectButton" styleClass="outline-button" text="S'inscrire" onAction="#submit" minWidth="200"/>
             <Label text="Déjà inscrit ?" onMouseClicked="#login" style="-fx-cursor: hand; -fx-underline: true;"/>
         </VBox>
     </StackPane>

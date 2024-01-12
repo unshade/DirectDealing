@@ -50,6 +50,8 @@ public final class UserDAO extends DAO<User> {
     }
 
     public User createUser(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
+        email = email.toLowerCase();
+
         em.getTransaction().begin();
         User user = new User(firstName, lastName, email, password, flow, sleeping, admin);
         em.persist(user);
@@ -69,9 +71,10 @@ public final class UserDAO extends DAO<User> {
     }
 
     public User getUserByEmail(String email) {
+        email = email.toLowerCase();
         return em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
                 .setParameter("email", email)
-                .getSingleResult();
+                .getResultStream().findFirst().orElse(null);
     }
 
     public User getUserByName(String firstName, String lastName) {

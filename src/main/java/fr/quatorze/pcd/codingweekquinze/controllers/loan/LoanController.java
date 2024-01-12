@@ -11,6 +11,8 @@ import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -30,6 +32,8 @@ public class LoanController {
 
     @FXML
     private Label title;
+    @FXML
+    public ImageView image;
     @FXML
     private Label itemType;
     @FXML
@@ -54,6 +58,9 @@ public class LoanController {
         });
 
         this.title.setText("Prêt de " + loan.getItem().getName());
+        if (loan.getItem().getImage() != null) {
+            this.image.setImage(new Image(loan.getItem().getImage()));
+        }
 
         this.itemType.setText("Type : " + (loan.getItem().getIsService() ? "Service" : "Objet"));
         this.itemPrice.setText("Prix : " + loan.getItem().getPrice() + "€");

@@ -38,6 +38,7 @@ public class NavBarController implements Observer {
     @FXML
     private HBox walletBox;
 
+    private NotificationButton notificationButton;
     private MFXIconWrapper wrapper;
 
     private final ToggleGroup toggleGroup = new ToggleGroup();
@@ -99,7 +100,12 @@ public class NavBarController implements Observer {
         wallet.setText(AuthService.getInstance().getCurrentUser().getFlow() + "⚘");
 
         boolean hasNotification = AuthService.getInstance().getCurrentUser().getNotifications().stream().anyMatch(notification -> !notification.isRead());
-        ((MFXFontIcon) wrapper.getIcon()).setColor(hasNotification ? Color.BLACK : Color.WHITE);
+
+        if (!hasNotification) {
+            notificationButton.setDisable(true);
+        }
+
+        ((MFXFontIcon) wrapper.getIcon()).setColor(hasNotification ? Color.WHITE: Color.SLATEGRAY);
     }
 
     private ToggleButton createToggle(String icon, String text) {
@@ -109,9 +115,9 @@ public class NavBarController implements Observer {
     private NotificationButton createNotificationButton(String icon) {
         boolean hasNotification = AuthService.getInstance().getCurrentUser().getNotifications().stream().anyMatch(notification -> !notification.isRead());
 
-        wrapper = new MFXIconWrapper(icon, 24, hasNotification ? Color.BLACK : Color.WHITE, 32);
-        NotificationButton button = new NotificationButton(wrapper);
-        button.setStyle("""
+        wrapper = new MFXIconWrapper(icon, 24, hasNotification ? Color.WHITE : Color.SLATEGRAY, 32);
+        notificationButton = new NotificationButton(wrapper);
+        notificationButton.setStyle("""
                 -fx-background-color: transparent;
                 	-fx-background-radius: 0;
                 	-fx-border-color: transparent;
@@ -122,10 +128,13 @@ public class NavBarController implements Observer {
                 	-fx-font-size: 13;
                 	-fx-text-fill: white;
                                 """);
-        button.setAlignment(Pos.CENTER_LEFT);
-        button.setMaxWidth(Double.MAX_VALUE);
-        button.addObserver(this);
-        return button;
+        notificationButton.setAlignment(Pos.CENTER_LEFT);
+        notificationButton.setMaxWidth(Double.MAX_VALUE);
+        notificationButton.addObserver(this);
+
+        if (!hasNotification) notificationButton.setDisable(true);
+
+        return notificationButton;
     }
 
     private MFXButton createButton(String icon, String text) {
