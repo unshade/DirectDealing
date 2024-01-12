@@ -89,6 +89,7 @@ public final class LayoutManager {
     }
 
     public static void alert(String message) {
+        System.out.println("Alert: " + message);
         MFXNotificationSystem.instance()
                 .setPosition(NotificationPos.TOP_CENTER)
                 .publish(createNotification(message, "Erreur", FontAwesomeSolid.CIRCLE_EXCLAMATION, "error"));
