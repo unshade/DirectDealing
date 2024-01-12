@@ -6,6 +6,7 @@ import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.layout.component.DateTimePicker;
 import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
+import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import javafx.collections.FXCollections;
@@ -100,7 +101,8 @@ public class CreateLoanController {
         }
         User user = AuthService.getInstance().getCurrentUser();
 
-        LoanDAO.getInstance().createLoan(startDate, endDate, element, user);
+        Loan loan = LoanDAO.getInstance().createLoan(startDate, endDate, element, user);
+        user.addLoansCalendar(loan);
         LayoutManager.success("Loan created");
         LayoutManager.setLayout("borrow/my-borrows.fxml", "Home");
     }

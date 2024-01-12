@@ -1,6 +1,7 @@
 package fr.quatorze.pcd.codingweekquinze.model;
 
 import com.calendarfx.model.Calendar;
+import com.calendarfx.model.Entry;
 import fr.quatorze.pcd.codingweekquinze.controllers.Observable;
 import fr.quatorze.pcd.codingweekquinze.controllers.Observer;
 import fr.quatorze.pcd.codingweekquinze.dao.NotificationDAO;
@@ -78,6 +79,34 @@ public final class User implements Observable {
     public void addMyElementsCalendar(Element element) {
         for (Availability availability : element.getAvailabilities()) {
             this.myElementsCalendar.addEntry(new ElementEntry(element, availability));
+        }
+    }
+
+//    public void removeLoansCalendar(Loan loan) {
+//        List<Entry<?>> entriesToRemove = new ArrayList<>();
+//        for (Entry<?> entry : this.loansCalendar.findEntries("")) {
+//            if (entry instanceof LoanEntry loanEntry) {
+//                if (loanEntry.getLoan().equals(loan)) {
+//                    entriesToRemove.add(loanEntry);
+//                }
+//            }
+//        }
+//        for (Entry<?> entry : entriesToRemove) {
+//            this.loansCalendar.removeEntry(entry);
+//        }
+//    }
+
+    public void removeMyElementsCalendar(Element element) {
+        List<Entry<?>> entriesToRemove = new ArrayList<>();
+        for (Entry<?> entry : this.myElementsCalendar.findEntries("")) {
+            if (entry instanceof ElementEntry elementEntry) {
+                if (elementEntry.getElement().equals(element)) {
+                    entriesToRemove.add(elementEntry);
+                }
+            }
+        }
+        for (Entry<?> entry : entriesToRemove) {
+            this.myElementsCalendar.removeEntry(entry);
         }
     }
 

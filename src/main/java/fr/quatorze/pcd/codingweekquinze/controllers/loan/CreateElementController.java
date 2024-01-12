@@ -2,6 +2,7 @@ package fr.quatorze.pcd.codingweekquinze.controllers.loan;
 
 import fr.quatorze.pcd.codingweekquinze.dao.AvailabilityDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
+import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField;
@@ -321,7 +322,7 @@ public class CreateElementController {
             availability.setElement(element);
             AvailabilityDAO.getInstance().createAvailability(availability);
         }
-
+        user.addMyElementsCalendar(element);
         LayoutManager.success("Element created");
         LayoutManager.setLayout("loan/index.fxml", "My Elements");
     }

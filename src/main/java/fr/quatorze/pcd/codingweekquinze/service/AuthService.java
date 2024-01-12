@@ -82,30 +82,6 @@ public class AuthService {
     }
 
     public boolean isAuthenticated() {
-        if (currentUser == null) {
-            return false;
-        }
-
-        // Setup calendars, users should not be able to modify them manually
-        Calendar<?> c1 = new Calendar<>("Mes emprunts");
-        Calendar<?> c2 = new Calendar<>("Mes prêts et services");
-        c1.setStyle(Calendar.Style.STYLE1);
-        c1.setReadOnly(true);
-        c2.setStyle(Calendar.Style.STYLE2);
-        c2.setReadOnly(true);
-
-        for (Loan borrowedLoan : currentUser.getBorrowedLoans()) {
-            c1.addEntry(new LoanEntry(borrowedLoan));
-        }
-        for (Element element : currentUser.getOwnedElements()) {
-            for (Availability availability : element.getAvailabilities()) {
-                c2.addEntry(new ElementEntry(element, availability).createRecurrence());
-            }
-        }
-
-        currentUser.setLoansCalendar(c1);
-        currentUser.setMyElementsCalendar(c2);
-
-        return true;
+        return currentUser != null;
     }
 }

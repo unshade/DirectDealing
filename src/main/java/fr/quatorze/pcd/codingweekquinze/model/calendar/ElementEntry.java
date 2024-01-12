@@ -3,9 +3,11 @@ package fr.quatorze.pcd.codingweekquinze.model.calendar;
 import com.calendarfx.model.Entry;
 import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
+import lombok.Getter;
 
 import java.time.temporal.ChronoUnit;
 
+@Getter
 public final class ElementEntry extends Entry<Element> {
 
     private final Element element;

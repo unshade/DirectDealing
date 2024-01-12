@@ -311,6 +311,8 @@ public class EditElementController {
     @FXML
     private void submit() {
 
+        User user = AuthService.getInstance().getCurrentUser();
+
         if (name.getText().isEmpty()) {
             LayoutManager.alert("Veuillez entrer un nom");
             return;
@@ -330,6 +332,8 @@ public class EditElementController {
             LayoutManager.alert("Veuillez entrer au moins une période");
             return;
         }
+
+        user.removeMyElementsCalendar(element);
 
         // On vérifie si il y a des périodes qui ont été supprimées
         // Si oui, on les supprime de la base de données
@@ -358,6 +362,8 @@ public class EditElementController {
 
         ElementDAO.getInstance().updateElement(element);
         ElementDAO.getInstance().refresh(element);
+
+        user.addMyElementsCalendar(element);
 
         LayoutManager.success("Element updated");
         LayoutManager.setLayout("loan/index.fxml", "My Elements");
