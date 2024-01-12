@@ -48,6 +48,10 @@ public class AuthService {
         }
         User user = UserDAO.getInstance().getUserByEmail(email);
 
+        if (user == null) {
+            return false;
+        }
+
         if (!encoder.matches(enteredPassword, user.getPassword())) {
             return false;
         }

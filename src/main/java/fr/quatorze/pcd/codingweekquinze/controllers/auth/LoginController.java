@@ -2,34 +2,20 @@ package fr.quatorze.pcd.codingweekquinze.controllers.auth;
 
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
-import io.github.palexdev.materialfx.controls.*;
-import io.github.palexdev.materialfx.validation.Constraint;
-import io.github.palexdev.materialfx.validation.MFXValidator;
-import io.github.palexdev.materialfx.validation.Validated;
-import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
-import javafx.beans.binding.Bindings;
-import javafx.collections.FXCollections;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
 
 public class LoginController {
 
+    @FXML
+    public VBox stack;
+    @FXML
+    public MFXButton connectButton;
     @FXML
     private MFXTextField email;
     @FXML
@@ -57,12 +43,19 @@ public class LoginController {
             return;
         }
 
+        MFXProgressSpinner spinner = new MFXProgressSpinner();
+        spinner.setRadius(18);
+        stack.getChildren().remove(stack.getChildren().size() - 2);
+        stack.getChildren().add(stack.getChildren().size() - 1, spinner);
+
         if (AuthService.getInstance().authenticate(enteredEmail, enteredPassword)) {
             LayoutManager.addNavBar();
             LayoutManager.setLayout("borrow/index.fxml", "login success");
             return;
         }
 
+        stack.getChildren().remove(stack.getChildren().size() - 2);
+        stack.getChildren().add(stack.getChildren().size() - 1, connectButton);
         LayoutManager.alert("Erreur lors de l'authentification");
     }
 
