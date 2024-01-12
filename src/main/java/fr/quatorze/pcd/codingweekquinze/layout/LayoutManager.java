@@ -94,6 +94,12 @@ public final class LayoutManager {
                 .publish(createNotification(message, "Erreur", FontAwesomeSolid.CIRCLE_EXCLAMATION, "error"));
     }
 
+    public static void info(String message) {
+        MFXNotificationSystem.instance()
+                .setPosition(NotificationPos.TOP_CENTER)
+                .publish(createNotification(message, "Information", FontAwesomeSolid.CIRCLE_INFO, "info"));
+    }
+
     public static void success(String message) {
         MFXNotificationSystem.instance()
                 .setPosition(NotificationPos.TOP_CENTER)
