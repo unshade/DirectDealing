@@ -2,13 +2,12 @@
 
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.StackPane?>
- <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" prefWidth="-Infinity" prefHeight="-Infinity">
-        <Tab text="Voir les annonces" >
-                <fx:include source="select-element-view.fxml"/>
-        </Tab>
-        <Tab text="Mes emprunts">
-            <fx:include source="my-borrows.fxml"/>
-        </Tab>
-    </TabPane>
+<TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml" prefWidth="-Infinity" prefHeight="-Infinity">
+    <Tab text="Voir les annonces">
+        <fx:include source="select-element-view.fxml"/>
+    </Tab>
+    <Tab text="Mes emprunts">
+        <fx:include source="my-borrows.fxml"/>
+    </Tab>
+</TabPane>

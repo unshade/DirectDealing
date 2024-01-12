@@ -8,6 +8,7 @@ import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXIconWrapper;
 import io.github.palexdev.materialfx.controls.MFXRectangleToggleNode;
 import io.github.palexdev.materialfx.utils.ToggleButtonsUtil;
+import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -19,6 +20,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +37,8 @@ public class NavBarController implements Observer {
 
     @FXML
     private HBox walletBox;
+
+    private MFXIconWrapper wrapper;
 
     private final ToggleGroup toggleGroup = new ToggleGroup();
 
@@ -53,11 +57,11 @@ public class NavBarController implements Observer {
         }
 
         List<Node> toggleButtons = new ArrayList<>();
-        ToggleButton t2 = createToggle("fas-shop", "Emprunt");
+        ToggleButton t2 = createToggle("fas-shop", "Emprunts");
         t2.setOnAction(actionEvent -> LayoutManager.setLayout("borrow/index.fxml", "Emprunt"));
         t2.setSelected(true);
         toggleButtons.add(t2);
-        ToggleButton t3 = createToggle("fas-shop", "Prêt");
+        ToggleButton t3 = createToggle("fas-shop", "Prêts");
         t3.setOnAction(actionEvent -> LayoutManager.setLayout("loan/index.fxml", "Prêt"));
         toggleButtons.add(t3);
         ToggleButton t4 = createToggle("fas-calendar-days", "Planning");
@@ -66,12 +70,11 @@ public class NavBarController implements Observer {
         ToggleButton t5 = createToggle("fas-user", "Mon compte");
         t5.setOnAction(actionEvent -> LayoutManager.setLayout("account.fxml", "Mon compte"));
         toggleButtons.add(t5);
-        MFXButton t6 = createNotificationButton("");
-        //t6.setOnAction(actionEvent -> notifications());
+        MFXButton t6 = createNotificationButton("fas-bell");
         toggleButtons.add(t6);
         MFXButton t7 = createButton("", "Déconnexion");
         t7.setOnAction(actionEvent -> logout());
-        toggleButtons.add(t7);
+        //toggleButtons.add(t7);
 
         navbar.getChildren().addAll(0, toggleButtons);
 
@@ -79,11 +82,8 @@ public class NavBarController implements Observer {
         Image image = new Image(MainApplication.load("logo_alt.png"), 64, 64, true, true);
         ImageView logo = new ImageView(image);
         logoContainer.getChildren().add(logo);
-    }
 
-    @FXML
-    private void wallet() {
-        LayoutManager.setLayout("wallet.fxml", "Mon porte-monnaie");
+        navbar.getChildren().add(t7);
     }
 
     @FXML
@@ -93,23 +93,23 @@ public class NavBarController implements Observer {
         LayoutManager.setLayout("auth/login.fxml", "Se connecter");
     }
 
-    private void notifications() {
-        LayoutManager.setLayout("notifications.fxml", "Notifications");
-    }
-
 
     @Override
     public void update() {
-        //wallet.setText(AuthService.getInstance().getCurrentUser().getFlow() + "⚘");
-    }
+        wallet.setText(AuthService.getInstance().getCurrentUser().getFlow() + "⚘");
 
+        boolean hasNotification = AuthService.getInstance().getCurrentUser().getNotifications().stream().anyMatch(notification -> !notification.isRead());
+        ((MFXFontIcon) wrapper.getIcon()).setColor(hasNotification ? Color.BLACK : Color.WHITE);
+    }
 
     private ToggleButton createToggle(String icon, String text) {
         return createToggle(icon, text, 0);
     }
 
     private NotificationButton createNotificationButton(String icon) {
-        MFXIconWrapper wrapper = new MFXIconWrapper(icon, 24, 32);
+        boolean hasNotification = AuthService.getInstance().getCurrentUser().getNotifications().stream().anyMatch(notification -> !notification.isRead());
+
+        wrapper = new MFXIconWrapper(icon, 24, hasNotification ? Color.BLACK : Color.WHITE, 32);
         NotificationButton button = new NotificationButton(wrapper);
         button.setStyle("""
                 -fx-background-color: transparent;
@@ -124,6 +124,7 @@ public class NavBarController implements Observer {
                                 """);
         button.setAlignment(Pos.CENTER_LEFT);
         button.setMaxWidth(Double.MAX_VALUE);
+        button.addObserver(this);
         return button;
     }
 

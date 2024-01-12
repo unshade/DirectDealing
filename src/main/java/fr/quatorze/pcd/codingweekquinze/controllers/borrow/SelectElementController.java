@@ -61,8 +61,8 @@ public class SelectElementController {
         this.rating.valueProperty().addListener((observable, oldValue, newValue) -> search());
         this.type.valueProperty().addListener((observable, oldValue, newValue) -> search());
 
-        this.rating.setValue("Sélectionnez une note");
-        this.type.setValue("Sélectionnez un type");
+        this.rating.setValue("Tous");
+        this.type.setValue("Tous");
 
 
         setupTable();
@@ -156,10 +156,10 @@ public class SelectElementController {
                 ? null
                 : Date.from(endDate.getValue().atStartOfDay().toInstant(ZoneOffset.UTC));
 
-        Integer rating = this.rating.getValue() != null && !this.rating.getValue().equals("Sélectionnez une note")
+        Integer rating = this.rating.getValue() != null && !this.rating.getValue().equals("Tous")
                 ? Integer.parseInt(this.rating.getValue()) : null;
 
-        String type = this.type.getValue() != null && !this.type.getValue().equals("Sélectionnez un type")
+        String type = this.type.getValue() != null && !this.type.getValue().equals("Tous")
                 ? this.type.getValue() : null;
 
         List<Element> elements = ElementDAO.getInstance().search(search, rating, type, true);
