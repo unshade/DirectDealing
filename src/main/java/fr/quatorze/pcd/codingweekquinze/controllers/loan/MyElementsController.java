@@ -42,6 +42,8 @@ public class MyElementsController {
         this.searchBar.textProperty().addListener((observable, oldValue, newValue) -> search());
         this.rating.valueProperty().addListener((observable, oldValue, newValue) -> search());
         this.type.valueProperty().addListener((observable, oldValue, newValue) -> search());
+        this.rating.setValue("Tous");
+        this.type.setValue("Tous");
 
 //        // On cherche les éléments de l'utilisateur connecté
 //        List<Element> elements = ElementDAO.getInstance().getElementsByOwner(AuthService.getInstance().getCurrentUser());
@@ -133,10 +135,10 @@ public class MyElementsController {
 
         Date end = null;
 
-        Integer rating = this.rating.getValue() != null && !this.rating.getValue().equals("Sélectionnez une note")
+        Integer rating = this.rating.getValue() != null && !this.rating.getValue().equals("Tous")
                 ? Integer.parseInt(this.rating.getValue()) : null;
 
-        String type = this.type.getValue() != null && !this.type.getValue().equals("Sélectionnez un type")
+        String type = this.type.getValue() != null && !this.type.getValue().equals("Tous")
                 ? this.type.getValue() : null;
 
         List<Element> elements = ElementDAO.getInstance().search(search, rating, type,false);

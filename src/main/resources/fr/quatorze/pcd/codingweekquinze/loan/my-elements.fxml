@@ -83,6 +83,7 @@
         <MFXComboBox fx:id="type" floatingText="Type">
             <items>
                 <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tous"/>
                     <String fx:value="Service"/>
                     <String fx:value="Objet"/>
                 </FXCollections>
@@ -91,6 +92,7 @@
         <MFXComboBox fx:id="rating" floatingText="Note">
             <items>
                 <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="Tous"/>
                     <String fx:value="1"/>
                     <String fx:value="2"/>
                     <String fx:value="3"/>
