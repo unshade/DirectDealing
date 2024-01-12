@@ -121,55 +121,32 @@ public class SelectElementController {
     private void setupTable() {
         MFXTableColumn<Element> imageColumn = new MFXTableColumn<>("Image", false, null);
         MFXTableColumn<Element> nameColumn = new MFXTableColumn<>("Nom", false, Comparator.comparing(Element::getName));
-        MFXTableColumn<Element> descColumn = new MFXTableColumn<>("Description", false, Comparator.comparing(Element::getDescription));
         MFXTableColumn<Element> ownerColumn = new MFXTableColumn<>("Propriétaire", false, Comparator.comparing(element -> element.getOwner().getFullName()));
         MFXTableColumn<Element> typeColumn = new MFXTableColumn<>("Type", false, Comparator.comparing(Element::getIsService));
         MFXTableColumn<Element> ratingColumn = new MFXTableColumn<>("Note", false, Comparator.comparing(Element::getRating));
 
         elements.widthProperty().addListener((obs, oldVal, newVal) -> {
             double width = newVal.doubleValue();
-            imageColumn.setPrefWidth(width * 0.1);
-            nameColumn.setPrefWidth(width * 0.3);
-            descColumn.setPrefWidth(width * 0.3);
+            imageColumn.setPrefWidth(width * 0.3);
+            nameColumn.setPrefWidth(width * 0.2);
             ownerColumn.setPrefWidth(width * 0.2);
             typeColumn.setPrefWidth(width * 0.1);
             ratingColumn.setPrefWidth(width * 0.2);
         });
-        imageColumn.setRowCellFactory(person -> {
-            ImageMFXTableRowCell<Element> cell = new ImageMFXTableRowCell<>(Element::getImage);
-            cell.setPrefHeight(50);
-            return cell;
-                });
-        nameColumn.setRowCellFactory(person -> {
-            MFXTableRowCell<Element, String> cell = new MFXTableRowCell<>(Element::getName);
-            cell.setPrefWidth(50);
-            return cell;
-                });
-        descColumn.setRowCellFactory(person -> {
-            MFXTableRowCell<Element, String> cell = new MFXTableRowCell<>(Element::getDescription);
-            cell.setPrefWidth(50);
-            return cell;
-                });
-        ownerColumn.setRowCellFactory(person -> {
-            MFXTableRowCell<Element, String> cell = new MFXTableRowCell<>(element -> element.getOwner().getFullName());
-            cell.setPrefWidth(50);
-            return cell;
-                });
-        ratingColumn.setRowCellFactory(person -> {
-            MFXTableRowCell<Element, Integer> cell = new MFXTableRowCell<>(Element::getRating);
-            cell.setPrefWidth(50);
-            return cell;
-                });
-        typeColumn.setRowCellFactory(person -> {
-            MFXTableRowCell<Element, Boolean> cell = new MFXTableRowCell<>(Element::getIsService);
-            cell.setPrefWidth(50);
-            return cell;
-                });
-        elements.getTableColumns().addAll(imageColumn, nameColumn, descColumn, ownerColumn, typeColumn, ratingColumn);
+        imageColumn.setRowCellFactory(person -> new ImageMFXTableRowCell<>(Element::getImage));
+        nameColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getName));
+        ownerColumn.setRowCellFactory(person -> new MFXTableRowCell<>(element -> element.getOwner().getFullName()));
+        ratingColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getRating));
+        typeColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getIsService));
 
+        elements.getTableColumns().addAll(imageColumn, nameColumn, ownerColumn, typeColumn, ratingColumn);
 
         elements.setTableRowFactory(tableView -> {
             MFXTableRow<Element> row = new MFXTableRow<>(elements, tableView);
+
+            row.setPrefHeight(100);
+            row.setAlignment(Pos.CENTER_LEFT);
+            row.setSpacing(10);
 
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 1) {

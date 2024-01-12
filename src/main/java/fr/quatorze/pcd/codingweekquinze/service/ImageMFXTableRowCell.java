@@ -24,8 +24,8 @@ public class ImageMFXTableRowCell<T> extends MFXTableRowCell<T, String> {
             String imageUrl = getExtractor().apply(item);
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 imageView.setImage(new Image(imageUrl));
-                imageView.setFitHeight(20); // Ajustez la hauteur et la largeur comme vous le souhaitez
-                imageView.setFitWidth(20);
+                imageView.setFitHeight(80); // Ajustez la hauteur et la largeur comme vous le souhaitez
+                imageView.setFitWidth(80);
                 setGraphic(imageView);
             } else {
                 setGraphic(null);
