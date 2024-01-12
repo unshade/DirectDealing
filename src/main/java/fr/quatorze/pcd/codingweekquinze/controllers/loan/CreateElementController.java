@@ -101,27 +101,23 @@ public class CreateElementController {
         this.periodList.setItems(availability);
 
 
-       this.periodList.setCellFactory(u -> new MFXListCell<>(this.periodList, u) {
+//       this.periodList.setCellFactory(u -> new MFXListCell<>(this.periodList, u) {
+//
+//            @Override
+//            protected void render(Availability item) {
+//                if (item == null) return;
+//                super.render(item);
+//                Button deleteButton = new Button("Supprimer");
+//                deleteButton.setOnMouseClicked(event -> {
+//                    availability.remove(item);
+//                    deleteButton.setDisable(true);
+//                });
+//                getChildren().add(deleteButton);
+//            }
+//
+//        });
 
-            @Override
-            protected void render(Availability item) {
-                Button deleteButton = new Button("Supprimer");
-                var v = String.valueOf(ThreadLocalRandom.current().nextInt(0, 100 + 1));
-                deleteButton.idProperty().setValue(v);
-                AtomicReference<Availability> availabilityAtomicReference = new AtomicReference<>(item);
-                deleteButton.setOnMouseClicked(event -> {
-                    System.out.println(availabilityAtomicReference.get());
-                    availability.remove(availabilityAtomicReference.get());
-                    periodList = new MFXListView<>();
-                    periodList.setItems(FXCollections.observableList(availability));
-                    System.out.println(availability);
-
-                    getChildren().removeIf(node -> node != null && node.getId() != null && node.getId().equals(v));
-                });
-                super.render(item);
-                getChildren().add(deleteButton);
-            }
-        });
+        this.periodList.setCellFactory(item -> new AvailabilityCellFactory(this.periodList, item));
 
         /*this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
             @Override
@@ -366,4 +362,22 @@ public class CreateElementController {
         choosePhoto.setVisible(true);
     }
 
+    private class AvailabilityCellFactory extends MFXListCell<Availability> {
+        private Button deleteButton;
+
+        public AvailabilityCellFactory(MFXListView<Availability> listView, Availability data) {
+            super(listView, data);
+            deleteButton = new Button("Supprimer");
+            deleteButton.setOnMouseClicked(event -> {
+                listView.getItems().remove(data);
+            });
+            render(data);
+        }
+
+        @Override
+        protected void render(Availability data) {
+            super.render(data);
+            if (deleteButton != null) getChildren().add(deleteButton);
+        }
+    }
 }
