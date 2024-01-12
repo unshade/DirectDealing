@@ -23,6 +23,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
+<?import javafx.scene.control.DatePicker?>
+<?import com.sun.javafx.scene.control.DatePickerContent?>
 <GridPane alignment="CENTER" hgap="40.0" styleClass="grid-pane" fx:id="gridPane"
           stylesheets="@../css/TextFields.css, @../css/Buttons.css" vgap="10.0"
           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
@@ -101,6 +103,8 @@
             </FXCollections>
         </items>
     </MFXComboBox>
+
+
     <MFXButton styleClass="outline-button" text="Ajouter la période" onAction="#handleAddPeriod" minWidth="200"
                GridPane.rowIndex="12"  GridPane.columnIndex="2"/>
     <MFXButton styleClass="outline-button" text="Créer" onAction="#submit" minWidth="200" GridPane.rowIndex="13"

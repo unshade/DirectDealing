@@ -9,6 +9,7 @@ import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import io.github.palexdev.materialfx.controls.*;
+import io.github.palexdev.materialfx.controls.cell.MFXDateCell;
 import io.github.palexdev.materialfx.controls.cell.MFXListCell;
 import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
 import javafx.collections.FXCollections;
@@ -159,6 +160,16 @@ public class CreateElementController {
         clearGridPaneRow(gridPane, 11);
         field = new MFXTextField();
         startDatePicker = new MFXDatePicker();
+        this.startDatePicker.setCellFactory(datePicker -> new MFXDateCell(this.startDatePicker,datePicker) {
+            @Override
+            public void updateItem(LocalDate item) {
+                super.updateItem(item);
+                if (item != null && item.isBefore(LocalDate.now())) {
+                    setDisable(true);
+                }
+                this.getChildren().add(new Label("test"));
+            }
+        });
         endDatePicker = new MFXDatePicker();
         switch (period) {
             case "Semaine":
