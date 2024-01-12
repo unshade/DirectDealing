@@ -39,6 +39,7 @@ public class CustomDateTimePicker extends VBox {
         datePicker.setValue(dateTime.toLocalDate());
 
         datePicker.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) return;
             dateTime = newValue.atTime(dateTime.toLocalTime());
         });
 
@@ -47,6 +48,7 @@ public class CustomDateTimePicker extends VBox {
 
         timePicker.textProperty().addListener((observable, oldValue, newValue) -> {
             // si le format est invalide
+            if (newValue == null) return;
             if (!newValue.matches("\\d{2}:\\d{2}")) {
 
                 this.timePicker.setStyle("-fx-text-fill: red");
@@ -63,6 +65,11 @@ public class CustomDateTimePicker extends VBox {
         datePicker.setValue(dateTime.toLocalDate());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         timePicker.setText(dateTime.format(formatter));
+    }
+
+    public void reset() {
+        datePicker.setValue(LocalDate.now());
+        timePicker.setText(LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
     }
 
     public LocalDateTime getValue() {

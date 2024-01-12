@@ -12,6 +12,7 @@ import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import io.github.palexdev.materialfx.MFXResourcesLoader;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.controls.cell.MFXDateCell;
 import io.github.palexdev.materialfx.controls.cell.MFXListCell;
@@ -36,6 +37,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicReference;
 
 
 @RequiresAuth
@@ -92,18 +95,33 @@ public class CreateElementController {
 
         setupFilter(price);
 
-
+        startDatePicker = new CustomDateTimePicker();
+        endDatePicker = new CustomDateTimePicker();
 
         this.periodList.setItems(availability);
 
 
-       /* this.periodList.setCellFactory(availability -> new MFXListCell<>(this.periodList, availability) {
+       this.periodList.setCellFactory(u -> new MFXListCell<>(this.periodList, u) {
+
             @Override
             protected void render(Availability item) {
+                Button deleteButton = new Button("Supprimer");
+                var v = String.valueOf(ThreadLocalRandom.current().nextInt(0, 100 + 1));
+                deleteButton.idProperty().setValue(v);
+                AtomicReference<Availability> availabilityAtomicReference = new AtomicReference<>(item);
+                deleteButton.setOnMouseClicked(event -> {
+                    System.out.println(availabilityAtomicReference.get());
+                    availability.remove(availabilityAtomicReference.get());
+                    periodList = new MFXListView<>();
+                    periodList.setItems(FXCollections.observableList(availability));
+                    System.out.println(availability);
+
+                    getChildren().removeIf(node -> node != null && node.getId() != null && node.getId().equals(v));
+                });
                 super.render(item);
-                System.out.println(item.getFromDate());
+                getChildren().add(deleteButton);
             }
-        });*/
+        });
 
         /*this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
             @Override
@@ -169,9 +187,8 @@ public class CreateElementController {
         clearGridPaneRow(gridPane, 11);
         clearGridPaneRow(gridPane, 12);
         field = new MFXTextField();
-        startDatePicker = new CustomDateTimePicker();
-
-        endDatePicker = new CustomDateTimePicker();
+        startDatePicker.reset();
+        endDatePicker.reset();
         switch (period) {
             case "Semaine":
                 setupPeriod("Nombre de semaines:", "Nombre de semaines", gridPane);
