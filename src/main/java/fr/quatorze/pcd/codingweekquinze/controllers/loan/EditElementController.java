@@ -337,7 +337,7 @@ public class EditElementController {
 
         user.addMyElementsCalendar(element);
 
-        LayoutManager.success("Element updated");
+        LayoutManager.success("Élément modifié");
         LayoutManager.setLayout("loan/index.fxml", "My Elements");
     }
 

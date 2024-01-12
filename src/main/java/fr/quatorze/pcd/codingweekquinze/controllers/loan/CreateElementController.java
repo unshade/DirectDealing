@@ -312,7 +312,7 @@ public class CreateElementController {
             AvailabilityDAO.getInstance().createAvailability(availability);
         }
         user.addMyElementsCalendar(element);
-        LayoutManager.success("Element created");
+        LayoutManager.success("Élément ajouté");
         LayoutManager.setLayout("loan/index.fxml", "My Elements");
     }
 

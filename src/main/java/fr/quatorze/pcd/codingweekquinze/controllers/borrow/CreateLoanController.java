@@ -141,7 +141,7 @@ public class CreateLoanController {
 
         Loan loan = LoanDAO.getInstance().createLoan(startDate, endDate, element, user);
         user.addLoansCalendar(loan);
-        LayoutManager.success("Loan created");
+        LayoutManager.success("Réservation effectuée");
         LayoutManager.setLayout("borrow/my-borrows.fxml", "Home");
     }
 }
