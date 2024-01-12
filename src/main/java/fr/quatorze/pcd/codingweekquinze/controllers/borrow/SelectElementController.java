@@ -118,6 +118,7 @@ public class SelectElementController {
 //        });
     }
 
+    @SuppressWarnings("unchecked")
     private void setupTable() {
         MFXTableColumn<Element> imageColumn = new MFXTableColumn<>("Image", false, null);
         MFXTableColumn<Element> nameColumn = new MFXTableColumn<>("Nom", false, Comparator.comparing(Element::getName));
