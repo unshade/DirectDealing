@@ -26,6 +26,8 @@ public final class NotificationButton extends MFXButton implements Observable {
     public NotificationButton(Node graphic) {
         super("Notifications", graphic);
         this.entriesPopup = new ContextMenu();
+        entriesPopup.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-padding: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" +
+                "-fx-background-insets: 0, 1, 2; -fx-background-radius: 3px, 2px, 1px; -fx-padding: 3 4 3 4; -fx-text-fill: #242d35; -fx-font-size: 13px; -fx-font-weight: bold;");
 
         setListener();
     }
@@ -33,6 +35,8 @@ public final class NotificationButton extends MFXButton implements Observable {
     public NotificationButton() {
         super("Notifications");
         this.entriesPopup = new ContextMenu();
+        entriesPopup.setStyle("-fx-background-color: #ffffff; -fx-border-color: #000000; -fx-border-width: 1px; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-padding: 5px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 0);" +
+                              "-fx-background-insets: 0, 1, 2; -fx-background-radius: 3px, 2px, 1px; -fx-padding: 3 4 3 4; -fx-text-fill: #242d35; -fx-font-size: 13px; -fx-font-weight: bold;");
 
         setListener();
     }

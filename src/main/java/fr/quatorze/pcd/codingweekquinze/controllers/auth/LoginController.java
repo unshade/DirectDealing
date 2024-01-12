@@ -5,10 +5,13 @@ import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
 import io.github.palexdev.materialfx.controls.MFXTextField;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+
+import java.util.concurrent.CompletableFuture;
 
 public class LoginController {
 
@@ -48,15 +51,21 @@ public class LoginController {
         stack.getChildren().remove(stack.getChildren().size() - 2);
         stack.getChildren().add(stack.getChildren().size() - 1, spinner);
 
-        if (AuthService.getInstance().authenticate(enteredEmail, enteredPassword)) {
-            LayoutManager.addNavBar();
-            LayoutManager.setLayout("borrow/index.fxml", "login success");
-            return;
-        }
+        CompletableFuture.runAsync(() -> {
+            if (AuthService.getInstance().authenticate(enteredEmail, enteredPassword)) {
+                Platform.runLater(() -> {
+                    LayoutManager.setLayout("borrow/index.fxml", "login success");
+                    LayoutManager.addNavBar();
+                });
+                return;
+            }
 
-        stack.getChildren().remove(stack.getChildren().size() - 2);
-        stack.getChildren().add(stack.getChildren().size() - 1, connectButton);
-        LayoutManager.alert("Erreur lors de l'authentification");
+            Platform.runLater(() -> {
+                stack.getChildren().remove(stack.getChildren().size() - 2);
+                stack.getChildren().add(stack.getChildren().size() - 1, connectButton);
+                LayoutManager.alert("Erreur lors de l'authentification");
+            });
+        });
     }
 
     @FXML
