@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.controllers.loan;
 
+import fr.quatorze.pcd.codingweekquinze.controllers.components.CustomDateTimePicker;
 import fr.quatorze.pcd.codingweekquinze.dao.AvailabilityDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.ElementDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
@@ -50,10 +51,10 @@ public class EditElementController {
     private MFXComboBox<String> period;
 
     @FXML
-    private MFXDatePicker startDatePicker;
+    private CustomDateTimePicker startDatePicker;
 
     @FXML
-    private MFXDatePicker endDatePicker;
+    private CustomDateTimePicker endDatePicker;
 
     @FXML
     private GridPane gridPane;
@@ -174,8 +175,8 @@ public class EditElementController {
         clearGridPaneRow(gridPane, 10);
         clearGridPaneRow(gridPane, 11);
         field = new MFXTextField();
-        startDatePicker = new MFXDatePicker();
-        endDatePicker = new MFXDatePicker();
+        startDatePicker = new CustomDateTimePicker();
+        endDatePicker = new CustomDateTimePicker();
         switch (period) {
             case "Semaine":
                 setupPeriod("Nombre de semaines:", "Nombre de semaines", gridPane);
@@ -218,8 +219,8 @@ public class EditElementController {
             LayoutManager.alert("Veuillez entrer une valeur positive");
             return;
         }
-        LocalDateTime startDate = this.startDatePicker.getValue().atStartOfDay();
-        LocalDateTime endDate = this.endDatePicker.getValue().atStartOfDay();
+        LocalDateTime startDate = this.startDatePicker.getValue();
+        LocalDateTime endDate = this.endDatePicker.getValue();
         if (startDate == null || endDate == null) {
             LayoutManager.alert("Veuillez entrer une date de début et une date de fin");
             return;

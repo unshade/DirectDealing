@@ -69,13 +69,13 @@
            styleClass="header-label" GridPane.columnSpan="2147483647" text="Créer un Élément"/>
 
     <Label text="Nom:" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
-    <MFXTextField fx:id="name" GridPane.rowIndex="1" GridPane.columnIndex="2" promptText="Nom de l'objet ou service"/>
+    <MFXTextField fx:id="name" GridPane.rowIndex="1" GridPane.columnIndex="2" promptText="Nom de l'objet ou service" prefWidth="300"/>
 
     <Label text="Prix:" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-    <MFXTextField fx:id="price" GridPane.rowIndex="2" GridPane.columnIndex="2" promptText="Prix de l'objet ou service"/>
+    <MFXTextField fx:id="price" GridPane.rowIndex="2" GridPane.columnIndex="2" promptText="Prix de l'objet ou service" prefWidth="300"/>
 
     <Label text="Ville:" GridPane.rowIndex="3" GridPane.columnIndex="1" />
-    <AutocompletionTextField fx:id="cityBar" GridPane.rowIndex="3" GridPane.columnIndex="2" promptText="Ville concernée...">
+    <AutocompletionTextField fx:id="cityBar" GridPane.rowIndex="3" GridPane.columnIndex="2" promptText="Ville concernée..." prefWidth="300">
 
     </AutocompletionTextField>
     <Label text="Photo:" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
