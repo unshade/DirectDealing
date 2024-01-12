@@ -17,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 @Getter
 public class CustomDateTimePicker extends VBox {
 
-
     private MFXDatePicker datePicker;
 
     private TextField timePicker;
@@ -56,6 +55,12 @@ public class CustomDateTimePicker extends VBox {
                 dateTime = dateTime.toLocalDate().atTime(LocalTime.from(LocalTime.parse(newValue)));
             }
         });
+    }
+
+    public void reset() {
+        datePicker.setValue(null);
+        timePicker.setText("");
+        this.dateTime = null;
     }
 
     public void setValue(LocalDateTime dateTime) {

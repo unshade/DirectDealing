@@ -72,6 +72,9 @@ public class SelectElementController {
     private void initialize() {
         setupFilter(this.distance);
 
+        this.startDate.reset();
+        this.endDate.reset();
+
         this.cityBar.textProperty().addListener((observable, oldValue, newValue) -> search());
         this.distance.textProperty().addListener((observable, oldValue, newValue) -> search());
         this.searchBar.textProperty().addListener((observable, oldValue, newValue) -> search());
