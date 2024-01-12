@@ -17,9 +17,9 @@ import java.time.format.DateTimeFormatter;
 @Getter
 public class CustomDateTimePicker extends VBox {
 
-    private MFXDatePicker datePicker;
+    private final MFXDatePicker datePicker;
 
-    private TextField timePicker;
+    private final TextField timePicker;
 
     private LocalDateTime dateTime;
 
@@ -49,7 +49,6 @@ public class CustomDateTimePicker extends VBox {
             if (!newValue.matches("\\d{2}:\\d{2}")) {
 
                 this.timePicker.setStyle("-fx-text-fill: red");
-                return;
             } else {
                 this.timePicker.setStyle("-fx-text-fill: black");
                 dateTime = dateTime.toLocalDate().atTime(LocalTime.from(LocalTime.parse(newValue)));

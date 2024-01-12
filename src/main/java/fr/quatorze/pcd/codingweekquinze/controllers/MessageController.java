@@ -33,9 +33,9 @@ public class MessageController {
 
     @FXML
 
-    private User currentUser;
-    private User otherUser;
-    private Loan loan;
+    private final User currentUser;
+    private final User otherUser;
+    private final Loan loan;
 
     public MessageController(Loan loan) {
         this.currentUser = AuthService.getInstance().getCurrentUser();

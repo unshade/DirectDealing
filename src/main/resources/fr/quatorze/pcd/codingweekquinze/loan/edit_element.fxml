@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.RowConstraints?>
-
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
-<?import java.lang.String?>
-<?import io.github.palexdev.materialfx.controls.MFXListView?>
-<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
-<?import io.github.palexdev.mfxcore.controls.Label?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.StackPane?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.TextArea?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import io.github.palexdev.mfxcore.controls.*?>
 <?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
 <ScrollPane stylesheets="@../css/TextFields.css, @../css/Buttons.css" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.EditElementController" fitToWidth="true"

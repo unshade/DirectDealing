@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.StackPane?>
-<?import io.github.palexdev.mfxcore.controls.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
-<?import io.github.palexdev.materialfx.controls.MFXButton?>
-<?import javafx.scene.control.DatePicker?>
-<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
-<?import io.github.palexdev.materialfx.controls.MFXListView?>
-<?import javafx.scene.layout.Pane?>
 <?import fr.quatorze.pcd.codingweekquinze.controllers.components.CustomDateTimePicker?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
+<?import io.github.palexdev.mfxcore.controls.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.*?>
 <GridPane alignment="CENTER" hgap="20.0" styleClass="grid-pane"
           stylesheets="@../css/TextFields.css, @../css/Buttons.css" vgap="10.0"
           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
