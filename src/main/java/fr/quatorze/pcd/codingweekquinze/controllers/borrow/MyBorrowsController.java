@@ -99,7 +99,7 @@ public class MyBorrowsController {
         borrows.setFooterVisible(false);
 
         User user = AuthService.getInstance().getCurrentUser();
-        List<Loan> elems = LoanDAO.getInstance().getAllLoansByUser(user);
+        List<Loan> elems = LoanDAO.getInstance().getAllLoansByUserNoOutdatedLoans(user);
         //List<Loan> elems = LoanDAO.getInstance().getLoansByUserAndBorrowing(AuthService.getInstance().getCurrentUser());
         //List<Loan> elems = LoanDAO.getInstance().getAllLoansByUser(AuthService.getInstance().getCurrentUser());
 
