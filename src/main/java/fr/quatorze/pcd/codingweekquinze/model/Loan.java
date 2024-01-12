@@ -1,7 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.model;
 
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
-import fr.quatorze.pcd.codingweekquinze.dao.MessageDAO;
 import fr.quatorze.pcd.codingweekquinze.enums.LoanStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,9 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -51,6 +48,10 @@ public final class Loan {
         this.item = item;
         this.borrower = borrower;
         this.rating = null;
+    }
+
+    public void awaitRating() {
+        LoanDAO.getInstance().awaitRating(this);
     }
 
     public void end() {

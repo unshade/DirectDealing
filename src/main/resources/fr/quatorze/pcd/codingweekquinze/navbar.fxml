@@ -28,7 +28,7 @@
                     <padding>
                         <Insets left="50.0"/>
                     </padding>
-                    <Label prefHeight="15" text="Votre portefeuille :"/>
+                    <Label prefHeight="15" text="Votre portefeuille : "/>
                     <Label fx:id="wallet" text="0"/>
                 </HBox>
             </VBox>

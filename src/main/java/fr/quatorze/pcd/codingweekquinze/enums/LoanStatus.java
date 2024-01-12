@@ -4,5 +4,6 @@ public enum LoanStatus {
     PENDING,
     ACCEPTED,
     CANCELED,
+    AWAITING_RATING,
     ENDED
 }

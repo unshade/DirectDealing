@@ -138,7 +138,7 @@ public class SelectElementController {
         nameColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getName));
         ownerColumn.setRowCellFactory(person -> new MFXTableRowCell<>(element -> element.getOwner().getFullName()));
         ratingColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getRating));
-        typeColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getIsService));
+        typeColumn.setRowCellFactory(person -> new MFXTableRowCell<>(element -> element.getIsService() ? "Service" : "Objet"));
 
         elements.getTableColumns().addAll(imageColumn, nameColumn, ownerColumn, typeColumn, ratingColumn);
 

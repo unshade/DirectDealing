@@ -19,7 +19,10 @@
 
             <Label fx:id="title" styleClass="h2"/>
 
-            <ImageView fx:id="image"/>
+            <ImageView fx:id="image" fitHeight="150" fitWidth="150" pickOnBounds="true" preserveRatio="true"
+                       VBox.vgrow="ALWAYS">
+                <Image url="@../default.png"/>
+            </ImageView>
 
             <VBox>
                 <Label fx:id="itemType"/>
@@ -37,7 +40,7 @@
                 <Label text=" à "/>
                 <Label fx:id="endDate"/>
             </HBox>
-            <HBox fx:id="actionSection">
+            <HBox fx:id="actionSection" spacing="10">
                 <MFXButton styleClass="btn-cancel" text="Demander de l'aide à un administrateur" onMouseClicked="#askAdminHelp"/>
             </HBox>
         </VBox>
