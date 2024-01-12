@@ -38,9 +38,8 @@
                 <Label fx:id="endDate"/>
             </HBox>
             <HBox fx:id="actionSection" spacing="10">
+                <Button styleClass="btn-cancel" text="Demander de l'aide à un administrateur" onMouseClicked="#askAdminHelp"/>
             </HBox>
-
-            <Button text="C'est la cata, administrateur, aidez-moi" onMouseClicked="#askAdminHelp"/>
 
         </VBox>
 

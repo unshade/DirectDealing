@@ -73,17 +73,17 @@ public class LoanController {
         if (this.loan.getStatus() == 0) {
             this.acceptButton = new Button("Accepter");
             acceptButton.setOnAction(event -> accept());
-            acceptButton.getStyleClass().add("btn-primary");
+            acceptButton.getStyleClass().add(0, "btn-primary");
             actionSection.getChildren().add(acceptButton);
             this.cancelButton = new Button("Annuler");
             cancelButton.setOnAction(event -> cancel());
             cancelButton.getStyleClass().add("btn-cancel");
-            actionSection.getChildren().add(cancelButton);
+            actionSection.getChildren().add(1, cancelButton);
         } else if (this.loan.getStatus() == 1) {
             this.finishButton = new Button("Terminer");
             finishButton.setOnAction(event -> finish());
             finishButton.getStyleClass().add("btn-primary");
-            actionSection.getChildren().add(finishButton);
+            actionSection.getChildren().add(0, finishButton);
         }
     }
 
