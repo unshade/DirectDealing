@@ -72,8 +72,6 @@ public final class Element {
     public boolean isAvailable(LocalDateTime startDate, LocalDateTime endDate) {
         if (owner.isSleeping()) return false;
 
-        System.out.println("check isWithinAvailabilityPeriods : " + isWithinAvailabilityPeriods(startDate, endDate));
-        System.out.println("check isOverlappingWithLoans : " + !isOverlappingWithLoans(startDate, endDate));
 
         return isWithinAvailabilityPeriods(startDate, endDate) &&
                 !isOverlappingWithLoans(startDate, endDate);
@@ -82,8 +80,6 @@ public final class Element {
     private boolean isWithinAvailabilityPeriods(LocalDateTime start, LocalDateTime end) {
         for (Availability availability : availabilities) {
             if (!availability.isWithinPeriod(start, end)) {
-                System.out.println("not within period");
-                System.out.println(availability.getFromDate() + " " + availability.getToDate());
                 return false;
             }
         }
@@ -93,9 +89,6 @@ public final class Element {
     private boolean isOverlappingWithLoans(LocalDateTime start, LocalDateTime end) {
         for (Loan loan : loans) {
             if (loan.isOverlapping(start, end)) {
-                System.out.println("overlapping with loan");
-                System.out.println(loan.getStartDate() + " " + loan.getEndDate());
-                System.out.println("date : " + start + " " + end);
                 return true;
             }
         }
@@ -188,7 +181,6 @@ public final class Element {
     private List<Loan> getOverlappingLoans(LocalDateTime start, LocalDateTime end) {
         List<Loan> overlappingLoans = new ArrayList<>();
         for (Loan loan : loans) {
-            System.out.println("loan : " + loan.getStartDate() + " " + loan.getEndDate());
             if (loan.isOverlapping(start, end)) {
                 overlappingLoans.add(loan);
             }

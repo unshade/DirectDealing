@@ -90,7 +90,6 @@ public final class Loan {
 
     public boolean isOverlapping(LocalDateTime startDate, LocalDateTime endDate) {
         if (this.startDate.equals(startDate) || this.endDate.equals(endDate)) {
-            System.out.println("equals");
             return true;
         }
         if (this.startDate.isBefore(startDate) && this.endDate.isAfter(startDate)) {

@@ -53,6 +53,7 @@ public class MyBorrowsController {
         borrows.autosizeColumnsOnInitialization();
     }
 
+    @SuppressWarnings("unchecked")
     private void setupTable() {
         MFXTableColumn<Loan> nameColumn = new MFXTableColumn<>("Nom", false, Comparator.comparing(loan -> loan.getItem().getName()));
         MFXTableColumn<Loan> descColumn = new MFXTableColumn<>("Description", false, Comparator.comparing(loan -> loan.getItem().getPrice()));

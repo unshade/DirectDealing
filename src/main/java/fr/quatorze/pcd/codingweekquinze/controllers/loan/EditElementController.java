@@ -262,8 +262,6 @@ public class EditElementController {
 
         // Ajouter la période
         availability.add(new Availability(this.element, startDate, endDate, chronoUnit, period));
-        // On affiche dans la console celui qu'on vient d'ajouter
-        System.out.println(availability.get(availability.size() - 1));
         // Mettre à jour la vue
         updateViewBasedOnPeriod(this.period.getValue());
     }

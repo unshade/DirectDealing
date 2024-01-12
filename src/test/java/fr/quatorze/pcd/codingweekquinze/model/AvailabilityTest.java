@@ -34,19 +34,6 @@ public class AvailabilityTest {
         Assertions.assertEquals(a1.getElement(), element);
         Assertions.assertTrue(element.getAvailabilities().contains(a1));
 
-        System.out.println(element.getName());
-        for (Availability a : element.getAvailabilities()) {
-            System.out.println(a.getFromDate());
-            System.out.println(a.getToDate());
-        }
-
-        System.out.println("Loans:");
-
-        for (Loan l : element.getLoans()) {
-            System.out.println(l.getStartDate());
-            System.out.println(l.getEndDate());
-        }
-
         // Check overlaps
         Assertions.assertTrue(element.isAvailable(LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusMinutes(2)));
         Assertions.assertFalse(element.isAvailable(LocalDateTime.now().plusMinutes(1), LocalDateTime.now().plusDays(2)));
