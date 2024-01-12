@@ -19,6 +19,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
 <ScrollPane stylesheets="@../css/TextFields.css, @../css/Buttons.css" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.EditElementController" fitToWidth="true"
@@ -87,10 +88,10 @@
 
         <Label text="Choisissez des périodes de disponibilités :" GridPane.rowIndex="6" GridPane.columnIndex="1"
                styleClass="sub-header-label"/>
-        <MFXListView fx:id="periodList" GridPane.rowIndex="7" GridPane.columnSpan="2147483647" GridPane.columnIndex="1"
-                     prefWidth="600" prefHeight="200">
+        <ListView fx:id="periodList" GridPane.rowIndex="7" GridPane.columnSpan="2147483647" GridPane.columnIndex="1"
+                  prefWidth="600" prefHeight="200">
 
-        </MFXListView>
+        </ListView>
         <Label text="Ajouter une période:" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
         <MFXComboBox fx:id="period" GridPane.rowIndex="8" GridPane.columnIndex="2" onAction="#handlePeriodChange"
                      floatingText="Période">

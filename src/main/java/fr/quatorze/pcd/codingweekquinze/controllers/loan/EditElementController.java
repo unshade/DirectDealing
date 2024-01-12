@@ -35,7 +35,7 @@ import java.util.*;
 @RequiresAuth
 public class EditElementController {
     @FXML
-    private MFXListView<Availability> periodList;
+    private ListView<Availability> periodList;
     @FXML
     private MFXCheckbox serviceBox;
     @FXML
@@ -111,7 +111,7 @@ public class EditElementController {
 
         setupFilter(price);
 
-        /*this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
+        this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
             @Override
             public ListCell<Availability> call(ListView<Availability> param) {
                 return new ListCell<>() {
@@ -145,7 +145,7 @@ public class EditElementController {
                     }
                 };
             }
-        });*/
+        });
         period.setValue("Aucune");
         updateViewBasedOnPeriod("Aucune");
     }
