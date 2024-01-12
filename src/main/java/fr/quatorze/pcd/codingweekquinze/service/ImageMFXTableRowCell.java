@@ -25,16 +25,13 @@ public class ImageMFXTableRowCell<T> extends MFXTableRowCell<T, String> {
             String imageUrl = getExtractor().apply(item);
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 imageView.setImage(new Image(imageUrl));
-                imageView.setFitHeight(80);
-                imageView.setFitWidth(80);
-                setGraphic(imageView);
             } else {
                 Image defaultImage = new Image(String.valueOf(MainApplication.class.getResource("default.png")));
                 imageView.setImage(defaultImage);
-                imageView.setFitHeight(80);
-                imageView.setFitWidth(80);
-                setGraphic(imageView);
             }
+            imageView.setFitHeight(80);
+            imageView.setFitWidth(80);
+            setGraphic(imageView);
         }
     }
 }

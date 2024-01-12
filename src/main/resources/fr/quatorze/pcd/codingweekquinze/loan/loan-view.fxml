@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.LoanController"
@@ -19,7 +20,10 @@
 
             <Label fx:id="title" styleClass="h2"/>
 
-            <ImageView fx:id="image"/>
+            <ImageView fx:id="image" fitHeight="150" fitWidth="150" pickOnBounds="true" preserveRatio="true"
+                       VBox.vgrow="ALWAYS">
+                <Image url="@../default.png"/>
+            </ImageView>
 
             <VBox>
                 <Label fx:id="itemType"/>
@@ -37,6 +41,7 @@
                 <Label text=" à "/>
                 <Label fx:id="endDate"/>
             </HBox>
+
             <HBox fx:id="actionSection" spacing="10">
                 <Button styleClass="btn-cancel" text="Demander de l'aide à un administrateur" onMouseClicked="#askAdminHelp"/>
             </HBox>

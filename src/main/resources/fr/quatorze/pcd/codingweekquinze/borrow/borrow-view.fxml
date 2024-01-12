@@ -19,7 +19,10 @@
 
             <Label fx:id="title" styleClass="h2"/>
 
-            <ImageView fx:id="image"/>
+            <ImageView fx:id="image" fitHeight="150" fitWidth="150" pickOnBounds="true" preserveRatio="true"
+                       VBox.vgrow="ALWAYS">
+                <Image url="@../default.png"/>
+            </ImageView>
 
             <VBox>
                 <Label fx:id="itemType"/>
