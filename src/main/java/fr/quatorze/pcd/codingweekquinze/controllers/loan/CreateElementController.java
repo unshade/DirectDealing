@@ -8,6 +8,12 @@ import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import io.github.palexdev.materialfx.controls.MFXListView;
+import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.cell.MFXListCell;
+import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -19,6 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -28,44 +35,44 @@ import java.util.*;
 @RequiresAuth
 public class CreateElementController {
     @FXML
-    private ListView<Availability> periodList;
+    private MFXListView<Availability> periodList;
     @FXML
     private CheckBox serviceBox;
     @FXML
-    private TextField name;
+    private MFXTextField name;
 
     @FXML
     private TextArea description;
 
     @FXML
-    private TextField price;
+    private MFXTextField price;
 
     @FXML
     private ChoiceBox<String> period;
 
     @FXML
-    private DatePicker startDatePicker;
+    private MFXDatePicker startDatePicker;
 
     @FXML
-    private DatePicker endDatePicker;
+    private MFXDatePicker endDatePicker;
 
     @FXML
     private GridPane gridPane;
 
     @FXML
-    private TextField field;
+    private MFXTextField field;
 
     @FXML
-    private Label photoName;
+    private io.github.palexdev.mfxcore.controls.Label photoName;
 
     @FXML
     private ImageView photo;
 
     @FXML
-    private Button deletePhoto;
+    private MFXButton deletePhoto;
 
     @FXML
-    private Button choosePhoto;
+    private MFXButton choosePhoto;
 
     private ChronoUnit chronoUnit;
 
@@ -76,7 +83,19 @@ public class CreateElementController {
 
         setupFilter(price);
 
-        this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
+        StringConverter<Availability> converter = FunctionalStringConverter.to(availability -> (availability == null) ? "" : availability.toString());
+
+        this.periodList.setConverter(converter);
+
+        this.periodList.setCellFactory(availability -> new MFXListCell<>(this.periodList, availability) {
+            @Override
+            protected void render(Availability item) {
+                super.render(item);
+                System.out.println(item.getFromDate());
+            }
+        });
+
+        /*this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
             @Override
             public ListCell<Availability> call(ListView<Availability> param) {
                 return new ListCell<>() {
@@ -110,7 +129,7 @@ public class CreateElementController {
                     }
                 };
             }
-        });
+        });*/
         period.setValue("Aucune");
         updateViewBasedOnPeriod("Aucune");
     }
@@ -139,9 +158,9 @@ public class CreateElementController {
         clearGridPaneRow(gridPane, 9);
         clearGridPaneRow(gridPane, 10);
         clearGridPaneRow(gridPane, 11);
-        field = new TextField();
-        startDatePicker = new DatePicker();
-        endDatePicker = new DatePicker();
+        field = new MFXTextField();
+        startDatePicker = new MFXDatePicker();
+        endDatePicker = new MFXDatePicker();
         switch (period) {
             case "Semaine":
                 setupPeriod("Nombre de semaines:", "Nombre de semaines", gridPane);

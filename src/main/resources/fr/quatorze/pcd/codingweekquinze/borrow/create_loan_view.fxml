@@ -16,9 +16,9 @@
 <?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
 <?import io.github.palexdev.materialfx.controls.MFXListView?>
 <GridPane alignment="CENTER" hgap="20.0" styleClass="grid-pane"
-          stylesheets="@../css/TextFields.css, @../css/Buttons.css" vgap="10.0"
-          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-          fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.CreateLoanController">
+      stylesheets="@../css/TextFields.css, @../css/Buttons.css" vgap="10.0"
+      xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.CreateLoanController">
     <columnConstraints>
         <ColumnConstraints halignment="CENTER"/>
         <ColumnConstraints halignment="CENTER"/>
@@ -61,8 +61,6 @@
     <TextArea fx:id="description" editable="false" wrapText="true" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
 
 
-
-
     <Label text="Prix:" style="-fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
     <Label fx:id="price" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
 
@@ -81,11 +79,13 @@
                  GridPane.columnSpan="2147483647"/>
 
     <Label text="Choix du créneau" GridPane.rowIndex="8" GridPane.columnSpan="2147483647"/>
-    <Label text="Du:" GridPane.rowIndex="9" GridPane.columnIndex="1"/>
-    <MFXDatePicker fx:id="startDate" GridPane.rowIndex="9" GridPane.columnIndex="2"/>
+    <HBox GridPane.columnSpan="2147483647" spacing="10" alignment="CENTER" GridPane.rowIndex="9">
+        <Label text="Du:"/>
+        <MFXDatePicker fx:id="startDate"/>
 
-    <Label text="Au:" GridPane.rowIndex="9" GridPane.columnIndex="3"/>
-    <MFXDatePicker fx:id="endDate" GridPane.rowIndex="9" GridPane.columnIndex="4"/>
+        <Label text="Au:"/>
+        <MFXDatePicker fx:id="endDate"/>
+    </HBox>
 
     <MFXButton styleClass="outline-button" text="Réserver" onAction="#reserve" minWidth="200" GridPane.rowIndex="10"
                GridPane.columnSpan="2147483647"/>
