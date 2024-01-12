@@ -5,6 +5,8 @@ import fr.quatorze.pcd.codingweekquinze.controllers.Observable;
 import fr.quatorze.pcd.codingweekquinze.controllers.Observer;
 import fr.quatorze.pcd.codingweekquinze.dao.NotificationDAO;
 import fr.quatorze.pcd.codingweekquinze.dao.UserDAO;
+import fr.quatorze.pcd.codingweekquinze.model.calendar.ElementEntry;
+import fr.quatorze.pcd.codingweekquinze.model.calendar.LoanEntry;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -69,6 +71,15 @@ public final class User implements Observable {
         receiver.notifyObservers();
     }
 
+    public void addLoansCalendar(Loan loan) {
+        this.loansCalendar.addEntry(new LoanEntry(loan));
+    }
+
+    public void addMyElementsCalendar(Element element) {
+        for (Availability availability : element.getAvailabilities()) {
+            this.myElementsCalendar.addEntry(new ElementEntry(element, availability));
+        }
+    }
 
     @Override
     public boolean equals(Object o) {

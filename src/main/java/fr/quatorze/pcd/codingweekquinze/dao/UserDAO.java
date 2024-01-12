@@ -72,6 +72,12 @@ public final class UserDAO extends DAO<User> {
                 .getSingleResult();
     }
 
+    public boolean isExist(String email) {
+        return em.createQuery("SELECT COUNT(*) FROM User u WHERE u.email = :email", Long.class)
+                .setParameter("email", email)
+                .getSingleResult() > 0;
+    }
+
     public User getUserByName(String firstName, String lastName) {
         return em.createQuery("SELECT u FROM User u WHERE u.firstName = :firstName AND u.lastName = :lastName", User.class)
                 .setParameter("firstName", firstName)

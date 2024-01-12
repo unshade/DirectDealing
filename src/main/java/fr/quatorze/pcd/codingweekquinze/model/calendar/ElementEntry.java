@@ -30,13 +30,17 @@ public final class ElementEntry extends Entry<Element> {
             return this;
         }
         ElementEntry elementEntry = new ElementEntry(element, availability);
+        // ReccurenceRule où FREQ est la période et INTERVAL est le nombre de périodes
         switch (chronoUnit) {
-            case MINUTES -> elementEntry.setRecurrenceRule("RRULE:FREQ=MINUTELY");
-            case HOURS -> elementEntry.setRecurrenceRule("RRULE:FREQ=HOURLY");
-            case DAYS -> elementEntry.setRecurrenceRule("RRULE:FREQ=DAILY");
-            case WEEKS -> elementEntry.setRecurrenceRule("RRULE:FREQ=WEEKLY");
-            case MONTHS -> elementEntry.setRecurrenceRule("RRULE:FREQ=MONTHLY");
-            case YEARS -> elementEntry.setRecurrenceRule("RRULE:FREQ=YEARLY");
+            case WEEKS:
+                elementEntry.setRecurrenceRule("FREQ=WEEKLY;COUNT=" + period);
+                break;
+            case MONTHS:
+                elementEntry.setRecurrenceRule("FREQ=MONTHLY;COUNT=" + period);
+                break;
+            case YEARS:
+                elementEntry.setRecurrenceRule("FREQ=YEARLY;COUNT=" + period);
+                break;
         }
         return elementEntry;
     }
