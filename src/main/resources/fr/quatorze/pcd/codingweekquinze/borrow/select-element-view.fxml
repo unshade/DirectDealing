@@ -44,9 +44,9 @@
                   GridPane.rowIndex="2"/>
 
     <HBox spacing="10" alignment="CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
-        <AutocompletionTextField fx:id="cityBar" promptText="Rechercher une ville..." minWidth="300"/>
+        <AutocompletionTextField fx:id="cityBar" promptText="Rechercher une ville..." minWidth="150"/>
         <MFXTextField fx:id="distance" promptText="Distance max (km)" text="5"/>
-        <MFXTextField fx:id="searchBar" promptText="Rechercher un nom..." minWidth="300"/>
+        <MFXTextField fx:id="searchBar" promptText="Rechercher un nom..." minWidth="150"/>
         <CustomDateTimePicker fx:id="startDate"/>
         <CustomDateTimePicker fx:id="endDate"/>
         <MFXComboBox fx:id="type" floatingText="Type">
