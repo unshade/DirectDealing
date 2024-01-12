@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.scene.control.DatePicker?>
 
 <?import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import io.github.palexdev.mfxcore.controls.Label?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
+<GridPane alignment="CENTER" hgap="20"
+          styleClass="grid-pane" stylesheets="@../css/Common.css" vgap="10.0" xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.borrow.SelectElementController">
+    <columnConstraints>
+        <ColumnConstraints halignment="CENTER" minWidth="10.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="32.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="100.0"/>
+        <RowConstraints minHeight="10.0" prefHeight="400.0"/>
+    </rowConstraints>
+    <padding>
+        <Insets bottom="20.0" left="30.0" right="30.0" top="20.0"/>
+    </padding>
+    <StackPane minHeight="150.0" minWidth="300.0" styleClass="grid-background" GridPane.columnSpan="2147483647"
+               GridPane.rowSpan="4">
+        <GridPane.margin>
+            <Insets bottom="-15.0" left="-15.0" right="-15.0" top="-15.0"/>
+        </GridPane.margin>
+    </StackPane>
+    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308"
+           styleClass="header-label" text="Voir les annonces"
+           GridPane.columnSpan="2147483647">
+        <GridPane.margin>
+            <Insets/>
+        </GridPane.margin>
+        <padding>
+            <Insets bottom="10.0" top="10.0"/>
+        </padding>
+    </Label>
 <?import com.sun.javafx.scene.control.IntegerField?>
 <?import fr.quatorze.pcd.codingweekquinze.layout.component.DateTimePicker?>
 <VBox xmlns="http://javafx.com/javafx"
@@ -28,18 +55,27 @@
         <DateTimePicker fx:id="startDate" promptText="Date de début"/>
         <DateTimePicker fx:id="endDate" promptText="Date de fin"/>
         <ComboBox fx:id="type" promptText="Type">
+    <MFXTableView fx:id="elements" prefHeight="400.0" prefWidth="800.0" GridPane.columnSpan="2147483647"
+                  GridPane.rowIndex="2"/>
+
+    <HBox spacing="10" alignment="CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+        <AutocompletionTextField fx:id="cityBar" promptText="Rechercher une ville..." minWidth="300"/>
+        <MFXTextField fx:id="searchBar" promptText="Rechercher un nom..." minWidth="300"/>
+        <MFXDatePicker fx:id="startDate" promptText="Date de début"/>
+        <MFXDatePicker fx:id="endDate" promptText="Date de fin"/>
+        <MFXComboBox fx:id="type" floatingText="Type">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Sélectionnez un type"/>
+                    <String fx:value="Tous"/>
                     <String fx:value="Service"/>
                     <String fx:value="Objet"/>
                 </FXCollections>
             </items>
-        </ComboBox>
-        <ComboBox fx:id="rating" promptText="Note">
+        </MFXComboBox>
+        <MFXComboBox fx:id="rating" floatingText="Note">
             <items>
                 <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Sélectionnez une note"/>
+                    <String fx:value="Tous"/>
                     <String fx:value="1"/>
                     <String fx:value="2"/>
                     <String fx:value="3"/>
@@ -47,10 +83,7 @@
                     <String fx:value="5"/>
                 </FXCollections>
             </items>
-        </ComboBox>
+        </MFXComboBox>
     </HBox>
-    <ListView fx:id="elements">
-        <!-- Les éléments de la liste seront ajoutés ici -->
-    </ListView>
 
-</VBox>
+</GridPane>

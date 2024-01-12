@@ -5,6 +5,8 @@ import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import io.github.palexdev.materialfx.controls.MFXPasswordField;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -14,15 +16,15 @@ import javafx.scene.control.TextField;
 public class AccountController {
 
     @FXML
-    private TextField firstName;
+    private MFXTextField firstName;
     @FXML
-    private TextField lastName;
+    private MFXTextField lastName;
     @FXML
-    private PasswordField oldPassword;
+    private MFXPasswordField oldPassword;
     @FXML
-    private PasswordField password;
+    private MFXPasswordField password;
     @FXML
-    private PasswordField confirmPassword;
+    private MFXPasswordField confirmPassword;
     @FXML
     private Label email;
 
@@ -80,7 +82,7 @@ public class AccountController {
     private void logout() {
         AuthService.getInstance().endSession();
         LayoutManager.removeNavBar();
-        LayoutManager.setLayout("auth/login.fxml", "Login");
+        LayoutManager.setLayout("auth/login.fxml", "Se connecter");
     }
 
 }

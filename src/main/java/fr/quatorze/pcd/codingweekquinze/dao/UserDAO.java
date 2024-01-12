@@ -1,7 +1,5 @@
 package fr.quatorze.pcd.codingweekquinze.dao;
 
-import fr.quatorze.pcd.codingweekquinze.model.Element;
-import fr.quatorze.pcd.codingweekquinze.model.Message;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.util.HibernateUtil;
 import org.hibernate.SessionFactory;
@@ -43,11 +41,17 @@ public final class UserDAO extends DAO<User> {
         return instance;
     }
 
+    public List<User> getAllAdmins() {
+        return em.createQuery("SELECT u FROM User u WHERE u.admin = true", User.class).getResultList();
+    }
+
     public List<User> getAll() {
         return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
     public User createUser(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
+        email = email.toLowerCase();
+
         em.getTransaction().begin();
         User user = new User(firstName, lastName, email, password, flow, sleeping, admin);
         em.persist(user);
@@ -67,9 +71,10 @@ public final class UserDAO extends DAO<User> {
     }
 
     public User getUserByEmail(String email) {
+        email = email.toLowerCase();
         return em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
                 .setParameter("email", email)
-                .getSingleResult();
+                .getResultStream().findFirst().orElse(null);
     }
 
     public boolean isExist(String email) {

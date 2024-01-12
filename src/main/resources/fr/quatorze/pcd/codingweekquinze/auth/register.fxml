@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" stylesheets="@../style/form_style.css" fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.auth.RegisterController" styleClass="container">
-        <Label text="Inscription" styleClass="h2"/>
-        <TextField fx:id="firstName" promptText="Prénom" styleClass="form-control"/>
-        <TextField fx:id="lastName" promptText="Nom" styleClass="form-control"/>
-        <TextField fx:id="email" promptText="email" styleClass="form-control"/>
-        <PasswordField fx:id="password" promptText="Mot de passe" styleClass="form-control"/>
-        <PasswordField fx:id="confirmPassword" promptText="Confirmer le mot de passe" styleClass="form-control"/>
-        <Button text="S'inscrire" styleClass="btn-primary" onAction="#submit"/>
-        <Label text="Déjà inscrit ?" onMouseClicked="#login" styleClass="link"/>
-        <Label fx:id="errorMessage" styleClass="error-message"/>
-</VBox>
-
-
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" stylesheets="@../css/Stepper.css"
+           xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+           fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.auth.RegisterController">
+    <StackPane style="-fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);">
+        <VBox fx:id="stack" spacing="10" alignment="CENTER"
+              style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 30;">
+            <Label text="Inscription" styleClass="header-label" style="-fx-font-size: 20px;"/>
+            <MFXTextField fx:id="firstName" promptText="Prénom" minWidth="400"/>
+            <MFXTextField fx:id="lastName" promptText="Nom" minWidth="400"/>
+            <MFXTextField fx:id="email" promptText="Email" minWidth="400"/>
+            <MFXPasswordField fx:id="password" promptText="Mot de passe" minWidth="400"/>
+            <MFXPasswordField fx:id="confirmPassword" promptText="Confirmer le mot de passe" minWidth="400"/>
+            <MFXButton fx:id="connectButton" styleClass="outline-button" text="S'inscrire" onAction="#submit" minWidth="200"/>
+            <Label text="Déjà inscrit ?" onMouseClicked="#login" style="-fx-cursor: hand; -fx-underline: true;"/>
+        </VBox>
+    </StackPane>
+</StackPane>

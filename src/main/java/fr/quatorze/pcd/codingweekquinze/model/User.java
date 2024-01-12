@@ -39,10 +39,10 @@ public final class User implements Observable {
     private boolean admin;
 
     @OneToMany(mappedBy = "owner")
-    private List<Element> ownedElements;
+    private List<Element> ownedElements = new ArrayList<>();
 
     @OneToMany(mappedBy = "borrower")
-    private List<Loan> borrowedLoans;
+    private List<Loan> borrowedLoans = new ArrayList<>();
 
     @Transient
     private Calendar<?> loansCalendar;
@@ -57,6 +57,10 @@ public final class User implements Observable {
         this.flow = flow;
         this.sleeping = sleeping;
         this.admin = admin;
+    }
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
     }
 
     public List<Notification> getNotifications() {

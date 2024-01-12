@@ -1,6 +1,7 @@
 package fr.quatorze.pcd.codingweekquinze.layout.component;
 
 import fr.quatorze.pcd.codingweekquinze.service.LocationService;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.geometry.Side;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
@@ -11,7 +12,7 @@ import javafx.scene.paint.Color;
 import java.util.LinkedList;
 import java.util.List;
 
-public final class AutocompletionTextField extends TextField {
+public final class AutocompletionTextField extends MFXTextField {
 
     private final ContextMenu entriesPopup;
 

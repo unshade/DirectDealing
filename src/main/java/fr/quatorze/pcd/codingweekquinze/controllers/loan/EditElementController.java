@@ -9,7 +9,9 @@ import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import io.github.palexdev.materialfx.controls.*;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -32,48 +34,48 @@ import java.util.*;
 @RequiresAuth
 public class EditElementController {
     @FXML
-    private ListView<Availability> periodList;
+    private MFXListView<Availability> periodList;
     @FXML
-    private CheckBox serviceBox;
+    private MFXCheckbox serviceBox;
     @FXML
-    private TextField name;
+    private MFXTextField name;
 
     @FXML
     private TextArea description;
 
     @FXML
-    private TextField price;
+    private MFXTextField price;
 
     @FXML
-    private ChoiceBox<String> period;
+    private MFXComboBox<String> period;
 
     @FXML
-    private DateTimePicker startDatePicker;
+    private MFXDatePicker startDatePicker;
 
     @FXML
-    private DateTimePicker endDatePicker;
+    private MFXDatePicker endDatePicker;
 
     @FXML
     private GridPane gridPane;
 
     @FXML
-    private TextField field;
+    private MFXTextField field;
 
     @FXML
-    private Label photoName;
+    private io.github.palexdev.mfxcore.controls.Label photoName;
 
     @FXML
     private ImageView photo;
 
     @FXML
-    private Button deletePhoto;
+    private MFXButton deletePhoto;
 
     @FXML
-    private Button choosePhoto;
+    private MFXButton choosePhoto;
 
     private ChronoUnit chronoUnit;
 
-    private final List<Availability> availability = new ArrayList<>();
+    private final ObservableList<Availability> availability = FXCollections.observableArrayList();
 
     private final Element element;
 
@@ -97,16 +99,18 @@ public class EditElementController {
             this.photo.setVisible(true);
             this.deletePhoto.setVisible(true);
             this.choosePhoto.setVisible(false);
-        } else {
-            this.photo.setVisible(false);
-            this.deletePhoto.setVisible(false);
-            this.choosePhoto.setVisible(true);
         }
+        this.photo.setFitWidth(100);
+        this.photo.setPreserveRatio(true);
+        this.photo.setVisible(true);
+        this.deletePhoto.setVisible(true);
+        this.choosePhoto.setVisible(false);
+        this.periodList.setItems(availability);
         this.availability.addAll(element.getAvailabilities());
-        this.periodList.setItems(FXCollections.observableList(availability));
 
         setupFilter(price);
-        this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
+
+        /*this.periodList.setCellFactory(new Callback<ListView<Availability>, ListCell<Availability>>() {
             @Override
             public ListCell<Availability> call(ListView<Availability> param) {
                 return new ListCell<>() {
@@ -140,39 +144,7 @@ public class EditElementController {
                     }
                 };
             }
-        });
-        startDatePicker = new DateTimePicker();
-        startDatePicker.setDayCellFactory(d -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate item, boolean empty) {
-                super.updateItem(item, empty);
-
-                // Parcourir toutes les disponibilités
-                for (Availability availability : availability) {
-                    // Si la date est dans une période de disponibilité, la désactiver
-                    if (availability.isWithinPeriod(item.atStartOfDay(), LocalDateTime.of(item.plusDays(1), LocalTime.MIDNIGHT))) {
-                        setDisable(true);
-                        break;
-                    }
-                }
-            }
-        });
-        endDatePicker = new DateTimePicker();
-        endDatePicker.setDayCellFactory(d -> new DateCell() {
-            @Override
-            public void updateItem(LocalDate item, boolean empty) {
-                super.updateItem(item, empty);
-
-                // Parcourir toutes les disponibilités
-                for (Availability availability : availability) {
-                    // Si la date est dans une période de disponibilité, la désactiver
-                    if (availability.isWithinPeriod(item.atStartOfDay(), LocalDateTime.of(item.plusDays(1), LocalTime.MIDNIGHT))) {
-                        setDisable(true);
-                        break;
-                    }
-                }
-            }
-        });
+        });*/
         period.setValue("Aucune");
         updateViewBasedOnPeriod("Aucune");
     }
@@ -188,12 +160,12 @@ public class EditElementController {
     private void setupPeriod(String label, String prompt, GridPane gridPane) {
         setupFilter(field);
         field.setPromptText(prompt);
-        gridPane.add(new Label(label), 0, 9);
-        gridPane.add(field, 1, 9);
-        gridPane.add(new Label("Date de début:"), 0, 10);
-        gridPane.add(startDatePicker, 1, 10);
-        gridPane.add(new Label("Date de fin:"), 0, 11);
-        gridPane.add(endDatePicker, 1, 11);
+        gridPane.add(new Label(label), 1, 9);
+        gridPane.add(field, 2, 9);
+        gridPane.add(new Label("Date de début:"), 1, 10);
+        gridPane.add(startDatePicker, 2, 10);
+        gridPane.add(new Label("Date de fin:"), 1, 11);
+        gridPane.add(endDatePicker, 2, 11);
     }
 
     private void updateViewBasedOnPeriod(String period) {
@@ -201,9 +173,9 @@ public class EditElementController {
         clearGridPaneRow(gridPane, 9);
         clearGridPaneRow(gridPane, 10);
         clearGridPaneRow(gridPane, 11);
-        field = new TextField();
-        startDatePicker.setDateTimeValue(null);
-        endDatePicker.setDateTimeValue(null);
+        field = new MFXTextField();
+        startDatePicker = new MFXDatePicker();
+        endDatePicker = new MFXDatePicker();
         switch (period) {
             case "Semaine":
                 setupPeriod("Nombre de semaines:", "Nombre de semaines", gridPane);
@@ -220,10 +192,10 @@ public class EditElementController {
             default:
                 chronoUnit = ChronoUnit.DAYS;
                 // Configurez le datePicker comme nécessaire
-                gridPane.add(new Label("Date de début:"), 0, 9);
-                gridPane.add(startDatePicker, 1, 9);
-                gridPane.add(new Label("Date de fin:"), 0, 10);
-                gridPane.add(endDatePicker, 1, 10);
+                gridPane.add(new Label("Date de début:"), 1, 9);
+                gridPane.add(startDatePicker, 2, 9);
+                gridPane.add(new Label("Date de fin:"), 1, 10);
+                gridPane.add(endDatePicker, 2, 10);
                 break;
         }
     }
@@ -292,7 +264,6 @@ public class EditElementController {
         // On affiche dans la console celui qu'on vient d'ajouter
         System.out.println(availability.get(availability.size() - 1));
         // Mettre à jour la vue
-        this.periodList.setItems(FXCollections.observableList(availability));
         updateViewBasedOnPeriod(this.period.getValue());
     }
 

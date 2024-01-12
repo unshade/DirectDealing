@@ -1,5 +1,6 @@
 package fr.quatorze.pcd.codingweekquinze.controllers.borrow;
 
+import fr.quatorze.pcd.codingweekquinze.controllers.components.CustomDateTimePicker;
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
@@ -9,28 +10,40 @@ import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.util.DateUtil;
+import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
+import io.github.palexdev.materialfx.controls.MFXListView;
+import io.github.palexdev.materialfx.controls.cell.MFXListCell;
+import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
+import io.github.palexdev.mfxcore.controls.Label;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import javafx.util.Pair;
+import javafx.util.StringConverter;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @RequiresAuth
 public class CreateLoanController {
     private final Element element;
 
     @FXML
-    private DateTimePicker startDate;
+    private Label type;
 
     @FXML
-    private DateTimePicker endDate;
+    private CustomDateTimePicker startDate;
+
+    @FXML
+    private CustomDateTimePicker endDate;
 
     @FXML
     private Label name;
@@ -42,7 +55,7 @@ public class CreateLoanController {
     private Label price;
 
     @FXML
-    private ListView<Pair<LocalDateTime, LocalDateTime>> reservationList;
+    private MFXListView<Pair<LocalDate, LocalDate>> reservationList;
 
     public CreateLoanController(Element element) {
         this.element = element;
@@ -53,35 +66,60 @@ public class CreateLoanController {
         this.name.setText(this.element.getName());
         this.description.setText(this.element.getDescription());
         this.price.setText(this.element.getPrice().toString());
+        this.type.setText(this.element.getIsService() ? "Service" : "Object");
+
+
+        StringConverter<Pair<LocalDate, LocalDate>> converter = FunctionalStringConverter.to(period -> {
+            LocalDate start = period.getKey();
+            LocalDate end = period.getValue();
+            if (start.isEqual(end)) {
+                return DateUtil.format(start);
+            } else {
+                return "Du " + DateUtil.format(start) + " au " + DateUtil.format(end);
+            }
+
+        });
+
+        this.reservationList.setConverter(converter);
 
         this.reservationList.setItems(FXCollections.observableList(this.element.getAvailableDates()));
 
-        this.reservationList.setCellFactory(new Callback<ListView<Pair<LocalDateTime,LocalDateTime>>, ListCell<Pair<LocalDateTime,LocalDateTime>>>() {
+        /*this.reservationList.setCellFactory(new Callback<ListView<Pair<LocalDate,LocalDate>>, ListCell<Pair<LocalDate,LocalDate>>>() {
             @Override
-            public ListCell<Pair<LocalDateTime,LocalDateTime>> call(ListView<Pair<LocalDateTime,LocalDateTime>> listView) {
-                return new ListCell<Pair<LocalDateTime,LocalDateTime>>() {
+            public ListCell<Pair<LocalDate,LocalDate>> call(ListView<Pair<LocalDate,LocalDate>> listView) {
+                return new ListCell<Pair<LocalDate,LocalDate>>() {
                     @Override
-                    protected void updateItem(Pair<LocalDateTime,LocalDateTime> period, boolean empty) {
+                    protected void updateItem(Pair<LocalDate,LocalDate> period, boolean empty) {
                         super.updateItem(period, empty);
                         if (empty || period == null) {
                             setText(null);
                             setOnMouseClicked(null);
                         } else {
-                            LocalDateTime start = period.getKey();
-                            LocalDateTime end = period.getValue();
+                            LocalDate start = period.getKey();
+                            LocalDate end = period.getValue();
                             if (start.isEqual(end)) {
                                 setText(start.toString());
                             } else {
                                 setText(start.toString() + " - " + end.toString());
                             }
                             setOnMouseClicked(event -> {
-                                startDate.setDateTimeValue(period.getKey());
-                                endDate.setDateTimeValue(period.getValue());
+                                startDate.setValue(period.getKey());
+                                endDate.setValue(period.getValue());
                             });
                         }
                     }
                 };
 
+            }
+        });*/
+
+        this.reservationList.setOnMouseClicked(event -> {
+            // Obtenir l'élément sélectionné
+            Pair<LocalDate, LocalDate> selectedItem = reservationList.getSelectionModel().getSelectedValue();
+
+            if (selectedItem != null) {
+                startDate.setValue(selectedItem.getKey());
+                endDate.setValue(selectedItem.getValue());
             }
         });
     }

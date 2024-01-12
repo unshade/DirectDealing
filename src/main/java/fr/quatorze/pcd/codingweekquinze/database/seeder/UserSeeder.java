@@ -13,7 +13,7 @@ public class UserSeeder {
 
         // Create users
         userDAO.createUser("John", "Doe", "john.doe@telecomnancy.eu", pass, 200, false, true);
-        userDAO.createUser("Jane", "Doe", "john.doe@telecomnancy.eu", pass, 200, false, false);
+        userDAO.createUser("Jane", "Doe", "jane.doe@telecomnancy.eu", pass, 200, false, false);
         userDAO.createUser("Michele", "Doe", "mi", pass, 200, false, false);
 
     }

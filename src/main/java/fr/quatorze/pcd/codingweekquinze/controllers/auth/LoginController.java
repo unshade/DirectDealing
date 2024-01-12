@@ -2,18 +2,24 @@ package fr.quatorze.pcd.codingweekquinze.controllers.auth;
 
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import io.github.palexdev.materialfx.controls.MFXButton;
+import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
+import io.github.palexdev.materialfx.controls.MFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 
 public class LoginController {
 
     @FXML
-    private TextField email;
+    public VBox stack;
     @FXML
-    private TextField password;
+    public MFXButton connectButton;
+    @FXML
+    private MFXTextField email;
+    @FXML
+    private MFXTextField password;
 
     @FXML
     private void initialize() {
@@ -37,12 +43,19 @@ public class LoginController {
             return;
         }
 
+        MFXProgressSpinner spinner = new MFXProgressSpinner();
+        spinner.setRadius(18);
+        stack.getChildren().remove(stack.getChildren().size() - 2);
+        stack.getChildren().add(stack.getChildren().size() - 1, spinner);
+
         if (AuthService.getInstance().authenticate(enteredEmail, enteredPassword)) {
             LayoutManager.addNavBar();
             LayoutManager.setLayout("borrow/index.fxml", "login success");
             return;
         }
 
+        stack.getChildren().remove(stack.getChildren().size() - 2);
+        stack.getChildren().add(stack.getChildren().size() - 1, connectButton);
         LayoutManager.alert("Erreur lors de l'authentification");
     }
 
@@ -50,4 +63,5 @@ public class LoginController {
     private void register() {
         LayoutManager.setLayout("auth/register.fxml", "Register");
     }
+
 }

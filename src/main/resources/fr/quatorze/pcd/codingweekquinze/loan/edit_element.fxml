@@ -1,51 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.collections.FXCollections?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
 <?import java.lang.String?>
-<?import javafx.scene.control.skin.SplitPaneSkin.Content?>
-<?import javafx.scene.layout.StackPane?>
+<?import io.github.palexdev.materialfx.controls.MFXListView?>
+<?import io.github.palexdev.materialfx.controls.MFXCheckbox?>
+<?import io.github.palexdev.mfxcore.controls.Label?>
 <?import javafx.scene.image.ImageView?>
-<VBox xmlns:fx="http://javafx.com/fxml" xmlns="http://javafx.com/javafx" stylesheets="@../style/form_style.css" styleClass="container" fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.EditElementController">
-    <GridPane fx:id="gridPane" hgap="10" vgap="10" alignment="CENTER">
-        <Label text="Modifier un Élément" styleClass="h2"  GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.halignment="CENTER"/>
+<?import javafx.scene.layout.StackPane?>
+<?import io.github.palexdev.materialfx.controls.MFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.collections.FXCollections?>
+<GridPane alignment="CENTER" hgap="40.0" styleClass="grid-pane" fx:id="gridPane"
+          stylesheets="@../css/TextFields.css, @../css/Buttons.css" vgap="10.0"
+          xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+          fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.EditElementController">
+<columnConstraints>
+    <ColumnConstraints halignment="CENTER"/>
+    <ColumnConstraints halignment="CENTER"/>
+</columnConstraints>
+<rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="200.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+    <RowConstraints minHeight="10.0" prefHeight="50.0"/>
+</rowConstraints>
+<padding>
+    <Insets bottom="20.0" left="30.0" right="30.0" top="20.0"/>
+</padding>
+<StackPane minHeight="150.0" minWidth="300.0" styleClass="grid-background" GridPane.columnSpan="2147483647"
+           GridPane.rowSpan="15">
+    <opaqueInsets>
+        <Insets/>
+    </opaqueInsets>
+    <GridPane.margin>
+        <Insets bottom="-7.0" left="-15.0" right="-15.0"/>
+    </GridPane.margin>
+</StackPane>
 
-        <Label text="Nom:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <TextField fx:id="name" GridPane.rowIndex="1" GridPane.columnIndex="1" promptText="Nom de l'objet ou service"/>
+<Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+       styleClass="header-label" GridPane.columnSpan="2147483647" text="Créer un Élément"/>
 
-        <Label text="Prix:" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-        <TextField fx:id="price" GridPane.rowIndex="2" GridPane.columnIndex="1" promptText="Prix de l'objet ou service"/>
+<Label text="Nom:" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-font-weight: bold;"/>
+<MFXTextField fx:id="name" GridPane.rowIndex="1" GridPane.columnIndex="2" promptText="Nom de l'objet ou service"/>
 
-        <Label text="Photo:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <StackPane GridPane.rowIndex="3" GridPane.columnIndex="1">
-            <Button fx:id="choosePhoto" text="Choisir une photo" onAction="#handleChoosePhoto"/>
-            <Button fx:id="deletePhoto" text="Supprimer la photo" onAction="#handleDeletePhoto" visible="false"/>
-            <Label fx:id="photoName" text="Aucune photo choisie" visible="false"/>
-        </StackPane>
-        <ImageView fx:id="photo" GridPane.rowIndex="3" GridPane.columnIndex="2" fitHeight="100" fitWidth="100"/>
+<Label text="Prix:" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+<MFXTextField fx:id="price" GridPane.rowIndex="2" GridPane.columnIndex="2" promptText="Prix de l'objet ou service"/>
 
-        <Label text="Description:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-        <TextArea fx:id="description" GridPane.rowIndex="4" GridPane.columnIndex="1" promptText="Description de l'objet ou service"/>
+<Label text="Photo:" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+<HBox GridPane.rowIndex="3" GridPane.columnIndex="2" GridPane.columnSpan="2">
+    <StackPane>
+        <MFXButton fx:id="choosePhoto" text="Choisir une photo" onAction="#handleChoosePhoto"/>
+        <MFXButton fx:id="deletePhoto" text="Supprimer la photo" onAction="#handleDeletePhoto" visible="false"/>
+        <Label fx:id="photoName" text="Aucune photo choisie" visible="false"/>
+    </StackPane>
+    <ImageView fx:id="photo" fitHeight="100" fitWidth="100"/>
+</HBox>
 
-        <CheckBox fx:id="serviceBox" text="C'est un service ?" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+<Label text="Description:" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+<TextArea fx:id="description" GridPane.rowIndex="4" GridPane.columnIndex="2"
+          promptText="Description de l'objet ou service"/>
 
-        <ListView fx:id="periodList" GridPane.rowIndex="6" GridPane.columnIndex="1" GridPane.columnSpan="2" prefHeight="200" prefWidth="200">
+<MFXCheckbox fx:id="serviceBox" text="C'est un service ?" GridPane.rowIndex="5" GridPane.columnIndex="1"
+             GridPane.columnSpan="2147483647"/>
 
-        </ListView>
-        <Label text="Ajouter une période:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
-        <ChoiceBox fx:id="period" GridPane.rowIndex="8" GridPane.columnIndex="1" onAction="#handlePeriodChange">
-            <items>
-                <FXCollections fx:factory="observableArrayList">
-                    <String fx:value="Aucune"/>
-                    <String fx:value="Semaine"/>
-                    <String fx:value="Mois"/>
-                    <String fx:value="Année"/>
-                </FXCollections>
-            </items>
-        </ChoiceBox>
-        <Button text="Ajouter" styleClass="btn-primary" GridPane.rowIndex="12" GridPane.columnIndex="1" onAction="#handleAddPeriod"/>
-        <Button text="Modifier" styleClass="btn-primary" GridPane.rowIndex="13" GridPane.columnIndex="1" GridPane.halignment="CENTER" onAction="#submit"/>
-    </GridPane>
-</VBox>
+<Label text="Choisissez des périodes de disponibilités :" GridPane.rowIndex="6" GridPane.columnIndex="1" styleClass="sub-header-label"/>
+<MFXListView fx:id="periodList" GridPane.rowIndex="7" GridPane.columnSpan="2147483647" GridPane.columnIndex="1"
+             prefWidth="600" prefHeight="200">
+
+</MFXListView>
+<Label text="Ajouter une période:" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+<MFXComboBox fx:id="period" GridPane.rowIndex="8" GridPane.columnIndex="2" onAction="#handlePeriodChange" floatingText="Période">
+    <items>
+        <FXCollections fx:factory="observableArrayList">
+            <String fx:value="Aucune"/>
+            <String fx:value="Semaine"/>
+            <String fx:value="Mois"/>
+            <String fx:value="Année"/>
+        </FXCollections>
+    </items>
+</MFXComboBox>
+<MFXButton styleClass="outline-button" text="Ajouter la période" onAction="#handleAddPeriod" minWidth="200"
+           GridPane.rowIndex="12"  GridPane.columnIndex="2"/>
+<MFXButton styleClass="outline-button" text="Modifier" onAction="#submit" minWidth="200" GridPane.rowIndex="13"
+           GridPane.columnSpan="2147483647"/>
+
+
+</GridPane>
