@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.StackPane?>
-<?import io.github.palexdev.mfxcore.controls.Label?>
-<?import io.github.palexdev.materialfx.controls.MFXTableView?>
 <?import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField?>
-<?import io.github.palexdev.materialfx.controls.MFXTextField?>
-<?import io.github.palexdev.materialfx.controls.MFXDatePicker?>
-<?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.*?>
+<?import io.github.palexdev.mfxcore.controls.Label?>
 <?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<?import javafx.scene.layout.HBox?>
-
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.*?>
 <GridPane alignment="CENTER" hgap="20"
           styleClass="grid-pane" stylesheets="@../css/Common.css" vgap="10.0" xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
@@ -37,7 +29,8 @@
             <Insets bottom="-15.0" left="-15.0" right="-15.0" top="-15.0"/>
         </GridPane.margin>
     </StackPane>
-    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308" styleClass="header-label" text="Voir les annonces"
+    <Label alignment="CENTER" maxWidth="1.7976931348623157E308" maxHeight="1.7976931348623157E308"
+           styleClass="header-label" text="Voir les annonces"
            GridPane.columnSpan="2147483647">
         <GridPane.margin>
             <Insets/>
@@ -47,9 +40,10 @@
         </padding>
     </Label>
 
-    <MFXTableView fx:id="elements" prefHeight="400.0" prefWidth="800.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2"/>
+    <MFXTableView fx:id="elements" prefHeight="400.0" prefWidth="800.0" GridPane.columnSpan="2147483647"
+                  GridPane.rowIndex="2"/>
 
-    <HBox spacing="10" alignment="CENTER"  GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+    <HBox spacing="10" alignment="CENTER" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
         <AutocompletionTextField fx:id="cityBar" promptText="Rechercher une ville..." minWidth="300"/>
         <MFXTextField fx:id="searchBar" promptText="Rechercher un nom..." minWidth="300"/>
         <MFXDatePicker fx:id="startDate" promptText="Date de début"/>

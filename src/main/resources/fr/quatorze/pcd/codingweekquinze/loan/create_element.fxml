@@ -42,7 +42,6 @@
         <MFXListView fx:id="periodList" GridPane.rowIndex="6" GridPane.columnIndex="1" GridPane.columnSpan="2" prefHeight="200" prefWidth="200">
 
         </MFXListView>
-        <MFX
         <Label text="Ajouter une période:" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
         <ChoiceBox fx:id="period" GridPane.rowIndex="8" GridPane.columnIndex="1" onAction="#handlePeriodChange">
             <items>

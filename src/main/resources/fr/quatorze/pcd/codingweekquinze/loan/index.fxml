@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- Système d'onglets avec 2 onglets qui affiche la vue my-loans.fxml and my-elements.fxml -->
+<!-- Les onglets en haut de la page et en plus beau -->
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Button?>
-<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" styleClass="container"
-      stylesheets="@../style/form_style.css" fx:controller="fr.quatorze.pcd.codingweekquinze.controllers.loan.IndexController">
-    <!-- Système d'onglets avec 2 onglets qui affiche la vue my-loans.fxml and my-elements.fxml -->
-    <!-- Les onglets en haut de la page et en plus beau -->
-    <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" styleClass="tab-pane">
-        <tabs>
-            <Tab text="Voir mes annonces">
-                <fx:include source="my-elements.fxml"/>
-            </Tab>
-            <Tab text="Mes prêts">
-                <fx:include source="my-loans.fxml"/>
-            </Tab>
-        </tabs>
-    </TabPane>
-    <Button text="Créer une annonce" styleClass="btn-primary" onAction="#createElement"/>
-</VBox>
+<TabPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+         stylesheets="@../css/Common.css" prefWidth="-Infinity" prefHeight="-Infinity" fx:id="tabPane"
+         tabClosingPolicy="UNAVAILABLE" styleClass="tab-pane">
+    <Tab text="Voir mes annonces">
+        <fx:include source="my-elements.fxml"/>
+    </Tab>
+    <Tab text="Mes prêts">
+        <fx:include source="my-loans.fxml"/>
+    </Tab>
+</TabPane>
