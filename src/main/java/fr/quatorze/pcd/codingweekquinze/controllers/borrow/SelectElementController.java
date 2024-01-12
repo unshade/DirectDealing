@@ -8,6 +8,7 @@ import fr.quatorze.pcd.codingweekquinze.layout.component.AutocompletionTextField
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.service.ImageMFXTableRowCell;
 import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
 import io.github.palexdev.materialfx.beans.BiPredicateBean;
 import io.github.palexdev.materialfx.controls.*;
@@ -20,12 +21,15 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.util.Callback;
 
 import java.net.URL;
 import java.time.ZoneOffset;
 import java.util.*;
 import java.util.function.Function;
+
+import static java.util.Comparator.nullsLast;
 
 
 @RequiresAuth
@@ -97,6 +101,7 @@ public class SelectElementController {
     }
 
     private void setupTable() {
+        MFXTableColumn<Element> imageColumn = new MFXTableColumn<>("Image", false, null);
         MFXTableColumn<Element> nameColumn = new MFXTableColumn<>("Nom", false, Comparator.comparing(Element::getName));
         MFXTableColumn<Element> descColumn = new MFXTableColumn<>("Description", false, Comparator.comparing(Element::getDescription));
         MFXTableColumn<Element> ownerColumn = new MFXTableColumn<>("Propriétaire", false, Comparator.comparing(element -> element.getOwner().getFullName()));
@@ -105,21 +110,44 @@ public class SelectElementController {
 
         elements.widthProperty().addListener((obs, oldVal, newVal) -> {
             double width = newVal.doubleValue();
+            imageColumn.setPrefWidth(width * 0.1);
             nameColumn.setPrefWidth(width * 0.3);
             descColumn.setPrefWidth(width * 0.3);
             ownerColumn.setPrefWidth(width * 0.2);
             typeColumn.setPrefWidth(width * 0.1);
             ratingColumn.setPrefWidth(width * 0.2);
         });
-
-        nameColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getName));
-        descColumn.setRowCellFactory(person -> new MFXTableRowCell<>(Element::getDescription));
-        ownerColumn.setRowCellFactory(person -> new MFXTableRowCell<>(element -> element.getOwner().getFullName()));
-        ratingColumn.setRowCellFactory(person -> new MFXTableRowCell<>(element -> element.getRating() == 0 ? "Inconnu" : element.getRating()));
-        typeColumn.setRowCellFactory(person -> new MFXTableRowCell<>(element -> element.getIsService() ? "Service" : "Objet"));
-
-
-        elements.getTableColumns().addAll(nameColumn, descColumn, ownerColumn, typeColumn, ratingColumn);
+        imageColumn.setRowCellFactory(person -> {
+            ImageMFXTableRowCell<Element> cell = new ImageMFXTableRowCell<>(Element::getImage);
+            cell.setPrefHeight(50);
+            return cell;
+                });
+        nameColumn.setRowCellFactory(person -> {
+            MFXTableRowCell<Element, String> cell = new MFXTableRowCell<>(Element::getName);
+            cell.setPrefWidth(50);
+            return cell;
+                });
+        descColumn.setRowCellFactory(person -> {
+            MFXTableRowCell<Element, String> cell = new MFXTableRowCell<>(Element::getDescription);
+            cell.setPrefWidth(50);
+            return cell;
+                });
+        ownerColumn.setRowCellFactory(person -> {
+            MFXTableRowCell<Element, String> cell = new MFXTableRowCell<>(element -> element.getOwner().getFullName());
+            cell.setPrefWidth(50);
+            return cell;
+                });
+        ratingColumn.setRowCellFactory(person -> {
+            MFXTableRowCell<Element, Integer> cell = new MFXTableRowCell<>(Element::getRating);
+            cell.setPrefWidth(50);
+            return cell;
+                });
+        typeColumn.setRowCellFactory(person -> {
+            MFXTableRowCell<Element, Boolean> cell = new MFXTableRowCell<>(Element::getIsService);
+            cell.setPrefWidth(50);
+            return cell;
+                });
+        elements.getTableColumns().addAll(imageColumn, nameColumn, descColumn, ownerColumn, typeColumn, ratingColumn);
 
 
         elements.setTableRowFactory(tableView -> {
