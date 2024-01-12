@@ -4,33 +4,21 @@ import fr.quatorze.pcd.codingweekquinze.controllers.components.CustomDateTimePic
 import fr.quatorze.pcd.codingweekquinze.dao.LoanDAO;
 import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.layout.RequiresAuth;
-import fr.quatorze.pcd.codingweekquinze.layout.component.DateTimePicker;
-import fr.quatorze.pcd.codingweekquinze.model.Availability;
 import fr.quatorze.pcd.codingweekquinze.model.Element;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
 import fr.quatorze.pcd.codingweekquinze.util.DateUtil;
-import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
-import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import io.github.palexdev.materialfx.controls.MFXListView;
-import io.github.palexdev.materialfx.controls.cell.MFXListCell;
 import io.github.palexdev.materialfx.utils.others.FunctionalStringConverter;
 import io.github.palexdev.mfxcore.controls.Label;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 import javafx.util.Pair;
 import javafx.util.StringConverter;
 
-import java.awt.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 
 @RequiresAuth
 public class CreateLoanController {
@@ -66,7 +54,7 @@ public class CreateLoanController {
         this.name.setText(this.element.getName());
         this.description.setText(this.element.getDescription());
         this.price.setText(this.element.getPrice().toString());
-        this.type.setText(this.element.getIsService() ? "Service" : "Object");
+        this.type.setText(this.element.getIsService() ? "Service" : "Objet");
 
 
         StringConverter<Pair<LocalDateTime, LocalDateTime>> converter = FunctionalStringConverter.to(period -> {
