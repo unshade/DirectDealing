@@ -108,7 +108,7 @@ public class MyLoansController {
 
         loans.setFooterVisible(false);
 
-        List<Loan> elems = LoanDAO.getInstance().getLoansByUserAndBorrowing(AuthService.getInstance().getCurrentUser());
+        List<Loan> elems = LoanDAO.getInstance().getLoansByUserAndBorrowingNoOutdated(AuthService.getInstance().getCurrentUser());
         //List<Loan> elems = LoanDAO.getInstance().getAllLoansByUser(AuthService.getInstance().getCurrentUser());
 
         this.loans.setItems(FXCollections.observableList(elems));

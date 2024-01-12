@@ -74,6 +74,18 @@ public final class LoanDAO extends DAO<Loan> {
         return em.createQuery("SELECT u FROM Loan u WHERE u.borrower = :user", Loan.class).setParameter("user", user).getResultList();
     }
 
+    public List<Loan> getAllLoansByUserNoOutdatedLoans(User user) {
+        //LoanStatus is not CANCELED or ENDED
+        int ended = LoanStatus.ENDED.ordinal();
+        int canceled = LoanStatus.CANCELED.ordinal();
+        //return em.createQuery("SELECT u FROM Loan u WHERE u.borrower = :user", Loan.class).setParameter("user", user).getResultList();
+        return em.createQuery("SELECT u FROM Loan u WHERE u.borrower = :user AND u.status != :ended AND u.status != :canceled", Loan.class)
+                .setParameter("user", user)
+                .setParameter("ended", ended)
+                .setParameter("canceled", canceled)
+                .getResultList();
+    }
+
     public void dropTable() {
         em.getTransaction().begin();
         em.createQuery("DELETE FROM Loan").executeUpdate();
@@ -89,6 +101,16 @@ public final class LoanDAO extends DAO<Loan> {
     public List<Loan> getLoansByUserAndBorrowing(User owner) {
         return em.createQuery("SELECT u FROM Loan u WHERE u.item.owner = :user", Loan.class)
                 .setParameter("user", owner)
+                .getResultList();
+    }
+
+    public List<Loan> getLoansByUserAndBorrowingNoOutdated(User owner) {
+        int ended = LoanStatus.ENDED.ordinal();
+        int canceled = LoanStatus.CANCELED.ordinal();
+        return em.createQuery("SELECT u FROM Loan u WHERE u.item.owner = :user AND u.status != :ended AND u.status != :canceled", Loan.class)
+                .setParameter("user", owner)
+                .setParameter("ended", ended)
+                .setParameter("canceled", canceled)
                 .getResultList();
     }
 
