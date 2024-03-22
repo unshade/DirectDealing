@@ -49,11 +49,11 @@ public final class UserDAO extends DAO<User> {
         return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
 
-    public User createUser(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
+    public User createUser(String firstName, String lastName, String email, String password, boolean sleeping, boolean admin) {
         email = email.toLowerCase();
 
         em.getTransaction().begin();
-        User user = new User(firstName, lastName, email, password, flow, sleeping, admin);
+        User user = new User(firstName, lastName, email, password, sleeping, admin);
         em.persist(user);
         em.getTransaction().commit();
         return user;

@@ -59,14 +59,16 @@ public class MyBorrowsController {
         MFXTableColumn<Loan> descColumn = new MFXTableColumn<>("Description", false, Comparator.comparing(loan -> loan.getItem().getPrice()));
         MFXTableColumn<Loan> priceColumn = new MFXTableColumn<>("Prix", false, Comparator.comparing(loan -> loan.getItem().getPrice()));
         MFXTableColumn<Loan> ownerColumn = new MFXTableColumn<>("Prêteur", false, Comparator.comparing(loan -> loan.getItem().getOwner().getFullName()));
+        MFXTableColumn<Loan> statusColumn = new MFXTableColumn<>("Statut", false, Comparator.comparing(Loan::getStatus));
         //MFXTableColumn<Loan> ratingColumn = new MFXTableColumn<>("Note", false, Comparator.comparing(Loan::getRating));
 
         borrows.widthProperty().addListener((obs, oldVal, newVal) -> {
             double width = newVal.doubleValue();
-            nameColumn.setPrefWidth(width * 0.3);
+            nameColumn.setPrefWidth(width * 0.2);
             descColumn.setPrefWidth(width * 0.3);
             priceColumn.setPrefWidth(width * 0.2);
             ownerColumn.setPrefWidth(width * 0.1);
+            statusColumn.setPrefWidth(width * 0.2);
             //ratingColumn.setPrefWidth(width * 0.2);
         });
 
@@ -77,7 +79,10 @@ public class MyBorrowsController {
         ownerColumn.setRowCellFactory(person -> new MFXTableRowCell<>(loan -> loan.getItem().getOwner().getFullName()));
 
 
-        borrows.getTableColumns().addAll(nameColumn, descColumn, priceColumn, ownerColumn);
+        statusColumn.setRowCellFactory(person -> new MFXTableRowCell<>(this::getStatus));
+
+
+        borrows.getTableColumns().addAll(nameColumn, descColumn, priceColumn, ownerColumn, statusColumn);
 
 
         borrows.setTableRowFactory(tableView -> {
@@ -106,4 +111,20 @@ public class MyBorrowsController {
 
         this.borrows.setItems(FXCollections.observableList(elems));
     }
+
+    private String getStatus(Loan loan) {
+        if (loan.getStatus() == 0) {
+            return "En attente";
+        } else if (loan.getStatus() == 1) {
+            return "En cours";
+        } else if (loan.getStatus() == 2) {
+            return "Annulé";
+        } else if (loan.getStatus() == 3) {
+            return "En attente de notation";
+        } else if (loan.getStatus() == 4) {
+            return "Terminé";
+        }
+        return "Inconnu";
+    }
+
 }

@@ -99,7 +99,7 @@ public class RegisterController {
             }
 
             String hashedPassword = AuthService.hashPassword(enteredPassword);
-            User user = UserDAO.getInstance().createUser(enteredFirstName, enteredLastName, enteredEmail, hashedPassword, 0, false, false);
+            User user = UserDAO.getInstance().createUser(enteredFirstName, enteredLastName, enteredEmail, hashedPassword, false, false);
 
             Platform.runLater(() -> {
                 if (AuthService.getInstance().authenticate(user.getEmail(), enteredPassword)) {

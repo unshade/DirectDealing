@@ -49,12 +49,11 @@ public final class User implements Observable {
     @Transient
     private Calendar<?> myElementsCalendar;
 
-    public User(String firstName, String lastName, String email, String password, int flow, boolean sleeping, boolean admin) {
+    public User(String firstName, String lastName, String email, String password, boolean sleeping, boolean admin) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.flow = flow;
         this.sleeping = sleeping;
         this.admin = admin;
     }

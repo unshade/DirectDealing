@@ -68,14 +68,17 @@ public class MyLoansController {
         MFXTableColumn<Loan> descColumn = new MFXTableColumn<>("Description", false, Comparator.comparing(loan -> loan.getItem().getPrice()));
         MFXTableColumn<Loan> priceColumn = new MFXTableColumn<>("Prix", false, Comparator.comparing(loan -> loan.getItem().getPrice()));
         MFXTableColumn<Loan> borrowerColumn = new MFXTableColumn<>("Emprunteur", false, Comparator.comparing(loan -> loan.getBorrower().getFullName()));
+        MFXTableColumn<Loan> statusColumn = new MFXTableColumn<>("Statut", false, Comparator.comparing(Loan::getStatus));
+
         //MFXTableColumn<Loan> ratingColumn = new MFXTableColumn<>("Note", false, Comparator.comparing(Loan::getRating));
 
         loans.widthProperty().addListener((obs, oldVal, newVal) -> {
             double width = newVal.doubleValue();
-            nameColumn.setPrefWidth(width * 0.3);
+            nameColumn.setPrefWidth(width * 0.2);
             descColumn.setPrefWidth(width * 0.3);
             priceColumn.setPrefWidth(width * 0.2);
             borrowerColumn.setPrefWidth(width * 0.1);
+            statusColumn.setPrefWidth(width * 0.2);
             //ratingColumn.setPrefWidth(width * 0.2);
         });
 
@@ -84,9 +87,10 @@ public class MyLoansController {
         priceColumn.setRowCellFactory(person -> new MFXTableRowCell<>(loan -> loan.getItem().getPrice()));
         //ratingColumn.setRowCellFactory(person -> new MFXTableRowCell<>(element -> element.getRating() == 0 ? "Inconnu" : element.getRating()));
         borrowerColumn.setRowCellFactory(person -> new MFXTableRowCell<>(loan -> loan.getBorrower().getFullName()));
+        statusColumn.setRowCellFactory(person -> new MFXTableRowCell<>(this::getStatus));
 
 
-        loans.getTableColumns().addAll(nameColumn, descColumn, priceColumn, borrowerColumn);
+        loans.getTableColumns().addAll(nameColumn, descColumn, priceColumn, borrowerColumn, statusColumn);
 
 
         loans.setTableRowFactory(tableView -> {
@@ -112,5 +116,20 @@ public class MyLoansController {
         //List<Loan> elems = LoanDAO.getInstance().getAllLoansByUser(AuthService.getInstance().getCurrentUser());
 
         this.loans.setItems(FXCollections.observableList(elems));
+    }
+
+    private String getStatus(Loan loan) {
+        if (loan.getStatus() == 0) {
+            return "En attente";
+        } else if (loan.getStatus() == 1) {
+            return "En cours";
+        } else if (loan.getStatus() == 2) {
+            return "Annulé";
+        } else if (loan.getStatus() == 3) {
+            return "En attente de notation";
+        } else if (loan.getStatus() == 4) {
+            return "Terminé";
+        }
+        return "Inconnu";
     }
 }

@@ -63,7 +63,7 @@ public class LoanController {
         }
 
         this.itemType.setText("Type : " + (loan.getItem().getIsService() ? "Service" : "Objet"));
-        this.itemPrice.setText("Prix : " + loan.getItem().getPrice() + "€");
+        this.itemPrice.setText("Prix : " + loan.getItem().getPrice() + "⚘");
         this.itemName.setText("Nom : " + loan.getItem().getName());
         this.borrower.setText(loan.getBorrower().getFirstName() + " " + loan.getBorrower().getLastName());
         this.startDate.setText(loan.getStartDate().toString());

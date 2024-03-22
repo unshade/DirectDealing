@@ -8,6 +8,7 @@ import fr.quatorze.pcd.codingweekquinze.layout.LayoutManager;
 import fr.quatorze.pcd.codingweekquinze.model.Loan;
 import fr.quatorze.pcd.codingweekquinze.model.User;
 import fr.quatorze.pcd.codingweekquinze.service.AuthService;
+import fr.quatorze.pcd.codingweekquinze.util.DateUtil;
 import fr.quatorze.pcd.codingweekquinze.util.FXMLLoaderUtil;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
@@ -65,14 +66,14 @@ public class BorrowController {
         this.title.setText("Emprunt de " + loan.getItem().getName());
         if (loan.getItem().getImage() != null) {
             this.image.setImage(new Image(loan.getItem().getImage()));
-        }
+        }   
 
         this.itemType.setText("Type : " + (loan.getItem().getIsService() ? "Service" : "Objet"));
-        this.itemPrice.setText("Prix : " + loan.getItem().getPrice() + "€");
+        this.itemPrice.setText("Prix : " + loan.getItem().getPrice() + "⚘");
         this.itemName.setText("Nom : " + loan.getItem().getName());
         this.owner.setText(loan.getItem().getOwner().getFirstName() + " " + loan.getItem().getOwner().getLastName());
-        this.startDate.setText(loan.getStartDate().toString());
-        this.endDate.setText(loan.getEndDate().toString());
+        this.startDate.setText(DateUtil.format(loan.getStartDate()));
+        this.endDate.setText(DateUtil.format(loan.getEndDate()));
 
         if (this.loan.getStatus() == LoanStatus.AWAITING_RATING.ordinal()) {
             this.icons = new MFXFontIcon[5];

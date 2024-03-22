@@ -12,9 +12,9 @@ public class UserSeeder {
         String pass = AuthService.getInstance().getEncoder().encode("p");
 
         // Create users
-        userDAO.createUser("John", "Doe", "john.doe@telecomnancy.eu", pass, 200, false, true);
-        userDAO.createUser("Jane", "Doe", "jane.doe@telecomnancy.eu", pass, 200, false, false);
-        userDAO.createUser("Michele", "Doe", "mi", pass, 200, false, false);
+        userDAO.createUser("John", "Doe", "john.doe@telecomnancy.eu", pass, false, true);
+        userDAO.createUser("Jane", "Doe", "jane.doe@telecomnancy.eu", pass, false, false);
+        userDAO.createUser("Michele", "Doe", "mi", pass, false, false);
 
     }
 }

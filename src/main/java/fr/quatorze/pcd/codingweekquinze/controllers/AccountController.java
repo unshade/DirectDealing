@@ -48,7 +48,7 @@ public class AccountController {
         UserDAO.getInstance().updateUser(user);
 
 
-        LayoutManager.alert("Modifications enregistrées");
+        LayoutManager.success("Modifications enregistrées");
 
     }
 
@@ -74,7 +74,7 @@ public class AccountController {
         user.setPassword(hashedPassword);
         UserDAO.getInstance().updateUser(user);
 
-        LayoutManager.alert("Mot de passe modifié");
+        LayoutManager.success("Mot de passe modifié");
 
     }
 
