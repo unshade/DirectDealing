@@ -2,6 +2,8 @@
 
 Services et objets entre particuliers.
 
+Vidéo de présentation : [ici](https://youtu.be/zf2zeCf-eFI)
+
 ## Prérequis
 
 - Java JDK 17
